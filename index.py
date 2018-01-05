@@ -1,4 +1,4 @@
-print("Index: Which file have to be Executed \n1. Normal.py \n2.Binomial \n3. Binomial to normal/poisson \n4. Exponential \n5. Poisson \n6. List of x \n7. Frequency of an intervval \n8. Discrete pdf is given \n9. Linear Regression \n10. Confidence Interval \n11. Confidence Interval of variance \n12. Confidence interval of proportions")
+print("Index: Which file have to be Executed \n1. Normal.py \n2.Binomial \n3. Binomial to normal/poisson \n4. Exponential \n5. Poisson \n6. List of x \n7. Frequency of an intervval \n8. Discrete pdf is given \n9. Linear Regression \n10. Confidence Interval \n11. Confidence Interval of variance \n12. Confidence interval of proportions \n13. Geometric Distribution")
 
 which = int(input("Which script do you want to execute: "))
 
@@ -26,3 +26,5 @@ elif which == 11:
 	exec(open("variance_confidence.py").read())
 elif which == 12:
 	exec(open("proportion_ci.py").read())
+elif which == 13:
+	exev(open("geometric.py").read())

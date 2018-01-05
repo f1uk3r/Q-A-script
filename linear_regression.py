@@ -31,7 +31,7 @@ def yforline(list, a, b):
 		neo.append(round(a + b * list[i], 4))
 	return neo
 
-print ("Legend for option 1. for regression\n 2. for correlation \n 3. Scatter plot \n 4. Line Graph: "))
+print ("Legend for option 1. for regression\n 2. for correlation \n 3. Scatter plot \n 4. Line Graph: ")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 ys = list(map(float, input("Input all the values of y: ").split()))
@@ -57,7 +57,7 @@ r1 = r(x, y, xy, xx, yy, n)
 somex = list(range(10))
 somey = yforline(somex, a1, b1)
 print ("\\\\ \sum X =" + str(x) + ", \sum Y =" + str(y) + "\\\\ \sum XY =" + str(xy) + ", \sum XX =" + str(xx) + ", \sum YY =" + str(yy))
-for i in range(len(parts)):
+for i in range(parts):
 	option = int(input("Choose type from legend: "))
 	if option == 1:
 		print (chr(sec) + ")\\\\ \hat y = a + bx")
