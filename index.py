@@ -28,3 +28,5 @@ elif which == 12:
 	exec(open("proportion_ci.py").read())
 elif which == 13:
 	exev(open("geometric.py").read())
+elif which == 14:
+	exev(open("uniform.py").read())
