@@ -41,7 +41,7 @@ fxxs = mul(fs, xxs)
 Intervals = makeInterval(lls, uls)
 
 print ("Intervals         X          f          fx          xx          fxx")
-for row in zip(Interval, xs, fs, fxs, xxs, fxxs):
+for row in zip(Intervals, xs, fs, fxs, xxs, fxxs):
 	print ('   |    '.join(str(v) for v in row))
 
 f = round(sum(fs), 4)
@@ -50,7 +50,7 @@ fxx = round(sum(fxxs), 4)
 avg = mean(fx, f)
 var = variance(fxx, f, avg)
 print("Since we know that")
-print("Mean(\bar{x}) = \\frac{\sum fx}{n} = " + str(avg)
-print("Variance(\sigma^2) = \\frac{\sum fx^2}{n} - \bar{x}^2 = \\frac{" + str(fxx) + "}{" + str(f) + "} - " + str{avg} + "^2 = " + str(var))
-print("Standard Deviation(\sigma) = \sqrt{Variance} = " round(math.sqrt(var), 4))
+print("Mean(\\bar{x}) = \\frac{\sum fx}{n} = " + str(avg))
+print("Variance(\sigma^2) = \\frac{\sum fx^2}{n} - \\bar{x}^2 = \\frac{" + str(fxx) + "}{" + str(f) + "} - " + str(avg) + "^2 = " + str(var))
+print("Standard Deviation(\sigma) = \sqrt{Variance} = " + str(round(math.sqrt(var), 4)))
 print("Please hit thumps up if the answer helped you")

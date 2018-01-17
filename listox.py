@@ -94,8 +94,8 @@ for i in range(parts):
 		print(chr(sec) + ") Since we know that")
 		sec += 1
 		s2 = variance(xsumsquare, n)
-		print("\\\\Variance(s^2) = \\frac{(\sum{x_i - \bar{x}})^2}{n-1}")
-		print("\\\\(\sum{x_i - \bar{x}})^2 = " + str(xsumsquare))
+		print("\\\\Variance(s^2) = \\frac{(\sum{x_i - \\bar{x}})^2}{n-1}")
+		print("\\\\(\sum{x_i - \\bar{x}})^2 = " + str(xsumsquare))
 		print("n = " + str(n))
 		print("\\\\Variance(s^2) = \\frac{" + str(xsumsquare) + "}{" + str(n-1) + "}")
 		print("\\\\Variance(s^2) = " + str(s2))
@@ -104,8 +104,8 @@ for i in range(parts):
 		sec += 1
 		s2 = variance(xsumsquare, n)
 		s = stddev(s2)
-		print("\\\\Variance(s^2) = \\frac{(\sum{x_i - \bar{x}})^2}{n-1}")
-		print("\\\\(\sum{x_i - \bar{x}})^2 = " + str(xsumsquare))
+		print("\\\\Variance(s^2) = \\frac{(\sum{x_i - \\bar{x}})^2}{n-1}")
+		print("\\\\(\sum{x_i - \\bar{x}})^2 = " + str(xsumsquare))
 		print("n = " + str(n))
 		print("\\\\Variance(s^2) = \\frac{" + str(xsumsquare) + "}{" + str(n-1) + "}")
 		print("\\\\Variance(s^2) = " + str(s2))

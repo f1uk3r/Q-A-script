@@ -1,11 +1,19 @@
+# python3
+# confidence.py - Calculates confidence interval for a single or difference of the mean of a normal distributions
+
 import math
 import webbrowser
 def error(z, sd, n):
 	return round((z * sd) / math.sqrt(n), 4)
+def errort2(t, s1, s2, n1, n2):
+	return round(t * (math.sqrt((((n1 - 1) * (s1 ** 2)) + ((n1 - 1) * (s1 ** 2))) / (n1 + n2 - 2))) * (math.sqrt((1/n1) + (1/n2))), 4)
+def error2(z, s1, s2, n1, n2):
+	return round(z * math.sqrt(((s1 ** 2) / n1) + ((s2 ** 2) / n2)), 4)
+
 zs = dict([(70, 1.04), (75, 1.15), (80, 1.282), (85, 1.44), (90, 1.645), (92, 1.75), (95, 1.96), (96, 2.05), (98, 2.33), (99, 2.576), (99.5, 2.807), (99.9, 3.291)])
 option = int(input("Choose 1 for Confidence interval, 2 for margin of error and 3 for both: "))
-
-if option == 1:
+typ = int(input("Press 1 to calculate ci of difference in means of two normal distribution: "))
+if option == 1 and typ != 1:
 	mean = float(input("Mean (\\bar{x}) = "))
 	n = int(input("Sample size (n) = "))
 	sd = float(input("Standard deviation (s) = "))
@@ -35,7 +43,7 @@ if option == 1:
 		print ("Required confidence interval = (" + str(mean) + "-" + str(z) + "\\frac{" + str(sd) + "}{\sqrt{" + str(n) + "}}, "+ str(mean) + "+" + str(z) + "\\frac{" + str(sd) + "}{\sqrt{" + str(n) + "}})")
 		print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
 		print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
-elif option == 2:
+elif option == 2 and typ != 1:
 	n = int(input("Sample size (n) = "))
 	sd = float(input("Standard deviation (s) = "))
 	ci = int(input("Confidence interval(in %) = "))
@@ -58,7 +66,7 @@ elif option == 2:
 		print ("\\\\Margin\; of\; error = z\\frac{s}{\sqrt{n}}")
 		print ("\\\\Margin\; of\; error = " + str(z) + "\\frac{" + str(sd) + "}{\sqrt{" + str(n) + "}}")
 		print ("\\\\Margin\;of\;error = " + str(E))
-elif option == 3:
+elif option == 3 and typ != 1:
 	mean = float(input("Mean (\\bar{x}) = "))
 	n = int(input("Sample size (n) = "))
 	sd = float(input("Standard deviation (s) = "))
@@ -95,5 +103,40 @@ elif option == 3:
 		print ("\\\\Margin\;of\;error = " + str(E))
 		print ("\\\\Required\; confidence\; interval = (" + str(mean) + "-" + str(z) + "\\frac{" + str(sd) + "}{\sqrt{" + str(n) + "}}, "+ str(mean) + "+" + str(z) + "\\frac{" + str(sd) + "}{\sqrt{" + str(n) + "}})")
 		print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
+		print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+if option == 1 and typ == 1:
+	varknown = int(input("Is population variance/standart deviation known? Press 1 for yes: "))
+	mean1 = float(input("Mean1 (\\bar{X_1}) = "))
+	n1 = int(input("Sample size1 (n1) = "))
+	sd1 = float(input("Standard deviation1 (s1) = "))
+	mean2 = float(input("Mean2 (\\bar{X_2}) = "))
+	n2 = int(input("Sample size2 (n2) = "))
+	sd2 = float(input("Standard deviation2 (s2) = "))
+	ci = int(input("Confidence interval(in %) = "))
+	if varknown != 1:
+		webbrowser.open('https://www.danielsoper.com/statcalc/calculator.aspx?id=10')
+		t = float(input("t_{\\alpha/2, n_1 + n_2 -2} = "))
+		print ("t_{\\alpha/2, n-1} = " + str(t))
+		print ("Since we know that")
+		print ("Confidence\; interval = \\bar{X_1}-\\bar{X_2} \pm t_{\\alpha/2, n-1}S_P\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}")
+		print ("S_P = \sqrt{\\frac{(n_1-1)s1^2 + \\frac{(n_2-1)s2^2}{n_1 + n_2 - 2}}")
+		E = errort2(t, sd1, sd2, n1, n2)
+		ll = round(mean1 - mean2 - E, 4)
+		ul = round(mean1 - mean2 + E, 4)
+		print ("Required confidence interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}}, "+ str(mean1) + "-" + str(mean2) + "+" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}})")
+		print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
+		print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+	else:
+		z = zs.get(ci, 0)
+		if z == 0:
+			z = float(input("z = "))
+		print ("z @ " + str(ci) + "% = " + str(z))
+		print ("Since we know that")
+		print ("Confidence\; interval = \\bar{X_1}-\\bar{X_2} \pm z_{\\alpha/2}\sqrt{\\frac{\sigma_1^2}{n_1} + \\frac{\sigma_2^2}{n_2}")
+		E = error2(z, sd1, sd2, n1, n2)
+		ll = round(mean1 - mean2 - E, 4)
+		ul = round(mean1 - mean2 + E, 4)
+		print ("Required confidence interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}}, " + str(mean1) + "-" + str(mean2) + "+" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}})")
+		print ("Required confidence interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(E) + ", "+ str(mean1) + "-" + str(mean2) + "+" + str(E) + ")")
 		print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
 print ("Please hit thumps up if the answer helped you.")
