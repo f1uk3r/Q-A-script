@@ -1,4 +1,5 @@
 import math
+from tabulate import tabulate
 
 def mean(list):
 	return round(sum(list) / len(list), 4)
@@ -52,9 +53,10 @@ sec = 97
 print(xs)
 print(xinc)
 
-print ("X           X-mean            (X-mean)^2")
-for row in zip(xs, xmxbar, xmxbarsq):
-	print ('     |      '.join(str(v) for v in row))
+header = ["X", "X - mean", "(X-mean)^2"]
+table = zip(xs, xmxbar, xmxbarsq)
+print(tabulate((table), header, tablefmt="grid"))
+
 
 n = len(xs)
 xsumsquare = round(sum(xmxbarsq), 4)

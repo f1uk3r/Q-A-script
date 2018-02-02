@@ -1,5 +1,5 @@
 import math
-
+from tabulate import tabulate
 def mul(list1, list2):
 	neo = []
 	multi = 0
@@ -14,9 +14,9 @@ pxs = list(map(float, input("Input all the values of px: ").split()))
 xpxs = mul(xs, pxs)
 xxpxs = mul(xpxs, xs)
 
-print ("x         P(x)          xP(x)          xxP(x)")
-for row in zip(xs, pxs, xpxs, xxpxs):
-	print ('   |    '.join(str(v) for v in row))
+header = ["X", "P(X)", "X.P(X)", "X^2.P(X)"]
+table = zip(xs, pxs, xpxs, xxpxs)
+print(tabulate((table), header, tablefmt="grid"))
 
 xpx = round(sum(xpxs), 4)
 xxpx = round(sum(xxpxs), 4)

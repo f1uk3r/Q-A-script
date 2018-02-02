@@ -1,6 +1,6 @@
 import math
 import matplotlib.pyplot as plt
-
+from tabulate import tabulate
 
 def a(x, y, xy, xx, n):
 	return round(((y * xx) - (x * xy)) / ((n * xx) - (x*x)), 4)
@@ -27,11 +27,11 @@ def mul(list1, list2):
 
 def yforline(list, a, b):
 	neo = []
-	for i in range(len(list)):
+	for i in range(4):
 		neo.append(round(a + b * list[i], 4))
 	return neo
 
-print ("Legend for option 1. for regression\n 2. for correlation \n 3. Scatter plot \n 4. Line Graph: ")
+print ("Legend for option 1. for regression\n 2. for correlation \n 3. Scatter plot \n 4. Line Graph: \n 5. Scatterplot and Line graph: ")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 ys = list(map(float, input("Input all the values of y: ").split()))
@@ -39,10 +39,9 @@ ys = list(map(float, input("Input all the values of y: ").split()))
 xys = mul(xs, ys)
 xxs = square(xs)
 yys = square(ys)
-
-print ("X         Y          XY          XX          YY")
-for row in zip(xs, ys, xys, xxs, yys):
-	print ('   |    '.join(str(v) for v in row))
+header = ["X", "Y", "XY", "XX", "YY"]
+table = zip(xs, ys, xys, xxs, yys)
+print(tabulate((table), header, tablefmt="grid"))
 
 n = len(xs)
 x = round(sum(xs), 4)
@@ -54,8 +53,11 @@ sec = 97
 a1 = a(x, y, xy, xx, n)
 b1 = b(x, y, xy, xx, n)
 r1 = r(x, y, xy, xx, yy, n)
-somex = list(range(10))
-somey = yforline(somex, a1, b1)
+somex = xs[0:4]
+
+somey = yforline(xs, a1, b1)
+print (somex)
+print (somey)
 print ("\\\\ \sum X =" + str(x) + ", \sum Y =" + str(y) + "\\\\ \sum XY =" + str(xy) + ", \sum XX =" + str(xx) + ", \sum YY =" + str(yy))
 for i in range(parts):
 	option = int(input("Choose type from legend: "))
@@ -85,11 +87,21 @@ for i in range(parts):
 		sec += 1
 		plt.scatter(xs, ys)
 		plt.savefig('chegg.png', bbox_inches='tight')
+		plt.close()
 
 	elif option == 4:
 		print(chr(sec) + ")")
 		sec += 1
 		plt.plot(somex, somey)
 		plt.savefig('chegg2.png', bbox_inches='tight')
+		plt.close()
+
+	elif option == 5:
+		print(chr(sec) + ")")
+		sec += 1
+		plt.scatter(xs, ys)
+		plt.plot(somex, somey)
+		plt.savefig('chegg3.png', bbox_inches='tight')
+		plt.close()
 
 print ("Please hit thumps up if the answer helped you")

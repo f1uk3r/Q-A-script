@@ -71,9 +71,9 @@ if type1 == 1:
 		webbrowser.open('https://www.danielsoper.com/statcalc/calculator.aspx?id=10')
 		crit = float(input("critical value(t_{\\alpha/2, n-1}) = "))
 		if zfinal > crit or zfinal < (-crit):
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha) + ", " + str(n-1) + "} = " + str(crit) + " and -t_{" + str(alpha) + ", " + str(n-1) " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
+			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha) + ", " + str(n-1) + "} = " + str(crit) + " and -t_{" + str(alpha) + ", " + str(n-1) + " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
 		else:
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha) + ", " + str(n-1) + " = " + str(crit) + " and -t_{" + str(alpha) + ", " + str(n-1) " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
+			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha) + ", " + str(n-1) + " = " + str(crit) + " and -t_{" + str(alpha) + ", " + str(n-1) + " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
 	
 elif type1 == 2:
 	type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \ge"))
@@ -112,9 +112,9 @@ elif type1 == 2:
 		webbrowser.open('https://www.danielsoper.com/statcalc/calculator.aspx?id=10')
 		crit = float(input("critical value(t_{\\alpha, n-1}) = "))
 		if zfinal < (-crit):
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are -t_{" + str(alpha*2) + ", " + str(n-1) " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
+			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are -t_{" + str(alpha*2) + ", " + str(n-1) + " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
 		else:
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are -t_{" + str(alpha*2) + ", " + str(n-1) " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
+			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are -t_{" + str(alpha*2) + ", " + str(n-1) + " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
 elif type1 == 3:
 	type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \le"))
 	print("We are interested in testing the hypothesis")
@@ -153,16 +153,16 @@ elif type1 == 3:
 		webbrowser.open('https://www.danielsoper.com/statcalc/calculator.aspx?id=10')
 		crit = float(input("critical value(t_{\\alpha, n-1}) = "))
 		if zfinal > (crit):
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha*2) + ", " + str(n-1) " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
+			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha*2) + ", " + str(n-1) + " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
 		else:
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha*2) + ", " + str(n-1) " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
+			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha*2) + ", " + str(n-1) + " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
 elif type1 == 4:
 	print("We are interested in testing the hypothesis")
 	print("\\\\Null\;Hypothesis --> H_0: \mu_1 = \mu_2")
 	print("\\\\Alternate\;Hypothesis --> H_1: \mu_1 \\ne \mu_2")
 	print("Now, the value of test static can be found out by following formula: ")
-	print("Z_0 = \\frac{\\bar{X_1} - \\bar{X_2}}{\sqrt{\\frac{\sigma_1^2}{n_1} + \\frac{\sigma_2^2}{n_2}}}")
-	print("Z_0 = \\frac{" + str(barx1) + "-" + str(barx2) + "}{\sqrt{\\frac{" + str(var1) + "^2}{" + str(n1) + "} + \\frac{" + str(var2) + "^2}{" + str(n2) +"}")
+	print("\\\\Z_0 = \\frac{\\bar{X_1} - \\bar{X_2}}{\sqrt{\\frac{\sigma_1^2}{n_1} + \\frac{\sigma_2^2}{n_2}}}")
+	print("\\\\Z_0 = \\frac{" + str(barx1) + "-" + str(barx2) + "}{\sqrt{\\frac{" + str(var1) + "^2}{" + str(n1) + "}}} + \\frac{" + str(var2) + "^2}{" + str(n2) +"}")
 	zfinal = zfor2(barx1, barx2, var1, var2, n1, n2)
 	print("Z_0 = " + str(zfinal))
 	if pval == 1:
@@ -177,7 +177,7 @@ elif type1 == 4:
 	if crit == 0:
 		crit = float(input("critical value = "))
 	if zfinal > crit or zfinal < (-crit):
-		print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are Z_" + str(alpha) + " = " + str(crit) + " and -Z_" + str(alpha) + " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
+		print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are Z_" + str(alpha) + " = " + str(crit) + " and -Z_" + str(alpha) + " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the means are not equal")
 	else:
 		print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are Z_" + str(alpha) + " = " + str(crit) + " and -Z_" + str(alpha) + " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
 '''	else:
@@ -194,7 +194,7 @@ elif type1 == 4:
 			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha) + ", " + str(n-1) + "} = " + str(crit) + " and -t_{" + str(alpha) + ", " + str(n-1) " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
 		else:
 			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are t_{" + str(alpha) + ", " + str(n-1) + " = " + str(crit) + " and -t_{" + str(alpha) + ", " + str(n-1) " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
-'''
+
 elif type1 == 5:
 	type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \ge"))
 	print("We are interested in testing the hypothesis")
@@ -250,3 +250,4 @@ elif type1 == 6:
 		print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are Z_" + str(alpha*2) + " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
 	else:
 		print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are Z_" + str(alpha*2) + " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
+'''
