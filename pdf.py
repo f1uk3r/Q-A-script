@@ -16,7 +16,7 @@ xxpxs = mul(xpxs, xs)
 
 header = ["X", "P(X)", "X.P(X)", "X^2.P(X)"]
 table = zip(xs, pxs, xpxs, xxpxs)
-print(tabulate((table), header, tablefmt="grid"))
+print(tabulate((table), header, tablefmt="latex"))
 
 xpx = round(sum(xpxs), 4)
 xxpx = round(sum(xxpxs), 4)

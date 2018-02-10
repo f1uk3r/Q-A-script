@@ -41,7 +41,10 @@ def variance(sumsquare, n):
 def stddev(s2):
 	return round(math.sqrt(s2), 4)
 
-print("Legend for types\n 1. Mean\n 2. Median\n 3. Range \n 4. Variance \n 5. Standard Deviation \n 6. Quartile 1 and 3 \n 7. Maximum and minimum \n 8. Interquartile Range")
+def coefOfVar(mean, std):
+	return round(std / mean, 4)
+
+print("Legend for types\n 1. Mean\n 2. Median\n 3. Range \n 4. Variance \n 5. Standard Deviation \n 6. Quartile 1 and 3 \n 7. Maximum and minimum \n 8. Interquartile Range\n 9. Coefficient of Variation")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 xbar = mean(xs)
@@ -55,7 +58,7 @@ print(xinc)
 
 header = ["X", "X - mean", "(X-mean)^2"]
 table = zip(xs, xmxbar, xmxbarsq)
-print(tabulate((table), header, tablefmt="grid"))
+print(tabulate((table), header, tablefmt="latex"))
 
 
 n = len(xs)
@@ -145,4 +148,28 @@ for i in range(parts):
 		print("IQR = Q3 - Q2")
 		print("IQR = " + str(median(uh)) + "-" + str(median(lh)))
 		print("IQR = " + str(median(uh) - median(lh)))
+	if ty == 9:
+		s2 = variance(xsumsquare, n)
+		s = stddev(s2)
+		mean = mean(xs)
+		cv = coefOfVar(mean, s)
+		print("Mean(\\bar{x}) = \\frac{\sum_{i=1}^n x_i}{n}")
+		print("Where n is the number of data points")
+		print("Now")
+		print("\sum_{i=1}^n x_i = " + str(sum(xs)))
+		print("and n = " + str(len(xs)))
+		print("This implies that")
+		print("\\\\Mean(\\bar{x}) = \\frac{" + str(sum(xs)) + "}{" + str(len(xs)) + "}")
+		print("\\\\Mean(\\bar{x}) = " + str(mean(xs)))
+		print("\\\\Variance(s^2) = \\frac{(\sum{x_i - \\bar{x}})^2}{n-1}")
+		print("\\\\(\sum{x_i - \\bar{x}})^2 = " + str(xsumsquare))
+		print("n = " + str(n))
+		print("\\\\Variance(s^2) = \\frac{" + str(xsumsquare) + "}{" + str(n-1) + "}")
+		print("\\\\Variance(s^2) = " + str(s2))
+		print("\\\\Standard\;Deviation(s) = \sqrt{Variance}")
+		print("\\\\Standard\;Deviation(s) = " + str(s))
+		print(chr(sec) + "Coefficient of variance can be coumputed by dividing mean from the standard deviation.")
+		print("\\\\CV = \\frac{Standard\;Deviation}{Mean} ")
+		print("\\\\CV = \\frac{" + str(s) + "}{" + str(mean) + "}" )
+		print("CV = "+ str(cv))
 print("Please hit thumps up if the answer helped you.")

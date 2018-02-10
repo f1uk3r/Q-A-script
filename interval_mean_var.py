@@ -1,4 +1,6 @@
 import math
+from tabulate import tabulate
+
 def midInterval(list1, list2):
 	neo = []
 	for i in range(len(list1)):
@@ -40,9 +42,9 @@ xxs = square(xs)
 fxxs = mul(fs, xxs)
 Intervals = makeInterval(lls, uls)
 
-print ("Intervals         X          f          fx          xx          fxx")
-for row in zip(Intervals, xs, fs, fxs, xxs, fxxs):
-	print ('   |    '.join(str(v) for v in row))
+header = ["Intervals", "x", "f", "fx", "xx", "fxx"]
+table = zip(Intervals, xs, fs, fxs, xxs, fxxs)
+print(tabulate((table), header, tablefmt="latex"))
 
 f = round(sum(fs), 4)
 fx = round(sum(fxs), 4)

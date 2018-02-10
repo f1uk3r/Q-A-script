@@ -1,4 +1,4 @@
-print("Index: Which file have to be Executed \n1. Normal.py \n2.Binomial \n3. Binomial to normal/poisson \n4. Exponential \n5. Poisson \n6. List of x \n7. Frequency of an intervval \n8. Discrete pdf is given \n9. Linear Regression \n10. Confidence Interval \n11. Confidence Interval of variance \n12. Confidence interval of proportions \n13. Geometric Distribution \n14. Uniform Distribution")
+print("Index: Which file have to be Executed \n1. Normal.py \n2. Binomial \n3. Binomial to normal/poisson \n4. Exponential \n5. Poisson \n6. List of x \n7. Frequency of an intervval \n8. Discrete pdf is given \n9. Linear Regression \n10. Confidence Interval \n11. Confidence Interval of variance \n12. Confidence interval of proportions \n13. Geometric Distribution \n14. Uniform Distribution \n15. Hypothesis Testing Mean \n16. Hypothesis Testing Variance \n17. Hypothesis Testing Proportion")
 
 which = int(input("Which script do you want to execute: "))
 
@@ -27,6 +27,12 @@ elif which == 11:
 elif which == 12:
 	exec(open("proportion_ci.py").read())
 elif which == 13:
-	exev(open("geometric.py").read())
+	exec(open("geometric.py").read())
 elif which == 14:
-	exev(open("uniform.py").read())
+	exec(open("uniform.py").read())
+elif which == 15:
+	exec(open("hypothesis-one-mean.py").read())
+elif which == 16:
+	exec(open("hypothesis-variance.py").read())
+elif which == 17:
+	exec(open("hypothesis-proportion.py").read())

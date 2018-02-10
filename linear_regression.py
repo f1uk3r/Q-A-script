@@ -20,28 +20,43 @@ def square(list):
 
 def mul(list1, list2):
 	neo = []
-	multi = 0
 	for i in range(len(list1)):
 		neo.append(round(list1[i] * list2[i], 4))
 	return neo
 
+def sub(list1, list2):
+	neo = []
+	for i in range(len(list1)):
+		neo.append(round(list1[i] - list2[i], 4))
+	return neo
+
 def yforline(list, a, b):
 	neo = []
-	for i in range(4):
+	for i in range(len(list)):
 		neo.append(round(a + b * list[i], 4))
 	return neo
 
-print ("Legend for option 1. for regression\n 2. for correlation \n 3. Scatter plot \n 4. Line Graph: \n 5. Scatterplot and Line graph: ")
+def est(a, b):
+	return round(math.sqrt(a / b), 4)
+
+print('''
+Legend for option 
+1. for regression\n2. for correlation \n3. Scatter plot 
+4. Line Graph \n5. Scatterplot and Line graph \n6. Residual for one value
+7. Residual Table \n8. Scatterplot of residual \n9. Standard Error
+''')
+
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 ys = list(map(float, input("Input all the values of y: ").split()))
-
 xys = mul(xs, ys)
 xxs = square(xs)
 yys = square(ys)
+
+
 header = ["X", "Y", "XY", "XX", "YY"]
 table = zip(xs, ys, xys, xxs, yys)
-print(tabulate((table), header, tablefmt="grid"))
+print(tabulate((table), header, tablefmt="latex"))
 
 n = len(xs)
 x = round(sum(xs), 4)
@@ -49,15 +64,19 @@ y = round(sum(ys), 4)
 xy = round(sum(xys), 4)
 xx = round(sum(xxs), 4)
 yy = round(sum(yys), 4)
+
 sec = 97
+
 a1 = a(x, y, xy, xx, n)
 b1 = b(x, y, xy, xx, n)
 r1 = r(x, y, xy, xx, yy, n)
-somex = xs[0:4]
 
 somey = yforline(xs, a1, b1)
-print (somex)
-print (somey)
+es = sub(ys, somey)
+ees = square(es)
+
+ee = round(sum(ees),4)
+
 print ("\\\\ \sum X =" + str(x) + ", \sum Y =" + str(y) + "\\\\ \sum XY =" + str(xy) + ", \sum XX =" + str(xx) + ", \sum YY =" + str(yy))
 for i in range(parts):
 	option = int(input("Choose type from legend: "))
@@ -71,8 +90,7 @@ for i in range(parts):
 		print ("\\\\ \hat y = " + str(a1) + "+" + str(b1) + "x")
 		est = int(input("Press 0 if no estimation part, press number of parts if there are any estimation parts: "))
 		for i in range(est):
-			xhat = float(input(chr(sec) + ")x = "))
-			sec += 1
+			xhat = float(input("x = "))
 			print ("\\\\ \hat y = " + str(a1) + "+" + str(b1) + "(" + str(xhat) + ")")
 			yhat = round(a1 + (b1 * xhat), 4)
 			print ("\\\\ \hat y = " + str(yhat))
@@ -92,7 +110,7 @@ for i in range(parts):
 	elif option == 4:
 		print(chr(sec) + ")")
 		sec += 1
-		plt.plot(somex, somey)
+		plt.plot(xs, somey)
 		plt.savefig('chegg2.png', bbox_inches='tight')
 		plt.close()
 
@@ -100,8 +118,47 @@ for i in range(parts):
 		print(chr(sec) + ")")
 		sec += 1
 		plt.scatter(xs, ys)
-		plt.plot(somex, somey)
+		plt.plot(xs, somey)
 		plt.savefig('chegg3.png', bbox_inches='tight')
 		plt.close()
+
+	elif option == 6:
+		xhat = float(input(chr(sec) + ") x = "))
+		sec += 1
+		index = xs.index(xhat)
+		print ("\\\\ \hat y = " + str(a1) + "+" + str(b1) + "(" + str(xhat) + ")")
+		yhat = somey[index]
+		yold = ys[index]
+		print ("\\\\ \hat y = " + str(yhat))
+		print ("\\\\Residual (e)= y-\hat{y}")
+		print ("e = " + str(yold) + "- " + str(yhat))
+		print ("e = " + str(round(yold - yhat, 4)))
+
+	elif option == 7:
+		print(chr(sec) + ")")
+		sec += 1
+		print ("\\\\Residual (e)= y-\hat{y}")
+		header = ["X", "Y", "^Y", "e"]
+		table = zip(xs, ys, somey, es)
+		print(tabulate((table), header, tablefmt="latex"))
+
+	elif option == 8:
+		print(chr(sec) + ")")
+		sec += 1
+		plt.scatter(xs, es)
+		plt.savefig('chegg4.png', bbox_inches='tight')
+		plt.close()
+
+	elif option == 9:
+		print(chr(sec) + ")")
+		sec += 1
+		header = ["X", "Y", "^Y", "Y-^Y", "(Y-^Y)(Y-^Y)"]
+		table = zip(xs, ys, somey, es, ees)
+		print(tabulate((table), header, tablefmt="latex"))
+		print("\\\\\sum (Y-\hat{Y})^2 = " + str(ee))
+		print ("\\\\Standard\;error(\sigma_{est}) = \sqrt{\\frac{\sum (Y-\hat{Y})^2}{N}}")
+		print ("\\\\N = " + str(n))
+		print ("\\\\Standard\;error(\sigma_{est}) = \sqrt{\\frac{" + str(ee) + "}{" + str(n) + "}}")
+		print ("\\\\Standard\;error(\sigma_{est}) =" + str(est(ee, n)))
 
 print ("Please hit thumps up if the answer helped you")

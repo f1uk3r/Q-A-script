@@ -4,6 +4,8 @@
 import math
 def findP(alp, bet, x):
 	return round((x-alp) / (bet-alp), 4)
+
+print("Legend: \n1. Less than\n2. Greater than\n3. Between\n4. Mean\n5. Variance and Standard Deviation
 parts = int(input("How many parts are there for these questions: "))
 print("This is a uniform distribution with")
 a = int(input("\\\\ \\alpha = "))
