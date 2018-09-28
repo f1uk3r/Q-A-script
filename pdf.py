@@ -1,5 +1,6 @@
 import math
 from tabulate import tabulate
+
 def mul(list1, list2):
 	neo = []
 	multi = 0
@@ -9,6 +10,7 @@ def mul(list1, list2):
 
 def var(xpx, xxpx):
 	return round(xxpx - xpx ** 2, 4)
+
 xs = list(map(float, input("Input all the values of x: ").split()))
 pxs = list(map(float, input("Input all the values of px: ").split()))
 xpxs = mul(xs, pxs)
@@ -23,7 +25,7 @@ xxpx = round(sum(xxpxs), 4)
 vari = var(xpx, xxpx)
 sd = round(math.sqrt(vari), 4)
 
-print ("\sum x.P(x) = " + str(xpx) + ", \sum x^2.P(x) = " + str(xxpx))
+print ("\\\\\sum x.P(x) = " + str(xpx) + ", \sum x^2.P(x) = " + str(xxpx))
 print ("Since we know that,")
 print ("\\\\Mean = \sum x.P(x) = " + str(xpx))
 print ("\\\\Variance = \sum x^2.P(x) - \left(\sum x.P(x)\\right)^2 = " + str(vari))

@@ -2,10 +2,10 @@ import webbrowser
 import math
 
 def ll(n, sd, chi1):
-	return round(((n-1) * (sd ** 2) /(chi1 ** 2)), 4)
+	return round(((n-1) * (sd ** 2) /(chi1)), 4)
 
 def ul(n, sd, chi2):
-	return round(((n-1) * (sd ** 2) /(chi2 ** 2)), 4)
+	return round(((n-1) * (sd ** 2) /(chi2)), 4)
 def limit2(sd1, sd2, F1):
 	return round(((sd1 ** 2)/(sd2 ** 2)) * F1, 4)
 

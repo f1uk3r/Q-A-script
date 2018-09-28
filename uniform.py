@@ -5,11 +5,11 @@ import math
 def findP(alp, bet, x):
 	return round((x-alp) / (bet-alp), 4)
 
-print("Legend: \n1. Less than\n2. Greater than\n3. Between\n4. Mean\n5. Variance and Standard Deviation
+print("Legend: \n1. Less than\n2. Greater than\n3. Between\n4. Mean\n5. Variance and Standard Deviation")
 parts = int(input("How many parts are there for these questions: "))
 print("This is a uniform distribution with")
-a = int(input("\\\\ \\alpha = "))
-b = int(input("\\\\ \\beta = "))
+a = float(input("\\\\ \\alpha = "))
+b = float(input("\\\\ \\beta = "))
 print("Since we know that")
 print("Probability density function of a uniform distribution is")
 print("f(x) = \\frac{1}{\\beta - \\alpha}, \\alpha \le x \le \\beta")
@@ -22,7 +22,7 @@ for i in range(parts):
 	if opt == 1:
 		print(chr(sec) + ") Pr(X<x) = F(x)")
 		sec += 1
-		x = int(input("Where x = "))
+		x = float(input("Where x = "))
 		if x <= a:
 			print("Pr(X<" + str(x) + ") = 0")
 		elif x >= b:
@@ -34,7 +34,7 @@ for i in range(parts):
 	elif opt == 2:
 		print(chr(sec) + ") Pr(X>x) = 1- F(x)")
 		sec += 1
-		x = int(input("Where x = "))
+		x = float(input("Where x = "))
 		if x <= a:
 			print("Pr(X>" + str(x) + ") = 1")
 		elif x >= b:
@@ -46,8 +46,8 @@ for i in range(parts):
 	elif opt == 3:
 		print(chr(sec) + ") Pr(x1<X<x2) = F(x2) - F(x1)")
 		sec += 1
-		x1 = int(input("Where x1 = "))
-		x2 = int(input("x2 = "))
+		x1 = float(input("Where x1 = "))
+		x2 = float(input("x2 = "))
 		if (x1 <= a and x2 <= a) or (x1 >= b and x2 >= b):
 			print("Since, both x's doesn't lie in the interval")
 			print("Pr(" + str(x1) + "<X<" + str(x2) + ") = 0")
@@ -79,8 +79,8 @@ for i in range(parts):
 	elif opt == 5:
 		print(chr(sec) + ") Also")
 		sec += 1
-		print("Variance = \\frac{(\\beta-\\alpha)^2}{12}")
-		print("Variance = \\frac{(" + str(b) + "-" + str(a) + ")^2}{12}")
+		print("\\\\Variance = \\frac{(\\beta-\\alpha)^2}{12}")
+		print("\\\\Variance = \\frac{(" + str(b) + "-" + str(a) + ")^2}{12}")
 		variance = round(((b-a) ** 2) / 12, 4)
 		print("Variance = " + str(variance))
 		print("Standard/;Deviation = \sqrt{Variance}")

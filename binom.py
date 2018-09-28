@@ -119,11 +119,11 @@ for i in range(parts):
 		x = int(input(chr(sec) + ") " + "x = "))
 		sec += 1 
 		ans = round(binom2(n, x, p, q), 4)
-		print ("P(X \le " + str(x) + ") = ", end=" ")
+		print ("\\\\P(X \le " + str(x) + ") = ", end=" ")
 		for j in range(x):
 			print("P(X = " + str(j) + ") + ", end=" ")
 		print("P(X = " + str(x) + ")")
-		print ("P(X \le " + str(x) + ") = " + str(ans))
+		print ("\\\\P(X \le " + str(x) + ") = " + str(ans))
 
 	elif ty == 3:
 		x = int(input(chr(sec) + ") " + "x = "))
@@ -140,7 +140,7 @@ for i in range(parts):
 		sec += 1 
 		ans = round(binom4(n, x, p, q), 4)
 		if x > n / 2 :
-			print ("P(X \ge " + str(x) + ") = ", end=" ")
+			print ("\\\\P(X \ge " + str(x) + ") = ", end=" ")
 			for j in range(x, n):
 				print("P(X = " + str(j) + ") + ", end=" ")
 			print("P(X = " + str(n) + ")")
@@ -148,8 +148,8 @@ for i in range(parts):
 			print ("\\\\P(X \ge " + str(x) + ") = 1 ", end=" ")
 			for j in range(x-1):
 				print("- P(X = " + str(j) + ") ", end=" ")
-			print ("P(X = " + str(x-1) + ")")
-		print ("P(X \ge " + str(x) + ") = " + str(ans))
+			print ("- P(X = " + str(x-1) + ")")
+		print ("\\\\P(X \ge " + str(x) + ") = " + str(ans))
 
 	elif ty == 5:
 		x = int(input(chr(sec) + ") " + "x = "))
@@ -172,11 +172,11 @@ for i in range(parts):
 		sec += 1 
 		x2 = int(input("x2 = "))
 		ans = round(binom6(n, x1, x2, p, q), 4)
-		print ("P(" + str(x1) + "\le X \le" + str(x2) + ") = ", end=" ")
+		print ("\\\\P(" + str(x1) + "\le X \le" + str(x2) + ") = ", end=" ")
 		for j in range(x1, x2):
 			print("P(X = " + str(j) + ") + ", end=" ")
 		print("P(X = " + str(x2) + ")")
-		print ("P(" + str(x1) + "\le X \le" + str(x2) + ") = " + str(ans))
+		print ("\\\\P(" + str(x1) + "\le X \le" + str(x2) + ") = " + str(ans))
 
 	if ty == 7:
 		x1 = int(input(chr(sec) + ") " + "x1 = "))

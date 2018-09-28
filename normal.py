@@ -1,6 +1,6 @@
 import math
 import webbrowser
-print ("Legend for type \n 1 for less than <  \n 2 for greater than >  \n 3 for between < <  \n 4 for outside > > \n 5 for finding x from z value \n 6 for equal to = ")
+print ("Legend for type \n 1 for less than <  \n 2 for greater than >  \n 3 for between < <  \n 4 for outside > > \n 5 for finding x from z value \n 6 for equal to = \n 7 Unusual data")
 sample = int(input("Do you wish to convert population tendencies to sample ones? Press 1 YES: "))
 xOrZ = int(input("Would you like to enter values of 1. x or 2. z: "))
 parts = int(input("How many parts: "))
@@ -20,6 +20,7 @@ def s(sd, n):
 zscores = dict([(-3, 0.0013), (-2.5, 0.0062), (-2, 0.0228), (-1.75, 0.0401), (-1.5, 0.0668), (-1.25, 0.1056), (-1.2, 0.1151), (-1, 0.1587), (-0.9, 0.1841), (-0.8, 0.2119), (-0.75, 0.2266), (-0.7, 0.2420), (-0.6, 0.2743), (-0.5, 0.3085), (-0.4, 0.3446), (-0.3, 0.3821), (-0.25, 0.4013), (-0.2, 0.4207), (-0.1, 0.4602), (0.0, 0.5), (3, 0.9987), (2.5, 0.9938), (2, 0.9772), (1.75, 0.9599), (1.5, 0.9332), (1.25, 0.8944), (1.2, 0.8849), (1, 0.8413), (0.9, 0.8159), (0.8, 0.7881), (0.75, 0.7434), (0.7, 0.7580), (0.6, 0.7257), (0.5, 0.6915), (0.4, 0.6554), (0.3, 0.6179), (0.25, 0.5987), (0.2, 0.5793), (0.1, 0.5398)])
 zinv = dict([(0.05, -1.645), (0.1, -1.282), (0.15, -1.036), (0.2, -0.8416), (0.25, -0.6745), (0.3, -0.525), (0.35, -0.385), (0.40, -0.253), (0.45, -0.1257), (0.5, 0), (0.95, 1.645), (0.9, 1.282), (0.85, 1.036), (0.8, 0.8416), (0.75, 0.6745), (0.7, 0.525), (0.65, 0.385), (0.6, 0.253), (0.55, 0.1257), (0.98, 2.054), (0.96, 1.751), (0.99, 2.326)])
 sec = 97
+
 if sample == 1:
 	n = int(input("Sample size (n) = "))
 	sd = s(sd, n)
@@ -28,10 +29,12 @@ if sample == 1:
 	print ("\\\\Sample\;standard\;deviation(s) = \\frac{\sigma}{\sqrt{n}} = " + str(sd))
 	print ("\\\\ z_{ score } = \\frac{x-\\bar{x}}{s}")
 else: 
-	print ("Since we know that")
-	print ("z_{ score } = \\frac{x-\mu}{\sigma}")
+	print ("\\\\Since\\; we\\; know\\; that")
+	print ("\\\\z_{ score } = \\frac{x-\mu}{\sigma}")
+
 if xOrZ == 1:
 	for i in range(parts):
+
 		ty = int(input("Type of this part: "))
 		if ty == 1:
 			x1 = float(input(chr(sec) + ") " + "x = "))
@@ -101,14 +104,21 @@ if xOrZ == 1:
 			print ("\\\\ x = \mu + z\sigma")
 			print ("\\\\\implies x = " + str(mean) + " + (" + str(zn) + ")" + str(sd)) 
 			print ("x = " + str(xn))
+
 		elif ty == 6:
 			x = float(input(chr(sec) + ") x = "))
 			sec += 1
 			print ("P(X = " + str(x) + ") = ?")
 			print ("For a continous the probability is the integration of probability density function in an given interval. Since if we give a particular point as an interval the integration comes out as 0.")
 			print ("P(X = " + str(x) + ") = 0")
+
+		elif ty ==7:
+			print("Data beyond two standard deviations away from the mean i.e. data which have z-scores beyond -2 or 2 is known as unusual data.")
+			print("So this data is not unusual value")
+
 elif xOrZ == 2:
 	for i in range(parts):
+
 		ty = int(input("Type of this part: "))
 		if ty == 1:
 			z1 = float(input(chr(sec) + ") " + "z = "))
@@ -156,11 +166,17 @@ elif xOrZ == 2:
 			print ("\\\\ x = \mu + z\sigma")
 			print ("\\\\\implies x = " + str(mean) + " + (" + str(zn) + ")" + str(sd)) 
 			print ("x = " + str(xn))
+		
 		elif ty == 6:
 			z = float(input(chr(sec) + ") z = "))
 			sec += 1
 			print ("P(X = " + str(z) + ") = ?")
 			print ("For a continous the probability is the integration of probability density function in an given interval. Since if we give a particular point as an interval the integration comes out as 0.")
 			print ("P(X = " + str(z) + ") = 0")
+		
+		elif ty ==7:
+			print("Data beyond two standard deviations away from the mean i.e. data which have z-scores beyond -2 or 2 is known as unusual data.")
+			print("So this data is not unusual value")
+
 print ("PS: you have to refer z score table to find the final probabilities.")
 print ("Please hit thumps up if the answer helped you")
