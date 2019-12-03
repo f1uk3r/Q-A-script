@@ -1,5 +1,6 @@
 import math
 from tabulate import tabulate
+import matplotlib.pyplot as plt
 
 def mean(list):
 	return round(sum(list) / len(list), 4)
@@ -49,7 +50,45 @@ def boundOutliers(q1, q3, iqr):
 	uppBound = round(q3 + (1.5 * iqr), 4)
 	return lowBound, uppBound
 
-print("Legend for types\n 1. Mean\n 2. Median\n 3. Range \n 4. Variance \n 5. Standard Deviation \n 6. Quartile 1 and 3 \n 7. Maximum and minimum \n 8. Interquartile Range\n 9. Coefficient of Variation\n 10. Finding all outliers\n 11. Pearson’s Coefficient of Skewness")
+def stemAndLeaf(list):
+	stemLeaflist = []
+	#if list[0] % 1 == float(0.0) and list[1] % 1 == float(0.0) and list[2] % 1 == float(0.0):
+	for i in range(len(list)):
+		stem = int(list[i] // 10)
+		leaf = int(list[i] % 10)
+		if len(stemLeaflist) == 0:
+			stemLeaflist.append({"stem": stem, "leaf": [leaf]})
+		else:
+			for j in range(len(stemLeaflist)):
+				if stem == stemLeaflist[j]["stem"]:
+					stemLeaflist[j]["leaf"].append(leaf)
+				elif j == len(stemLeaflist) - 1:
+					stemLeaflist.append({"stem": stem, "leaf": [leaf]})
+	"""else:
+		for i in range(len(list)):
+			leaf, stem = math.modf(2.5)
+			stem = int(stem)
+			for j in range(len(stemLeafList)):
+				if stem == stemLeafList[j]["stem"]:
+					stemLeaflist[j]["leaf"].append(leaf)
+				elif j == len(stemLeaflist) - 1:
+					stemLeaflist.append({"stem": stem, "leaf": [leaf]})"""
+	return stemLeaflist
+
+print(f"""Legend for types
+1. Mean
+2. Median
+3. Range 
+4. Variance 
+5. Standard Deviation 
+6. Quartile 1 and 3 
+7. Maximum and minimum 
+8. Interquartile Range
+9. Coefficient of Variation
+10. Finding all outliers
+11. Pearson’s Coefficient of Skewness
+12. Stem and Leaf Diagram
+13. Box Plot""")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 xbar = mean(xs)													#Mean of list
@@ -193,6 +232,21 @@ for i in range(parts):
 		print("Pearson’s Coefficient of Skewness (Sk) = \\frac{3(\\bar{x} - Median)}{s}")
 		print("Pearson’s Coefficient of Skewness (Sk) = \\frac{3(" + str(xbar) + " - " + str(med) + ")}{" + str(s) + "}")
 		print("Pearson’s Coefficient of Skewness (Sk) = " + str(round((3*(xbar - med)) / s, 4)))
+	if ty == 12:
+		print("Stem and Leaf of the sample")
+		stemLeafList = stemAndLeaf(xinc)
+		for each in stemLeafList:
+			print(str(each["stem"]) + "     ", end=" ")
+			for j in range(len(each["leaf"])):
+				print(each["leaf"][j], end="")
+			print("")
+	if ty == 13:
+		print(chr(sec) + ") For a box plot, the ends of the box are located at the first third quartiles. The median is the vertical line with the box, The whiskers of the box plot connents the ends of the box to the smallest and largest data values within 1.5 interquartile ranges from the ends of the box. Points outside these plots are outliers.")
+		sec += 1
+		plt.boxplot(xs)
+		plt.savefig('chegg-boxplot.png', patch_artist=True, vert=False)
+		plt.close()
+		print("")
 		
 
 print("Please hit thumps up if the answer helped you.")

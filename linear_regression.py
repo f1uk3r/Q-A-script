@@ -47,6 +47,7 @@ Legend for option
 7. Residual Table \n8. Scatterplot of residual \n9. Standard Error
 10. Question with six parts \n11. Coefficient of determination r^2
 12. Testing Correlation's significance
+13. SST SSR SSE
 ''')
 
 parts = int(input("How many parts: "))
@@ -64,13 +65,17 @@ print(tabulate((table), header, tablefmt="latex"))
 n = len(xs)
 x = round(sum(xs), 4)
 y = round(sum(ys), 4)
+ysq = y**2
 xy = round(sum(xys), 4)
 xx = round(sum(xxs), 4)
 yy = round(sum(yys), 4)
 xbar = round(x/n, 4)
 ybar = round(y/n, 4)
 df = n - 2
-
+sst = yy - (ysq/n)
+ssrnum = (xy - (x*y/n))**2
+ssrden = xx-(x**2/n)
+ssr = ssrnum/ssrden
 sec = 97
 
 a1 = a(x, y, xy, xx, n)
@@ -226,4 +231,18 @@ for i in range(parts):
 			print("Since, r = " + str(r1) + " is greater than " + str(crit) + ". Therefore, r is significant")
 		else:
 			print("Since, r = " + str(r1) + " is between -" + str(crit) + " and " + str(crit) + ". Therefore, r is not significant")
+	elif option == 13:
+		print(f"\\\\SST = \\sum Y^2 - \\frac{{(\\sum Y)^2}}{{n}}")
+		print(f"\\\\SST = {yy} - \\frac{{({y})^2}}{{{n}}}")
+		print(f"\\\\SST = {yy} - \\frac{{{y**2}}}{{{n}}}")
+		print(f"\\\\SST = {yy} - {ysq/n}")
+		print(f"\\\\SST = {sst}")
+		print(f"\\\\SSR = \\frac{{(\\sum XY - \\frac{{\\sum X\\sum Y}}{{n}})^2}}{{\\sum X^2 - \\frac{{(\\sum X)^2}}{{n}}}}")
+		print(f"\\\\SSR = \\frac{{({xy} - \\frac{{{x}({y})}}{{{n}}})^2}}{{{xx} - \\frac{{({x})^2}}{{{n}}}}}")
+		print(f"\\\\SSR = \\frac{{({xy} - {x*y/n})^2}}{{{xx} - {x**2/n}}}")
+		print(f"\\\\SSR = \\frac{{{ssrnum}}}{{{ssrden}}}")
+		print(f"\\\\SSR = {ssr}")
+		print(f"\\\\SSE = SST - SSR")
+		print(f"\\\\SSE = {sst} - {ssr}")
+		print(f"\\\\SSE = {sst - ssr}")
 print ("Please hit thumps up if the answer helped you")

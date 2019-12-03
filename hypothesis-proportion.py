@@ -1,4 +1,4 @@
-import webbrowser, pyperclip, time, math
+import webbrowser, time, math
 def zvalue(x, p, n):
 	return round((x - (n * p))/(math.sqrt(n*p*(1-p))), 4)
 	
@@ -20,7 +20,6 @@ print("Z_0 = " + str(zfinal))
 if pval == 1:
 	print("Since P-value of a two tailed test is equal to 2(1 - \phi(|Z_0|)")
 	print("P = 2(1 - \phi(" + str(zfinal) + ")) ")
-	pyperclip.copy(str(zfinal))
 	webbrowser.open("https://www.easycalculation.com/statistics/p-value-for-z-score.php")
 	forP = float(input())
 	print("P = 2(1 - " + str(forP) + ") ")

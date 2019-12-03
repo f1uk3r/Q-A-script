@@ -1,12 +1,20 @@
 import math
 import webbrowser
-print ("Legend for type \n 1 for less than <  \n 2 for greater than >  \n 3 for between < <  \n 4 for outside > > \n 5 for finding x from z value \n 6 for equal to = \n 7 Unusual data")
+import scipy.stats as st
+print ("""Legend for type
+1 for less than <
+2 for greater than >
+3 for between
+4 for outside
+5 for finding x from z value
+6 for equal to
+7 Unusual data""")
 sample = int(input("Do you wish to convert population tendencies to sample ones? Press 1 YES: "))
 xOrZ = int(input("Would you like to enter values of 1. x or 2. z: "))
 parts = int(input("How many parts: "))
 print ("This is a normal distribution question with")
-mean = float(input("\\\\Mean (\mu)= "))
-sd = float(input("\\\\Standard\;Deviation (\sigma)= "))
+mean = float(input("\\\\Mean (\\mu)= "))
+sd = float(input("\\\\Standard\\;Deviation (\\sigma)= "))
 
 def z(x, mean, sd):
 	return round((x - mean) / sd, 4)
@@ -25,63 +33,71 @@ if sample == 1:
 	n = int(input("Sample size (n) = "))
 	sd = s(sd, n)
 	print ("Since we know that")
-	print ("\\\\Sample\; mean (\\bar{x}) = \mu = " + str(mean))
-	print ("\\\\Sample\;standard\;deviation(s) = \\frac{\sigma}{\sqrt{n}} = " + str(sd))
+	print ("\\\\Sample \\; mean (\\bar{x}) = \\mu = " + str(mean))
+	print ("\\\\Sample \\;standard\\;deviation(s) = \\frac{\\sigma}{\\sqrt{n}} = " + str(sd))
 	print ("\\\\ z_{ score } = \\frac{x-\\bar{x}}{s}")
 else: 
 	print ("\\\\Since\\; we\\; know\\; that")
-	print ("\\\\z_{ score } = \\frac{x-\mu}{\sigma}")
+	print ("\\\\z_{ score } = \\frac{x-\\mu}{\\sigma}")
 
 if xOrZ == 1:
 	for i in range(parts):
-
 		ty = int(input("Type of this part: "))
+
 		if ty == 1:
 			x1 = float(input(chr(sec) + ") " + "x = "))
 			sec += 1 
 			print ("P(x < " + str(x1) + ")=?")
-			print ("z = \\frac {" + str(x1) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"The z-score at x = {x1} is, ")
+			print (f"z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
-			ans = zscores.get(z1, 0)
+			ans = st.norm.cdf(z1)
 			print ("z = " + str(z1))
 			print ("This implies that")
-			print ("P(x < " + str(x1) + ") = P(z < " + str(z1) + ") = " + str(ans))
+			print (f"P(x < {x1}) = P(z < {z1}) = \\textbf{{{ans}}}")
 	
 		if ty == 2:
 			x1 = float(input(chr(sec) + ") " + "x = "))
 			sec += 1 
 			print ("P(x > " + str(x1) + ")=?")
-			print ("z = \\frac {" + str(x1) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"The z-score at x = {x1} is, ")
+			print (f"z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
-			ans = 1 - zscores.get(z1, 0)
+			ans = round(1 - st.norm.cdf(z1), 4)
 			print ("z = " + str(z1))
 			print ("This implies that")
-			print ("P(x > " + str(x1) + ") = P(z > " + str(z1) + ") = " + str(ans))
+			print (f"P(x > {x1}) = P(z > {z1}) = 1 - {st.norm.cdf(z1)}")
+			print (f"P(x > {x1}) = \\textbf{{{ans}}}")
 	
 		elif ty == 3:
 			x1 = float(input(chr(sec) + ") " + "x1 = "))
 			sec += 1 
 			x2 = float(input("x2 = "))
 			print ("P(" + str(x1) + " < x < " + str(x2) + ")=?")
-			print ("\\\\ z_1 = \\frac {" + str(x1) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"\\\\ z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
 			print ("\\\\ z_1 = " + (str(z1)))
-			print ("\\\\ z_2 = \\frac {" + str(x2) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"\\\\ z = \\frac{{{x2}-{mean}}}{{{sd}}}")
 			z2 = z(x2, mean, sd)
 			print ("\\\\ z_2 = " + str(z2))
-			ans = round(zscores.get(z2, 0) - zscores.get(z1, 0), 4)
+			ans = round(st.norm.cdf(z2) - st.norm.cdf(z1), 4)
 			print ("This implies that")
-			print ("P(" + str(x1) + " < x < " + str(x2) + ") = P(" + str(z1) + " < z < " + str(z2) + ") = " +str(ans))
-	
+			print (f"P({x1} < x < {x2}) = P({z1} < z < {z2}) = P(Z < {z2}) - P(Z < {z1})")
+			print (f"P({x1} < x < {x2}) = {st.norm.cdf(z2)} - {st.norm.cdf(z1)}")
+			print (f"P({x1} < x < {x2}) = \\textbf{{{ans}}}")	
 		elif ty == 4:
 			x1 = float(input(chr(sec) + ") " + "x1 = "))
 			sec += 1 
 			x2 = float(input("x2 = "))
 			print ("P(X < " + str(x1) + " or X > " + str(x2) + ")=?")
-			print ("\\\\ z_1 = \\frac {" + str(x1) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"\\\\ z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
 			print ("\\\\ z_1 = " + (str(z1)))
-			print ("\\\\ z_2 = \\frac {" + str(x2) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"\\\\ z = \\frac{{{x2}-{mean}}}{{{sd}}}")
 			z2 = z(x2, mean, sd)
 			print ("\\\\ z_2 = " + str(z2))
 			ans = round(1 - zscores.get(z2, 0) + zscores.get(z1, 0), 4)
@@ -90,10 +106,7 @@ if xOrZ == 1:
 
 		elif ty == 5:
 			pn = float(input("p = "))
-			zn = zinv.get(pn, 0)
-			if zn == 0:
-				webbrowser.open('http://measuringu.com/zcalcp/')
-				zn = float(input("z = "))
+			zn = st.norm.ppf(pn)
 			xn = xi(zn, mean, sd)
 			print (chr(sec) + ") Given in the question ")
 			sec += 1

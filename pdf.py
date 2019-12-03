@@ -20,8 +20,8 @@ header = ["X", "P(X)", "X.P(X)", "X^2.P(X)"]
 table = zip(xs, pxs, xpxs, xxpxs)
 print(tabulate((table), header, tablefmt="latex"))
 
-xpx = round(sum(xpxs), 4)
-xxpx = round(sum(xxpxs), 4)
+xpx = round(sum(xpxs), 8)
+xxpx = round(sum(xxpxs), 8)
 vari = var(xpx, xxpx)
 sd = round(math.sqrt(vari), 4)
 

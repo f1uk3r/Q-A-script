@@ -17,7 +17,7 @@ if option == 1 and typ != 1:
 	mean = float(input("Mean (\\bar{x}) = "))
 	n = int(input("Sample size (n) = "))
 	sd = float(input("Standard deviation (s) = "))
-	ci = int(input("Confidence interval(in %) = "))
+	ci = float(input("Confidence interval(in %) = "))
 	if n < 30:
 		webbrowser.open('https://www.danielsoper.com/statcalc/calculator.aspx?id=10')
 		t = float(input("t = "))

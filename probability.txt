@@ -1,0 +1,6 @@
+E(X + c) = E(x) + c
+V(X +c) = V(x) + 0
+
+E(cX) = cE(x)
+V(cX) = c^2*V(x) + 0
+

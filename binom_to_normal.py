@@ -1,7 +1,17 @@
 import math
+import scipy.stats as st
 def prob(mean, x):
-	return (math.exp(-mean) * (mean ** x)) / math.factorial(x)
-print ("Legend for type \n 1 for less than \n 2 for greater than \n 3 for between \n 4 for outside \n 5 for finding x from z value \n 6 for equal to =")
+	return math.exp(-mean) * (mean ** x) / math.factorial(x)
+print ("""Legend for type
+1 for less than
+2 for greater than
+3 for outside
+4 for between
+5 for finding x from z value
+6 for equal to =
+7 for less than equal to (continuity correction)
+8 for greater than equal to (continuity correction)
+9 for between (inclusive, continuity correction)""")
 normalOrPoisson = int(input("Would you like to do a 1. Normal Approximation or 2. Poisson Approximation"))
 parts = int(input("How many parts: "))
 
@@ -17,8 +27,8 @@ if normalOrPoisson == 1:
 	mean = round(n * p, 4)
 	sd = round(math.sqrt(n * p * q), 4)
 	print ("Since we know that")
-	print ("\\\\Mean (\mu) = np = " + str(mean))
-	print ("\\\\Standard\; deviation (\sigma) = \sqrt{npq} = " + str(sd))
+	print (f"\\\\Mean (\\mu) = np = {n} * {p} = {mean}")
+	print (f"\\\\Standard\\; deviation (\\sigma) = \\sqrt{{npq}} = \\sqrt{{{n}*{p}*{q}}} = {sd}")
 
 	def z(x, mean, sd):
 		return round((x - mean) / sd, 4)
@@ -37,23 +47,26 @@ if normalOrPoisson == 1:
 			x1 = float(input(chr(sec) + ") " + "x = "))
 			sec += 1 
 			print ("P(x < " + str(x1) + ")=?")
-			print ("z = \\frac {" + str(x1) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"The z-score at x = {x1} is, ")
+			print (f"z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
-			ans = zscores.get(z1, 0)
+			ans = round(st.norm.cdf(z1), 4)
 			print ("z = " + str(z1))
 			print ("This implies that")
-			print ("P(x < " + str(x1) + ") = P(z < " + str(z1) + ") = " + str(ans))
+			print (f"P(x < {x1}) = P(z < {z1}) = \\textbf{{{ans}}}")
 	
 		if ty == 2:
 			x1 = float(input(chr(sec) + ") " + "x = "))
 			sec += 1 
 			print ("P(x > " + str(x1) + ")=?")
-			print ("z = \\frac {" + str(x1) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"The z-score at x = {x1} is, ")
+			print (f"z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
-			ans = 1 - zscores.get(z1, 0)
+			ans = round(1 - st.norm.cdf(z1), 4)
 			print ("z = " + str(z1))
 			print ("This implies that")
-			print ("P(x > " + str(x1) + ") = P(z > " + str(z1) + ") = " + str(ans))
+			print (f"P(x > {x1}) = P(z > {z1}) = 1 - {st.norm.cdf(z1)}")
+			print (f"P(x > {x1}) = \\textbf{{{ans}}}")
 
 		elif ty == 4:
 			x1 = float(input(chr(sec) + ") " + "x1 = "))
@@ -74,17 +87,21 @@ if normalOrPoisson == 1:
 			x1 = float(input(chr(sec) + ") " + "x1 = "))
 			sec += 1 
 			x2 = float(input("x2 = "))
-			print ("P(X < " + str(x1) + " or X > " + str(x2) + ")=?")
-			print ("\\\\ z_1 = \\frac {" + str(x1) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print ("P(" + str(x1) + " < x < " + str(x2) + ")=?")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"\\\\ z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
 			print ("\\\\ z_1 = " + (str(z1)))
-			print ("\\\\ z_2 = \\frac {" + str(x2) + "-" +  str(mean) +  "}{" + str(sd) + "}")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"\\\\ z = \\frac{{{x2}-{mean}}}{{{sd}}}")
 			z2 = z(x2, mean, sd)
-			ans = round(1 - zscores.get(z2, 0) + zscores.get(z1, 0), 4)
 			print ("\\\\ z_2 = " + str(z2))
+			ans = round(st.norm.cdf(z2) - st.norm.cdf(z1), 4)
 			print ("This implies that")
-			print ("P(X < " + str(x1) + " or X > " + str(x2) + ") = P(z < " + str(z1) + " or z > " + str(z2) + ") = " + str(ans))
-	
+			print (f"P({x1} < x < {x2}) = P({z1} < z < {z2}) = P(Z < {z2}) - P(Z < {z1})")
+			print (f"P({x1} < x < {x2}) = {st.norm.cdf(z2)} - {st.norm.cdf(z1)}")
+			print (f"P({x1} < x < {x2}) = \\textbf{{{ans}}}")	
+
 		elif ty == 5:
 			pn = float(input("p = "))
 			zn = float(input("z = "))
@@ -103,6 +120,55 @@ if normalOrPoisson == 1:
 			print ("P(X = " + str(x) + ") = ?")
 			print ("For a continous the probability is the integration of probability density function in an given interval. Since if we give a particular point as an interval the integration comes out as 0.")
 			print ("P(X = " + str(x) + ") = 0")
+		elif ty == 7:
+			x1 = float(input(chr(sec) + ") " + "x = "))
+			sec += 1
+			x1c = x1 + 0.5
+			print ("\\\\P(x \\le " + str(x1) + ")=?")
+			print(f"\\\\P(x \\le {x1}) = P(x < {x1c})\\;\\;\\;\\; (By\\;Continuity\\;Correction)")
+			print(f"The z-score at x = {x1c} is, ")
+			print (f"\\\\z = \\frac{{{x1c}-{mean}}}{{{sd}}}")
+			z1 = z(x1c, mean, sd)
+			ans = round(st.norm.cdf(z1), 4)
+			print ("z = " + str(z1))
+			print ("This implies that")
+			print (f"\\\\P(x \\le {x1}) = P(x < {x1c}) = P(z < {z1}) = \\textbf{{{ans}}}")
+		elif ty == 8:
+			x1 = float(input(chr(sec) + ") " + "x = "))
+			sec += 1
+			x1c = x1 - 0.5
+			print ("P(x \\ge " + str(x1) + ")=?")
+			print(f"\\\\P(x \\ge {x1}) = P(x > {x1c})\\;\\;\\;\\; (By\\;Continuity\\;Correction)")
+			print(f"The z-score at x = {x1c} is, ")
+			print (f"\\\\z = \\frac{{{x1c}-{mean}}}{{{sd}}}")
+			z1 = z(x1c, mean, sd)
+			ans = round(1 - st.norm.cdf(z1), 4)
+			print ("z = " + str(z1))
+			print ("This implies that")
+			print (f"\\\\P(x \\ge {x1}) = P(x > {x1c}) = P(z > {z1}) = 1 - {st.norm.cdf(z1)}")
+			print (f"\\\\P(x \\ge {x1}) = P(x > {x1c}) = \\textbf{{{ans}}}")
+		elif ty == 9:
+			x1 = float(input(chr(sec) + ") " + "x1 = "))
+			x1c = x1 - 0.5
+			sec += 1 
+			x2 = float(input("x2 = "))
+			x2c = x2 + 0.5
+			print ("\\\\P(" + str(x1) + " \\le x \\le " + str(x2) + ")=?")
+			print (f"\\\\P({x1} \\le x \\le {x2}) = P({x1c} < x < {x2c})\\;\\;\\;\\;(By\\;Continuity\\;Correction)")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"\\\\ z = \\frac{{{x1c}-{mean}}}{{{sd}}}")
+			z1 = z(x1c, mean, sd)
+			print ("\\\\ z_1 = " + (str(z1)))
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1c} is, ")
+			print (f"\\\\ z = \\frac{{{x2c}-{mean}}}{{{sd}}}")
+			z2 = z(x2c, mean, sd)
+			print ("\\\\ z_2 = " + str(z2))
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x2c} is, ")
+			ans = round(st.norm.cdf(z2) - st.norm.cdf(z1), 4)
+			print ("\\\\This\\; implies\\; that")
+			print (f"\\\\P({x1} \\le x \\le {x2}) = P({x1c} < x < {x2c}) = P({z1} < z < {z2}) = P(Z < {z2}) - P(Z < {z1})")
+			print (f"\\\\P({x1} \\le x \\le {x2}) = P({x1c} < x < {x2c}) = {st.norm.cdf(z2)} - {st.norm.cdf(z1)}")
+			print (f"\\\\P({x1} \\le x \\le {x2}) = P({x1c} < x < {x2c}) = \\textbf{{{ans}}}")	
 	
 
 elif normalOrPoisson == 2:
