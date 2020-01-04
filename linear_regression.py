@@ -28,13 +28,13 @@ def mul(list1, list2):
 def sub(list1, list2):
 	neo = []
 	for i in range(len(list1)):
-		neo.append(round(list1[i] - list2[i], 4))
+		neo.append(round(list1[i] - list2[i], 8))
 	return neo
 
 def yforline(list, a, b):
 	neo = []
 	for i in range(len(list)):
-		neo.append(round(a + b * list[i], 4))
+		neo.append(round(a + b * list[i], 8))
 	return neo
 
 def estimate(a, b):
@@ -44,10 +44,11 @@ print('''
 Legend for option 
 1. for regression\n2. for correlation \n3. Scatter plot 
 4. Line Graph \n5. Scatterplot and Line graph \n6. Residual for one value
-7. Residual Table \n8. Scatterplot of residual \n9. Standard Error
+7. Residual Table \n8. Scatterplot of residual \n9. Standard Error SSE
 10. Question with six parts \n11. Coefficient of determination r^2
 12. Testing Correlation's significance
 13. SST SSR SSE
+14. estimated variance
 ''')
 
 parts = int(input("How many parts: "))
@@ -93,19 +94,25 @@ print ("\\\\ \sum X =" + str(x) + ", \sum Y =" + str(y) + "\\\\ \sum XY =" + str
 for i in range(parts):
 	option = int(input("Choose type from legend: "))
 	if option == 1:
-		print (chr(sec) + ")\\\\ \hat y = a + bx")
+		print (f"\\\\{chr(sec)}) \\hat y = a + bx")
 		sec += 1
-		print ("\\\\ a = \\frac{\sum Y * \sum XX-\sum X*\sum XY}{n\sum X^2 -(\sum X)^2}")
+		print ("\\\\ a = \\frac{\\sum Y * \\sum XX-\sum X*\\sum XY}{n\\sum X^2 -(\\sum X)^2}")
 		print ("\\\\ a = \\frac{" + str(y) + "*" + str(xx) + " - " + str(x) + "*" + str(xy) + "}{" + str(n) + "*" + str(xx) + " - " + str(x) + "*" + str(x) + "} \\approx " + str(a1))
-		print ("\\\\ b = \\frac{n\sum XY -\sum X*\sum Y}{n\sum X^2 -(\sum X)^2}")
+		print ("\\\\ b = \\frac{n\\sum XY -\\sum X*\\sum Y}{n\\sum X^2 -(\\sum X)^2}")
 		print ("\\\\ b = \\frac{" + str(n) + "*" + str(xy) + " - " + str(x) + "*" + str(y) + "}{" + str(n) + "*" + str(xx) + " - " + str(x) + "*" + str(x) + "} \\approx " + str(b1))
-		print ("\\\\ \hat y = " + str(a1) + "+" + str(b1) + "x")
+		if b1>0:
+			print (f"\\\\ \\hat y = {a1} + {b1}x")
+		else:
+			print(f"\\\\ \\hat y = {a1} {b1}x")
 		est = int(input("Press 0 if no estimation part, press number of parts if there are any estimation parts: "))
 		for i in range(est):
 			xhat = float(input("x = "))
-			print ("\\\\ \hat y = " + str(a1) + "+" + str(b1) + "(" + str(xhat) + ")")
+			if b1>0:
+				print(f"\\\\ \\hat y = {a1} + {b1}({xhat})")
+			else:
+				print(f"\\\\ \\hat y = {a1} {b1}({xhat})")
 			yhat = round(a1 + (b1 * xhat), 4)
-			print ("\\\\ \hat y = " + str(yhat))
+			print (f"\\\\ \\hat y = {yhat}")
 
 	elif option == 2:
 		print (chr(sec) + ")\\\\ r = \\frac{n\sum XY -\sum X*\sum Y}{\sqrt{\left(n\sum X^2 -(\sum X)^2\\right)\left(n\sum Y^2 -(\sum Y)^2\\right)}}")
@@ -199,26 +206,25 @@ for i in range(parts):
 		plt.plot(xs, somey)
 		plt.savefig('chegg3.png', bbox_inches='tight')
 		plt.close()
-		print(chr(sec) + ")")
-		sec += 1
-		print("\\\\ r^2 = " + str(r1) + "^2")
+		print(f"\\\\{chr(sec)}) r^2 = " + str(r1) + "^2")
 		print("\\\\ r^2 = " + str(round(r1 * r1, 3)))
 		print("\\\\ explained = " + str(round(r2 * 100, 1)))
 		print("\\\\ unexplained = " + str(round(100 - (r2 * 100), 1)))
-		print(chr(sec) + ")")
 		sec += 1
-		xhat = float(input("x = "))
+		xhat = float(input(f"{chr(sec)}) x = "))
+		sec += 1
 		print ("\\\\ \hat y = " + str(a1) + "+" + str(b1) + "(" + str(xhat) + ")")
 		yhat = round(a1 + (b1 * xhat), 4)
 		print ("\\\\ \hat y = " + str(yhat))
 	elif option == 11:
-		print(chr(sec) + ")")
+		print(f"{chr(sec)}) Coefficient of Determination(R-squared):")
 		sec += 1
+		print(f"It gives the measure of how close the data points are to the best fit line. In other words, it gives the proportion of variability in dependent variable that can be explained by the independent variable. Higher the Rsquared value, better the model is.")
 		print("\\\\ r^2 = " + str(r1) + "^2")
 		print("\\\\ r^2 = " + str(round(r1 * r1, 3)))
 	elif option == 12:
 		print("Since, we know that")
-		print("Degree of freedom (df) can be found out by n-2, where n is number of datapoints")
+		print("Degree of freedom (df) can be found out by n-2, where n is number of data points")
 		print("df = n-2")
 		print("df = " + str(n) + "-2")
 		print("df = " + str(df))
@@ -245,4 +251,10 @@ for i in range(parts):
 		print(f"\\\\SSE = SST - SSR")
 		print(f"\\\\SSE = {sst} - {ssr}")
 		print(f"\\\\SSE = {sst - ssr}")
+	elif option == 14:
+		print(f"\\hat s^2 = \frac{{SS_E}}{{n-2}}")
+		print(f"\\hat s^2 = \frac{{{sst-ssr}}}{{{n}-2}}")
+		print(f"\\hat s^2 = \frac{{{sst-ssr}}}{{{n-2}}}")
+		print(f"\\hat s^2 = {(sst-ssr)/(n-2)}")
+
 print ("Please hit thumps up if the answer helped you")

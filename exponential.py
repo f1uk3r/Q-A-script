@@ -8,21 +8,19 @@ def prob(lamb, x):
 print ("Choose 1. equals \n 2. for less than \n 3. for more than \n 4. for between \n 5. outside")
 parts = int(input("How many parts: "))
 MorL = int(input("Would you like to enter 1. mean or 2. lambda: "))
-print ("Since we know that")
-print ("For an exponential distribution")
-print ("Probability density function")
-print ("\\\\f(x) = \lambda e^{-\lambda x}")
-print ("\\\\So,\\; cummulative \\;density \\;function \\;becomes")
-print ("\\\\F(x) = \int_0^x \lambda e^{-\lambda x}")
-print ("\\\\F(x) = 1-e^{-\lambda x}")
-print ("\\\\P(X < x) = F(x)")
 
 if MorL == 1:
-	mean = float(input("\\\\Given,\\; mean(\mu) = "))
+	mean = float(input("\\\\Given,\\; mean(\\mu) = "))
 	lamb = lam(mean)
-	print ("\\\\Since,\\; \lambda = \\frac{1}{\mu} = " + str(lamb))
+	print ("\\\\Since,\\; \\lambda = \\frac{1}{\\mu} = " + str(lamb))
 elif MorL == 2:
 	lamb = float(input("\\\\Rate(\lambda) = "))
+print ("For an exponential random variable X, the probability distribution function is")
+print ("\\\\f(x) = \lambda e^{-\lambda x},\\; for x\\ge 0")
+print ("\\\\So,\\; cummulative \\;distribution \\;function \\;of \\;X\\;is")
+print ("\\\\F(x) = \int_0^x \lambda e^{-\lambda x}dx")
+print ("\\\\F(x) = 1-e^{-\lambda x}")
+print ("\\\\P(X < x) = F(x)")
 sec = 97
 for i in range(parts):
 	ty = int(input("Mention type as legend: "))

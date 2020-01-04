@@ -1,6 +1,7 @@
 import math
 import webbrowser
 import scipy.stats as st
+
 print ("""Legend for type
 1 for less than <
 2 for greater than >
@@ -100,7 +101,7 @@ if xOrZ == 1:
 			print (f"\\\\ z = \\frac{{{x2}-{mean}}}{{{sd}}}")
 			z2 = z(x2, mean, sd)
 			print ("\\\\ z_2 = " + str(z2))
-			ans = round(1 - zscores.get(z2, 0) + zscores.get(z1, 0), 4)
+			ans = round(1 - st.norm.cdf(z2) + st.norm.cdf(z1), 4)
 			print ("This implies that")
 			print ("P(X < " + str(x1) + " or X > " + str(x2) + ") = P(z < " + str(z1) + " or z > " + str(z2) + ") = " +str(ans))
 
@@ -131,62 +132,49 @@ if xOrZ == 1:
 
 elif xOrZ == 2:
 	for i in range(parts):
-
 		ty = int(input("Type of this part: "))
 		if ty == 1:
 			z1 = float(input(chr(sec) + ") " + "z = "))
 			sec += 1
-			ans = zscores.get(z1, 0)
+			ans = round(st.norm.cdf(z1), 4)
 			print ("This implies that")
 			print ("P(z < " + str(z1) + ") = " + str(ans))
-	
 		if ty == 2:
 			z1 = float(input(chr(sec) + ") " + "z = "))
 			sec += 1 
-			ans = 1 - zscores.get(z1, 0)
+			ans = round(1 - st.norm.cdf(z1), 4)
 			print ("This implies that")
 			print ("P(z > " + str(z1) + ") = " + str(ans))
-	
 		elif ty == 3:
 			z1 = float(input(chr(sec) + ") " + "z1 = "))
 			sec += 1 
 			z2 = float(input("z2 = "))
-			ans = round(zscores.get(z2, 0) - zscores.get(z1, 0), 4)
+			ans = round(st.norm.cdf(z2) - st.norm.cdf(z1), 4)
 			print ("This implies that")
 			print ("P(" + str(z1) + " < z < " + str(z2) + ") = " + str(ans))
-	
 		elif ty == 4:
 			z1 = float(input(chr(sec) + ") " + "z1 = "))
 			sec += 1 
 			z2 = float(input("z2 = "))
-			ans = round(1 - zscores.get(z2, 0) + zscores.get(z1, 0), 4)
+			ans = round(1 - st.norm.cdf(z2) + st.norm.cdf(z1), 4)
 			print ("This implies that")
 			print ("P(z < " + str(z1) + " or z > " + str(z2) + ") = " +str(ans))
-
 		elif ty == 5:
 			pn = float(input("p = "))
-			zn = zinv.get(pn, 0)
-			if zn == 0:
-				webbrowser.open('http://measuringu.com/zcalcp/')
-				zn = float(input("z = "))
+			zn = st.norm.ppf(pn)
 			xn = xi(zn, mean, sd)
 			print (chr(sec) + ") Given in the question ")
 			sec += 1
 			print ("P(X < x) = " + str(pn))
 			print ("This implies that")
 			print ("P(Z < " + str(zn) + ") = " + str(pn))
-			print ("With the help of formula for z, we can say that")
-			print ("\\\\ x = \mu + z\sigma")
-			print ("\\\\\implies x = " + str(mean) + " + (" + str(zn) + ")" + str(sd)) 
-			print ("x = " + str(xn))
-		
+			print ("z = " + str(zn))
 		elif ty == 6:
 			z = float(input(chr(sec) + ") z = "))
 			sec += 1
 			print ("P(X = " + str(z) + ") = ?")
 			print ("For a continous the probability is the integration of probability density function in an given interval. Since if we give a particular point as an interval the integration comes out as 0.")
 			print ("P(X = " + str(z) + ") = 0")
-		
 		elif ty ==7:
 			print("Data beyond two standard deviations away from the mean i.e. data which have z-scores beyond -2 or 2 is known as unusual data.")
 			print("So this data is not unusual value")

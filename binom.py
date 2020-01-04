@@ -537,6 +537,8 @@ for i in range(parts):
 		sec += 1 
 
 	if ty == 16:
+		print(chr(sec) + ")")
+		sec += 1
 		xs = range(0, n+1)
 		px, cpx = pdt(n, p, q)
 		plt.bar(xs, px)
@@ -544,6 +546,30 @@ for i in range(parts):
 		plt.ylabel("P(X=x)")
 		plt.title("Histogram")
 		plt.savefig('binom_hist.png', bbox_inches='tight')
+		plt.close()
+
+	if ty == 17:
+		print(chr(sec) + ")")
+		sec += 1
+		xs = range(0, n+1)
+		px, cpx = pdt(n, p, q)
+		plt.xlabel("X")
+		plt.ylabel("P(X=x)")
+		plt.title("Probability Distribution Function")
+		plt.scatter(xs, px)
+		plt.savefig('binom_pdf.png', bbox_inches='tight')
+		plt.close()
+
+	if ty == 18:
+		print(chr(sec) + ")")
+		sec += 1
+		xs = range(0, n+1)
+		px, cpx = pdt(n, p, q)
+		plt.xlabel("X")
+		plt.ylabel("P(X=x)")
+		plt.title("Cumulative Distribution Function")
+		plt.scatter(xs, cpx)
+		plt.savefig('binom_cdf.png', bbox_inches='tight')
 		plt.close()
 
 

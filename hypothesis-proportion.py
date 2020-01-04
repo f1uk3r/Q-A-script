@@ -1,33 +1,202 @@
 import webbrowser, time, math
+import scipy.stats as st
+
 def zvalue(x, p, n):
 	return round((x - (n * p))/(math.sqrt(n*p*(1-p))), 4)
-	
-zs = dict([(0.15, 1.04), (0.125, 1.15), (0.1, 1.282), (0.075, 1.44), (0.05, 1.645), (0.04, 1.75), (0.025, 1.96), (0.02, 2.05), (0.01, 2.33), (0.005, 2.576), (0.0025, 2.807), (0.0005, 3.291)])
+
+def get_p_hat_two_proportion(x1, x2,n1,n2):
+	return round((x1+x2)/(n1+n2), 4)
+def get_test_static_two_proportion(p1, p2, hatP, n1, n2):
+	return round((p1-p2)/math.sqrt(hatP*(1-hatP)*((1/n1)+(1/n2))),4)
+
+print("1. Alternative hypothesis \\neq\n2. Alternative hypothesis < (not fully tested)\n3. Alternative hypothesis >")
+print("4. For 2 distributions alternative hypothesis \\neq\n5. For 2 distributions alternative hypothesis <\n6. For 2 distributions alternative hypothesis >")
 pval = int(input("Need to calculate P value also? Press 1 for yes: "))
-p = float(input("Proportion (p_0) = "))
-n = int(input("Sample size(n) = "))
-x = float(input("X = "))
-alpha = round(float(input("\\alpha = ")) / 2, 4)
+type1 = int(input("Mention the type as legend: "))
+proportionOrNumber = int(input("Give 1. proportion or 2. number of event"))
+if type1<4:
+	p0 = float(input("Proportion (p_0) = "))
+	if proportionOrNumber == 1:
+		p = float(input("\\hat p = "))
+	elif proportionOrNumber == 2:
+		n = int(input("Total number of sample (n) = "))
+		x = int(input("number of favourable events (X) = "))
+		p = x/n
+		print(f"\\hat p = X/n = {x}/{n} = {p}")
+else:
+	n1 = int(input("Total number of sample 1 (n1) = "))
+	n2 = int(input("Total number of sample 2 (n2) = "))
+	x1 = int(input("number of favourable events (X1) = "))
+	x2 = int(input("number of favourable events (X2) = "))
+	p1 = x1/n1
+	p2 = x2/n2
+	print(f"\\\\\\hat p_1 = \\frac{{X_1}}{{n_1}} = \\frac{{{x1}}}{{{n1}}} = {p1}")
+	print(f"\\\\\\hat p_2 = \\frac{{X_2}}{{n_2}} = \\frac{{{x2}}}{{{n2}}} = {p2}")
+
+
+alpha = round(float(input("\\\\\\alpha = ")) / 2, 4)
 
 print("We are interested in testing the hypothesis")
-print("\\\\Null\;Hypothesis --> H_0: p = p_0")
-print("\\\\Alternate\;Hypothesis --> H_1: p \\ne p_0")
-print("Now, the value of test static van be found out by following formula: ")
-print("Z_0 = \\frac{X - np_0}{\sqrt{np_0(1-p_0)}}")
-print("Z_0 = \\frac{" + str(x) + "-" + str(n) + "." + str(p) + "}{\sqrt{" + str(n) + "." + str(p) + "(1-" + str(p) + ")}}")
-zfinal = zvalue(x, p, n)
-print("Z_0 = " + str(zfinal))
-if pval == 1:
-	print("Since P-value of a two tailed test is equal to 2(1 - \phi(|Z_0|)")
-	print("P = 2(1 - \phi(" + str(zfinal) + ")) ")
-	webbrowser.open("https://www.easycalculation.com/statistics/p-value-for-z-score.php")
-	forP = float(input())
-	print("P = 2(1 - " + str(forP) + ") ")
-	print("P = " + str(round(2 * (1 - forP), 4)))
-crit = zs.get(alpha, 0)
-if crit == 0:
-	crit = float(input("critical value = "))
-if zfinal > crit or zfinal < (-crit):
-	print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are Z_" + str(alpha) + " = " + str(crit) + " and -Z_" + str(alpha) + " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the proportion is not equal to " + str(p))
-else:
-	print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are Z_" + str(alpha) + " = " + str(crit) + " and -Z_" + str(alpha) + " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
+if type1 == 1:
+	print("\\\\Null\\;Hypothesis --> H_0: p = p_0")
+	print("\\\\Alternate\\;Hypothesis --> H_1: p \\ne p_0")
+	print("Z_0 = \\frac{X - np_0}{\\sqrt{np_0(1-p_0)}}")
+	print("Z_0 = \\frac{" + str(x) + "-" + str(n) + "." + str(p0) + "}{\\sqrt{" + str(n) + "." + str(p0) + "(1-" + str(p0) + ")}}")
+	zfinal = zvalue(x, p0, n)
+	print("Z_0 = " + str(zfinal))
+	if pval == 1:
+		print("Since P-value of a two tailed test is equal to 2(\\phi(-|Z_0|)")
+		print("P = 2(\\phi(-" + str(abs(zfinal)) + ")) ")
+		forP = st.norm.cdf(-abs(zfinal))
+		print("P = 2(" + str(forP) + ") ")
+		print("P = " + str(round(2 * (forP), 4)))
+	print(f"Since, the test is two-tail test at \\alpha = {alpha * 2}")
+	print(f"\\\\z_{{\\alpha/2}} = z_{{{alpha * 2}/2}} = z_{{{alpha}}}")
+	print(f"\\\\z_{{\\alpha/2}} = \\pm {st.norm.ppf(1-alpha)}")
+	crit = st.norm.ppf(1-alpha)
+	print(f"Decision Rule: Reject the null hypothesis if the test statistic value is less than the critical value -{crit} or greater than the critical value {crit}")
+	if zfinal > crit:
+		print(f"The statistic value, {zfinal} is greater than the critical value {crit}. Hence, reject the null hypothesis.")
+	elif zfinal < -crit:
+		print(f"The statistic value, {zfinal} is less than the critical value -{crit}. Hence, reject the null hypothesis.")
+	else:
+		print(f"The statistic value, {zfinal} is between the critical values -{crit} and {crit}. Therefore, we fail to reject the null hypothesis.")
+if type1 == 2:
+	print("\\\\Null\\;Hypothesis --> H_0: p = p_0")
+	print("\\\\Alternate\\;Hypothesis --> H_1: p < p_0")
+	print("Z_0 = \\frac{X - np_0}{\\sqrt{np_0(1-p_0)}}")
+	print("Z_0 = \\frac{" + str(x) + "-" + str(n) + "." + str(p0) + "}{\\sqrt{" + str(n) + "." + str(p0) + "(1-" + str(p0) + ")}}")
+	zfinal = zvalue(x, p0, n)
+	print("Z_0 = " + str(zfinal))
+	if pval == 1:
+		print("Since P-value of a two tailed test is equal to (\\phi(Z_0)")
+		print("P = (\\phi(" + str(zfinal) + ")) ")
+		forP = st.norm.cdf(zfinal)
+		print("P = (" + str(forP) + ") ")
+		print("P = " + str(round((forP), 4)))
+		if forP < alpha *2:
+			print(f"Here, the P-value is less than the level of significance {alpha * 2}; reject the null hypothesis")
+		else:
+			print(f"Here, the P-value is greater than the level of significance {alpha * 2}; Fail to reject the null hypothesis")
+	print(f"Since, the test is two-tail test at \\alpha = {alpha * 2}")
+	print(f"\\\\z_{{\\alpha/2}} = z_{{{alpha * 2}/2}} = z_{{{alpha}}}")
+	print(f"\\\\z_{{\\alpha/2}} = {st.norm.ppf(1-alpha)}")
+	crit = st.norm.ppf(1-(alpha*2))
+	print(f"Decision Rule: Reject the null hypothesis if the test statistic value is less than the critical value -{crit} or greater than the critical value {crit}")
+	if zfinal < -crit:
+		print(f"The statistic value, {zfinal} is less than the critical value -{crit}. Hence, reject the null hypothesis.")
+	else:
+		print(f"The statistic value, {zfinal} is greater than the critical values -{crit} . Therefore, we fail to reject the null hypothesis.")
+if type1 == 3:
+	print("\\\\Null\\;Hypothesis --> H_0: p = p_0")
+	print("\\\\Alternate\\;Hypothesis --> H_1: p > p_0")
+	print("Z_0 = \\frac{X - np_0}{\\sqrt{np_0(1-p_0)}}")
+	print("Z_0 = \\frac{" + str(x) + "-" + str(n) + "." + str(p0) + "}{\\sqrt{" + str(n) + "." + str(p0) + "(1-" + str(p0) + ")}}")
+	zfinal = zvalue(x, p0, n)
+	print("Z_0 = " + str(zfinal))
+	if pval == 1:
+		print("Since P-value of a two tailed test is equal to 1-\\phi(Z_0)")
+		print("P = (1-\\phi(" + str(abs(zfinal)) + ")) ")
+		forP = st.norm.cdf(zfinal)
+		print("P = (1-" + str(forP) + ") ")
+		print("P = " + str(1-round((forP), 4)))
+	print(f"Since, the test is two-tail test at \\alpha = {alpha * 2}")
+	print(f"\\\\z_{{\\alpha/2}} = z_{{{alpha * 2}/2}} = z_{{{alpha}}}")
+	print(f"\\\\z_{{\\alpha/2}} = {st.norm.ppf(1-(alpha*2))}")
+	crit = st.norm.ppf(1-(alpha*2))
+	print(f"Decision Rule: Reject the null hypothesis if the test statistic value is greater than the critical value {crit}")
+	if zfinal > crit:
+		print(f"The statistic value, {zfinal} is greater than the critical value {crit}. Hence, reject the null hypothesis.")
+	else:
+		print(f"The statistic value, {zfinal} is less than the critical values  {crit}. Therefore, we fail to reject the null hypothesis.")
+if type1 == 4:
+	print("\\\\Null\\;Hypothesis --> H_0: p_1 = p_2")
+	print("\\\\Alternate\\;Hypothesis --> H_1: p_1 \\ne p_2")
+	print(f"\\\\\\hat P = \\frac{{X_1+X_2}}{{n_1+n_2}}")
+	print(f"\\\\\\hat P = \\frac{{{x1}+{x2}}}{{{n1}+{n2}}}")
+	print(f"\\\\\\hat P = \\frac{{{x1+x2}}}{{{n1+n2}}}")
+	hatP = get_p_hat_two_proportion(x1, x2,n1,n2)
+	print(f"\\\\\\hat P = {hatP}")
+	print(f"\\\\Z_0 = \\frac{{\\hat P_1 - \\hat P_2}}{{\\sqrt{{\\hat P(1-\\hat P)\\left(\\frac{{1}}{{n_1}} + \\frac{{1}}{{n_2}}\\right)}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1} - {p2}}}{{\\sqrt{{{hatP}(1-{hatP})\\left(\\frac{{1}}{{{n1}}} + \\frac{{1}}{{{n2}}}\\right)}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1 - p2}}}{{\\sqrt{{{hatP}({1-hatP})({1/n1}+{1/n2})}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1 - p2}}}{{\\sqrt{{{hatP*(1-hatP)*((1/n1)+(1/n2))}}}}}")
+	zfinal = get_test_static_two_proportion(p1, p2, hatP, n1, n2)
+	print("\\\\Z_0 = " + str(zfinal))
+	if pval == 1:
+		print("Since P-value of a two tailed test is equal to 2(\\phi(-|Z_0|)")
+		print("P = 2(\\phi(-" + str(abs(zfinal)) + ")) ")
+		forP = st.norm.cdf(-abs(zfinal))
+		print("P = 2(" + str(forP) + ") ")
+		print("P = " + str(round(2 * (forP), 4)))
+	print(f"Since, the test is two-tail test at \\alpha = {alpha * 2}")
+	print(f"\\\\z_{{\\alpha/2}} = z_{{{alpha * 2}/2}} = z_{{{alpha}}}")
+	print(f"\\\\z_{{\\alpha/2}} = \\pm {st.norm.ppf(1-alpha)}")
+	crit = st.norm.ppf(1-alpha)
+	print(f"Decision Rule: Reject the null hypothesis if the test statistic value is less than the critical value -{crit} or greater than the critical value {crit}")
+	if zfinal > crit:
+		print(f"The statistic value, {zfinal} is greater than the critical value {crit}. Hence, reject the null hypothesis.")
+	elif zfinal < -crit:
+		print(f"The statistic value, {zfinal} is less than the critical value -{crit}. Hence, reject the null hypothesis.")
+	else:
+		print(f"The statistic value, {zfinal} is between the critical values -{crit} and {crit}. Therefore, we fail to reject the null hypothesis.")
+if type1 == 5:
+	print("\\\\Null\\;Hypothesis --> H_0: p_1 = p_2")
+	print("\\\\Alternate\\;Hypothesis --> H_1: p_1 < p_2")
+	print(f"\\\\\\hat P = \\frac{{X_1+X_2}}{{n_1+n_2}}")
+	print(f"\\\\\\hat P = \\frac{{{x1}+{x2}}}{{{n1}+{n2}}}")
+	print(f"\\\\\\hat P = \\frac{{{x1+x2}}}{{{n1+n2}}}")
+	hatP = get_p_hat_two_proportion(x1, x2,n1,n2)
+	print(f"\\\\\\hat P = {hatP}")
+	print(f"\\\\Z_0 = \\frac{{\\hat P_1 - \\hat P_2}}{{\\sqrt{{\\hat P(1-\\hat P)\\left(\\frac{{1}}{{n_1}} + \\frac{{1}}{{n_2}}\\right)}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1} - {p2}}}{{\\sqrt{{{hatP}(1-{hatP})\\left(\\frac{{1}}{{{n1}}} + \\frac{{1}}{{{n2}}}\\right)}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1 - p2}}}{{\\sqrt{{{hatP}({1-hatP})({1/n1}+{1/n2})}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1 - p2}}}{{\\sqrt{{{hatP*(1-hatP)*((1/n1)+(1/n2))}}}}}")
+	zfinal = get_test_static_two_proportion(p1, p2, hatP, n1, n2)
+	print("\\\\Z_0 = " + str(zfinal))
+	if pval == 1:
+		print("Since P-value of a two tailed test is equal to (\\phi(Z_0)")
+		print("P = (\\phi(" + str(zfinal) + ")) ")
+		forP = st.norm.cdf(zfinal)
+		print("P = (" + str(forP) + ") ")
+		print("P = " + str(round((forP), 4)))
+		if forP < alpha *2:
+			print(f"Here, the P-value is less than the level of significance {alpha * 2}; reject the null hypothesis")
+		else:
+			print(f"Here, the P-value is greater than the level of significance {alpha * 2}; Fail to reject the null hypothesis")
+	print(f"\\\\z_{{\\alpha/2}} = z_{{{alpha * 2}/2}} = z_{{{alpha}}}")
+	print(f"\\\\z_{{\\alpha/2}} = {st.norm.ppf(1-alpha)}")
+	crit = st.norm.ppf(1-(alpha*2))
+	print(f"Decision Rule: Reject the null hypothesis if the test statistic value is less than the critical value -{crit} or greater than the critical value {crit}")
+	if zfinal < -crit:
+		print(f"The statistic value, {zfinal} is less than the critical value -{crit}. Hence, reject the null hypothesis.")
+	else:
+		print(f"The statistic value, {zfinal} is greater than the critical values -{crit} . Therefore, we fail to reject the null hypothesis.")
+if type1 == 6:
+	print("\\\\Null\\;Hypothesis --> H_0: p_1 = p_2")
+	print("\\\\Alternate\\;Hypothesis --> H_1: p_1 > p_2")
+	print(f"\\\\\\hat P = \\frac{{X_1+X_2}}{{n_1+n_2}}")
+	print(f"\\\\\\hat P = \\frac{{{x1}+{x2}}}{{{n1}+{n2}}}")
+	print(f"\\\\\\hat P = \\frac{{{x1+x2}}}{{{n1+n2}}}")
+	hatP = get_p_hat_two_proportion(x1, x2,n1,n2)
+	print(f"\\\\\\hat P = {hatP}")
+	print(f"\\\\Z_0 = \\frac{{\\hat P_1 - \\hat P_2}}{{\\sqrt{{\\hat P(1-\\hat P)\\left(\\frac{{1}}{{n_1}} + \\frac{{1}}{{n_2}}\\right)}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1} - {p2}}}{{\\sqrt{{{hatP}(1-{hatP})\\left(\\frac{{1}}{{{n1}}} + \\frac{{1}}{{{n2}}}\\right)}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1 - p2}}}{{\\sqrt{{{hatP}({1-hatP})({1/n1}+{1/n2})}}}}")
+	print(f"\\\\Z_0 = \\frac{{{p1 - p2}}}{{\\sqrt{{{hatP*(1-hatP)*((1/n1)+(1/n2))}}}}}")
+	zfinal = get_test_static_two_proportion(p1, p2, hatP, n1, n2)
+	print("\\\\Z_0 = " + str(zfinal))
+	if pval == 1:
+		print("Since P-value of a two tailed test is equal to 1-\\phi(Z_0)")
+		print("P = (1-\\phi(" + str(abs(zfinal)) + ")) ")
+		forP = st.norm.cdf(zfinal)
+		print("P = (1-" + str(forP) + ") ")
+		print("P = " + str(1-round((forP), 4)))
+	print(f"\\\\z_{{\\alpha/2}} = z_{{{alpha * 2}/2}} = z_{{{alpha}}}")
+	print(f"\\\\z_{{\\alpha/2}} = {st.norm.ppf(1-(alpha*2))}")
+	crit = st.norm.ppf(1-(alpha*2))
+	print(f"Decision Rule: Reject the null hypothesis if the test statistic value is greater than the critical value {crit}")
+	if zfinal > crit:
+		print(f"The statistic value, {zfinal} is greater than the critical value {crit}. Hence, reject the null hypothesis.")
+	else:
+		print(f"The statistic value, {zfinal} is less than the critical values  {crit}. Therefore, we fail to reject the null hypothesis.")

@@ -6,7 +6,7 @@ import webbrowser
 def error(z, sd, n):
 	return round((z * sd) / math.sqrt(n), 4)
 def errort2(t, s1, s2, n1, n2):
-	return round(t * (math.sqrt((((n1 - 1) * (s1 ** 2)) + ((n1 - 1) * (s1 ** 2))) / (n1 + n2 - 2))) * (math.sqrt((1/n1) + (1/n2))), 4)
+	return round(t * (math.sqrt((((n1 - 1) * (s1 ** 2)) + ((n2 - 1) * (s2 ** 2))) / (n1 + n2 - 2))) * (math.sqrt((1/n1) + (1/n2))), 4)
 def error2(z, s1, s2, n1, n2):
 	return round(z * math.sqrt(((s1 ** 2) / n1) + ((s2 ** 2) / n2)), 4)
 
@@ -116,7 +116,6 @@ if option == 1 and typ == 1:
 	if varknown != 1:
 		webbrowser.open('https://www.danielsoper.com/statcalc/calculator.aspx?id=10')
 		t = float(input("t_{\\alpha/2, n_1 + n_2 -2} = "))
-		print ("t_{\\alpha/2, n-1} = " + str(t))
 		print ("Since we know that")
 		print ("\\\\Confidence\; interval = \\bar{X_1}-\\bar{X_2} \pm t_{\\alpha/2, n-1}S_P\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}")
 		print ("\\\\S_P = \sqrt{\\frac{(n_1-1)s1^2 + (n_2-1)s2^2}{n_1 + n_2 - 2}}")

@@ -88,7 +88,8 @@ print(f"""Legend for types
 10. Finding all outliers
 11. Pearson’s Coefficient of Skewness
 12. Stem and Leaf Diagram
-13. Box Plot""")
+13. Box Plot
+14. Mode""")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 xbar = mean(xs)													#Mean of list
@@ -247,6 +248,9 @@ for i in range(parts):
 		plt.savefig('chegg-boxplot.png', patch_artist=True, vert=False)
 		plt.close()
 		print("")
-		
+	if ty == 14:
+		print(f"{chr(sec)}) Mode is the number which appears most often in a set of numbers.")
+		sec += 1
+		print(f"Mode = {max(set(xs), key=xs.count)}")
 
 print("Please hit thumps up if the answer helped you.")
