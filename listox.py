@@ -1,6 +1,7 @@
 import math
 from tabulate import tabulate
 import matplotlib.pyplot as plt
+import scipy.stats as st
 
 def mean(list):
 	return round(sum(list) / len(list), 4)
@@ -75,6 +76,15 @@ def stemAndLeaf(list):
 					stemLeaflist.append({"stem": stem, "leaf": [leaf]})"""
 	return stemLeaflist
 
+def error(z, sd, n):
+	return round((z * sd) / math.sqrt(n), 4)
+
+def errort2(t, s1, s2, n1, n2):
+	return round(t * (math.sqrt((((n1 - 1) * (s1 ** 2)) + ((n2 - 1) * (s2 ** 2))) / (n1 + n2 - 2))) * (math.sqrt((1/n1) + (1/n2))), 4)
+
+def error2(z, s1, s2, n1, n2):
+	return round(z * math.sqrt(((s1 ** 2) / n1) + ((s2 ** 2) / n2)), 4)
+
 print(f"""Legend for types
 1. Mean
 2. Median
@@ -122,12 +132,12 @@ for i in range(parts):
 	if ty == 1:
 		print(chr(sec) + ") Since we know that")
 		sec += 1
-		print("Mean(\\bar{x}) = \\frac{\sum_{i=1}^n x_i}{n}")
-		print("Where n is the number of data points")
-		print("Now")
-		print("\sum_{i=1}^n x_i = " + str(sum(xs)))
-		print("and n = " + str(n))
-		print("This implies that")
+		print("\\\\Mean(\\bar{x}) = \\frac{\\sum_{i=1}^n x_i}{n}")
+		print("\\\\Where\\ n\\ is\\ the\\ number\\ of\\ data\\ points")
+		print("\\\\Now")
+		print("\\\\\\sum_{i=1}^n x_i = " + str(sum(xs)))
+		print("\\\\and\\ n = " + str(n))
+		print("\\\\This\\ implies\\ that")
 		print("\\\\Mean(\\bar{x}) = \\frac{" + str(sum(xs)) + "}{" + str(n) + "}")
 		print("\\\\Mean(\\bar{x}) = " + str(xbar))
 	if ty == 2:
@@ -156,7 +166,7 @@ for i in range(parts):
 		print("\\\\Variance(s^2) = \\frac{" + str(xsumsquare) + "}{" + str(n-1) + "}")
 		print("\\\\Variance(s^2) = " + str(s2))
 	if ty == 5:
-		print(chr(sec) + ") Since we know that")
+		print("\\\\" + chr(sec) + ")\\ Since\\ we\\ know\\ that")
 		sec += 1
 		print("\\\\Variance(s^2) = \\frac{(\sum{x_i - \\bar{x}})^2}{n-1}")
 		print("\\\\(\sum{x_i - \\bar{x}})^2 = " + str(xsumsquare))
@@ -252,5 +262,85 @@ for i in range(parts):
 		print(f"{chr(sec)}) Mode is the number which appears most often in a set of numbers.")
 		sec += 1
 		print(f"Mode = {max(set(xs), key=xs.count)}")
+	if ty == 15:
+		mean = xbar
+		sd = s
+		print("\\\\Mean (\\bar{x}) = " + str(mean))
+		print("Sample size (n) = " + str(n))
+		print("Standard deviation (s) = " + str(s))
+		ci = float(input("Confidence interval(in %) = "))
+		if n < 30:
+			t = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
+			print ("\\\\t_{\\alpha/2, n-1} = " + str(t, 4))
+			print ("\\\\Since\\ we\\ know\\ that")
+			print ("\\\\Confidence\\; interval = \\bar{x} \\pm t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
+			E = error(t, sd, n)
+			ll = round(mean - E, 4)
+			ul = round(mean + E, 4)
+			print ("\\\\Required\\ confidence\\ interval = (" + str(mean) + "-" + str(t) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}}, "+ str(mean) + "+" + str(t) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}})")
+			print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
+			print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+		else:
+			z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
+			print ("z @ " + str(ci) + "% = " + str(z))
+			print ("\\\\Since\\ we\\ know\\ that")
+			print ("\\\\Confidence\\; interval = \\bar{x} \\pm z\\frac{s}{\\sqrt{n}}")
+			E = error(z, sd, n)
+			ll = round(mean - E, 4)
+			ul = round(mean + E, 4)
+			print ("\\\\Required\\ confidence\\ interval = (" + str(mean) + "-" + str(z) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}}, "+ str(mean) + "+" + str(z) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}})")
+			print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
+			print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+	if ty = 16: 
+		ci = float(input("Confidence interval(in %) = "))
+		xs2 = list(map(float, input("Input all the values of x: ").split()))
+		xbar2 = mean(xs2)
+		xmxbar2 = var(xs2, xbar2)
+		xmxbarsq2 = square(xmxbar2)
+		n2 = len(xs2)
+		xsumsquare2 = round(sum(xmxbarsq2), 4)
+		var2 = variance(xsumsquare2, n)
+		s2 = stddev(var2)
 
-print("Please hit thumps up if the answer helped you.")
+		header = ["X", "X - mean", "(X-mean)^2"]
+		table = zip(xs2, xmxbar2, xmxbarsq2)
+		print(tabulate((table), header, tablefmt="latex"))
+
+		mean1 = xbar
+		print("\\\\Mean\\ 1 (\\bar{X_1}) = " + str(mean1))
+		n1 = n
+		print("\\\\Sample\\ size\\ 1 (n_1) = " + str(n))
+		sd1 = s
+		print("\\\\Standard\\ deviation\\ 1 (s_1) = " + str(s))
+		mean2 = xbar2
+		print("\\\\Mean\\ 2 (\\bar{X_2}) = ")
+		print("\\\\Sample\\ size\\ 2 (n_2) = ")
+		sd2 = s2
+		print("\\\\Standard\\ deviation\\ 2 (s_2) = ")
+		if varknown != 1:
+			if n1 + n2 < 30:
+				t = round(st.t.ppf(1-((1-(ci/100))/2), n1 + n2 - 1), 4)
+				print("\\\\t_{\\alpha/2, n_1 + n_2 -2} = " + str(t, 4))
+				print ("\\\\Since\\ we\\ know\\ that")
+				print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm t_{\\alpha/2, n-1}S_P\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}")
+				print ("\\\\S_P = \sqrt{\\frac{(n_1-1)s1^2 + (n_2-1)s2^2}{n_1 + n_2 - 2}}")
+				E = errort2(t, sd1, sd2, n1, n2)
+				ll = round(mean1 - mean2 - E, 4)
+				ul = round(mean1 - mean2 + E, 4)
+				mean = round(mean1 - mean2, 4)
+				print ("\\\\Required\\; confidence\\; interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}}, "+ str(mean1) + "-" + str(mean2) + "+" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}})")
+				print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
+				print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+			else:
+				z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
+				print ("z @ " + str(ci) + "% = " + str(z))
+				print ("\\\\Since\\ we\\ know\\ that")
+				print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm z_{\\alpha/2}\sqrt{\\frac{\sigma_1^2}{n_1} + \\frac{\sigma_2^2}{n_2}")
+				E = error2(z, sd1, sd2, n1, n2)
+				ll = round(mean1 - mean2 - E, 4)
+				ul = round(mean1 - mean2 + E, 4)
+				print ("\\\\Required\\ confidence\\ interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}}, " + str(mean1) + "-" + str(mean2) + "+" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}})")
+				print ("Required confidence interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(E) + ", "+ str(mean1) + "-" + str(mean2) + "+" + str(E) + ")")
+				print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+
+print("Please hit thumbs up if the answer helped you.")

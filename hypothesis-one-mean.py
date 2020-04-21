@@ -68,7 +68,7 @@ elif type1 > 3:
 			sd1 = float(input("\\\\\\S_1 = "))
 			sd2 = float(input("\\\\\\S_2 = "))
 			var1 = sd1 ** 2
-			var2 = sd2 ** 2
+			var2 = sd2 ** 2startTimeEastern
 			print(f"\\\\\\S_1^2 = {var1}")
 			print(f"\\\\\\S_2^2 = {var2}")
 	n1 = int(input("\\\\n_1 = "))
@@ -428,3 +428,4 @@ elif type1 == 6:
 		else:
 			print(f"Since t_0 = {zfinal}<{crit}=t_{{{alpha * 2}, {n1 + n2 - 2}}}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha * 2}.")
 
+print("Please hit thumbs up if the answer helped you.")
