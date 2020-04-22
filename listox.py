@@ -99,7 +99,9 @@ print(f"""Legend for types
 11. Pearson’s Coefficient of Skewness
 12. Stem and Leaf Diagram
 13. Box Plot
-14. Mode""")
+14. Mode
+15. Confidence Interval one mean
+16. Confidence Interval two means""")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 xbar = mean(xs)													#Mean of list
@@ -271,7 +273,7 @@ for i in range(parts):
 		ci = float(input("Confidence interval(in %) = "))
 		if n < 30:
 			t = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
-			print ("\\\\t_{\\alpha/2, n-1} = " + str(t, 4))
+			print ("\\\\t_{\\alpha/2, n-1} = " + str(t))
 			print ("\\\\Since\\ we\\ know\\ that")
 			print ("\\\\Confidence\\; interval = \\bar{x} \\pm t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
 			E = error(t, sd, n)
@@ -291,7 +293,7 @@ for i in range(parts):
 			print ("\\\\Required\\ confidence\\ interval = (" + str(mean) + "-" + str(z) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}}, "+ str(mean) + "+" + str(z) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}})")
 			print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
 			print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
-	if ty = 16: 
+	if ty == 16: 
 		ci = float(input("Confidence interval(in %) = "))
 		xs2 = list(map(float, input("Input all the values of x: ").split()))
 		xbar2 = mean(xs2)
