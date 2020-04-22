@@ -46,9 +46,9 @@ if xOrZ == 1:
 		ty = int(input("Type of this part: "))
 
 		if ty == 1:
-			x1 = float(input(chr(sec) + ") " + "x = "))
+			x1 = float(input("x = "))
+			print (f"{chr(sec)} P(x < {x1})=?")
 			sec += 1 
-			print ("P(x < " + str(x1) + ")=?")
 			print(f"The z-score at x = {x1} is, ")
 			print (f"z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
@@ -58,9 +58,9 @@ if xOrZ == 1:
 			print (f"P(x < {x1}) = P(z < {z1}) = \\textbf{{{ans}}}")
 	
 		if ty == 2:
-			x1 = float(input(chr(sec) + ") " + "x = "))
+			x1 = float(input("x = "))
+			print (f"{chr(sec)} P(x > {x1})=?")
 			sec += 1 
-			print ("P(x > " + str(x1) + ")=?")
 			print(f"The z-score at x = {x1} is, ")
 			print (f"z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
@@ -71,15 +71,15 @@ if xOrZ == 1:
 			print (f"P(x > {x1}) = \\textbf{{{ans}}}")
 	
 		elif ty == 3:
-			x1 = float(input(chr(sec) + ") " + "x1 = "))
-			sec += 1 
+			x1 = float(input("x1 = "))
 			x2 = float(input("x2 = "))
-			print ("P(" + str(x1) + " < x < " + str(x2) + ")=?")
-			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"{chr(sec)}) P({x1} < x < {x2})=?")
+			sec += 1 
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1}\\ is, ")
 			print (f"\\\\ z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
 			print ("\\\\ z_1 = " + (str(z1)))
-			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x2}\\ is, ")
 			print (f"\\\\ z = \\frac{{{x2}-{mean}}}{{{sd}}}")
 			z2 = z(x2, mean, sd)
 			print ("\\\\ z_2 = " + str(z2))
@@ -89,15 +89,15 @@ if xOrZ == 1:
 			print (f"P({x1} < x < {x2}) = {st.norm.cdf(z2)} - {st.norm.cdf(z1)}")
 			print (f"P({x1} < x < {x2}) = \\textbf{{{ans}}}")	
 		elif ty == 4:
-			x1 = float(input(chr(sec) + ") " + "x1 = "))
-			sec += 1 
+			x1 = float(input("x1 = "))
 			x2 = float(input("x2 = "))
-			print ("P(X < " + str(x1) + " or X > " + str(x2) + ")=?")
-			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print (f"{chr(sec)}) P(X < {x1} or X > {x2})=?")
+			sec += 1 
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x1}\\ is, ")
 			print (f"\\\\ z = \\frac{{{x1}-{mean}}}{{{sd}}}")
 			z1 = z(x1, mean, sd)
 			print ("\\\\ z_1 = " + (str(z1)))
-			print(f"\\\\ The\\; z-score\\; at\\; x = {x1} is, ")
+			print(f"\\\\ The\\; z-score\\; at\\; x = {x2}\\ is, ")
 			print (f"\\\\ z = \\frac{{{x2}-{mean}}}{{{sd}}}")
 			z2 = z(x2, mean, sd)
 			print ("\\\\ z_2 = " + str(z2))
@@ -107,7 +107,7 @@ if xOrZ == 1:
 
 		elif ty == 5:
 			pn = float(input("p = "))
-			zn = st.norm.ppf(pn)
+			zn = round(st.norm.ppf(pn), 4)
 			xn = xi(zn, mean, sd)
 			print (chr(sec) + ") Given in the question ")
 			sec += 1
@@ -151,14 +151,19 @@ elif xOrZ == 2:
 			z2 = float(input("z2 = "))
 			ans = round(st.norm.cdf(z2) - st.norm.cdf(z1), 4)
 			print ("This implies that")
-			print ("P(" + str(z1) + " < z < " + str(z2) + ") = " + str(ans))
+			print(f"P({z1} < z < {z2}) = P(z < z2) - P(z < z1)")
+			print(f"P({z1} < z < {z2}) = {st.norm.cdf(z2)} - {st.norm.cdf(z2)}")
+			print(f"P({z1} < z < {z2}) = {ans}")
 		elif ty == 4:
 			z1 = float(input(chr(sec) + ") " + "z1 = "))
 			sec += 1 
 			z2 = float(input("z2 = "))
 			ans = round(1 - st.norm.cdf(z2) + st.norm.cdf(z1), 4)
 			print ("This implies that")
-			print ("P(z < " + str(z1) + " or z > " + str(z2) + ") = " +str(ans))
+			print(f"P(z < {z1} or z > {z2}) = 1 - (P(z < z2) - P(z < z1))")
+			print(f"P(z < {z1} or z > {z2}) = 1 - P(z < z2) + P(z < z1)")
+			print(f"P(z < {z1} or z > {z2}) = 1 - {st.norm.cdf(z2)} + {st.norm.cdf(z2)}")
+			print(f"P(z < {z1} or z > {z2}) = {ans}")
 		elif ty == 5:
 			pn = float(input("p = "))
 			zn = st.norm.ppf(pn)
@@ -180,4 +185,4 @@ elif xOrZ == 2:
 			print("So this data is not unusual value")
 
 print ("PS: you have to refer z score table to find the final probabilities.")
-print ("Please hit thumps up if the answer helped you")
+print ("Please hit thumbs up if the answer helped you")
