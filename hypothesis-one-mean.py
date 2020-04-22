@@ -62,15 +62,15 @@ elif type1 > 3:
 			print(f"\\\\\\sigma_2^2 = {var2}")
 	if var_type == 2:
 		if type3 == 1:
-			var1 = float(input("\\\\\\S_1^2 = "))
-			var2 = float(input("\\\\\\S_2^2 = "))
+			var1 = float(input("\\\\S_1^2 = "))
+			var2 = float(input("\\\\S_2^2 = "))
 		else:
-			sd1 = float(input("\\\\\\S_1 = "))
-			sd2 = float(input("\\\\\\S_2 = "))
+			sd1 = float(input("\\\\S_1 = "))
+			sd2 = float(input("\\\\S_2 = "))
 			var1 = sd1 ** 2
-			var2 = sd2 ** 2startTimeEastern
-			print(f"\\\\\\S_1^2 = {var1}")
-			print(f"\\\\\\S_2^2 = {var2}")
+			var2 = sd2 ** 2
+			print(f"\\\\S_1^2 = {var1}")
+			print(f"\\\\S_2^2 = {var2}")
 	n1 = int(input("\\\\n_1 = "))
 	n2 = int(input("\\\\n_2 = "))
 	alpha = round(float(input("\\\\\\alpha = ")) / 2, 4)
