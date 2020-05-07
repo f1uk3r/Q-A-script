@@ -302,11 +302,24 @@ for i in range(parts):
 		n2 = len(xs2)
 		xsumsquare2 = round(sum(xmxbarsq2), 4)
 		var2 = variance(xsumsquare2, n)
-		s2 = stddev(var2)
+		sd2 = stddev(var2)
 
 		header = ["X", "X - mean", "(X-mean)^2"]
 		table = zip(xs2, xmxbar2, xmxbarsq2)
 		print(tabulate((table), header, tablefmt="latex"))
+
+		print("\\\\\\sum_{i=1}^n x_i = " + str(sum(xs2)))
+		print("\\\\and\\ n = " + str(n2))
+		print("\\\\This\\ implies\\ that")
+		print("\\\\Mean(\\bar{x}) = \\frac{" + str(sum(xs2)) + "}{" + str(n2) + "}")
+		print("\\\\Mean(\\bar{x}) = " + str(xbar2))
+
+		print("\\\\(\sum{x_i - \\bar{x}})^2 = " + str(xsumsquare2))
+		print("\\\\n = " + str(n2))
+		print("\\\\Variance(s^2) = \\frac{" + str(xsumsquare2) + "}{" + str(n2-1) + "}")
+		print("\\\\Variance(s^2) = " + str(var2))
+		print("\\\\Standard\;Deviation(s) = \sqrt{Variance}")
+		print("\\\\Standard\;Deviation(s) = " + str(sd2)) 
 
 		mean1 = xbar
 		print("\\\\Mean\\ 1 (\\bar{X_1}) = " + str(mean1))
@@ -315,34 +328,32 @@ for i in range(parts):
 		sd1 = s
 		print("\\\\Standard\\ deviation\\ 1 (s_1) = " + str(s))
 		mean2 = xbar2
-		print("\\\\Mean\\ 2 (\\bar{X_2}) = ")
-		print("\\\\Sample\\ size\\ 2 (n_2) = ")
-		sd2 = s2
-		print("\\\\Standard\\ deviation\\ 2 (s_2) = ")
-		if varknown != 1:
-			if n1 + n2 < 30:
-				t = round(st.t.ppf(1-((1-(ci/100))/2), n1 + n2 - 1), 4)
-				print("\\\\t_{\\alpha/2, n_1 + n_2 -2} = " + str(t, 4))
-				print ("\\\\Since\\ we\\ know\\ that")
-				print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm t_{\\alpha/2, n-1}S_P\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}")
-				print ("\\\\S_P = \sqrt{\\frac{(n_1-1)s1^2 + (n_2-1)s2^2}{n_1 + n_2 - 2}}")
-				E = errort2(t, sd1, sd2, n1, n2)
-				ll = round(mean1 - mean2 - E, 4)
-				ul = round(mean1 - mean2 + E, 4)
-				mean = round(mean1 - mean2, 4)
-				print ("\\\\Required\\; confidence\\; interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}}, "+ str(mean1) + "-" + str(mean2) + "+" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}})")
-				print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
-				print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
-			else:
-				z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
-				print ("z @ " + str(ci) + "% = " + str(z))
-				print ("\\\\Since\\ we\\ know\\ that")
-				print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm z_{\\alpha/2}\sqrt{\\frac{\sigma_1^2}{n_1} + \\frac{\sigma_2^2}{n_2}")
-				E = error2(z, sd1, sd2, n1, n2)
-				ll = round(mean1 - mean2 - E, 4)
-				ul = round(mean1 - mean2 + E, 4)
-				print ("\\\\Required\\ confidence\\ interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}}, " + str(mean1) + "-" + str(mean2) + "+" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}})")
-				print ("Required confidence interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(E) + ", "+ str(mean1) + "-" + str(mean2) + "+" + str(E) + ")")
-				print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+		print("\\\\Mean\\ 2 (\\bar{X_2}) = " + str(xbar2))
+		print("\\\\Sample\\ size\\ 2 (n_2) = " + str(n2))
+		print("\\\\Standard\\ deviation\\ 2 (s_2) = " + str(sd2))
+		if n1 + n2 < 30:
+			t = round(st.t.ppf(1-((1-(ci/100))/2), n1 + n2 - 1), 4)
+			print("\\\\t_{\\alpha/2, n_1 + n_2 -2} = " + str(t))
+			print ("\\\\Since\\ we\\ know\\ that")
+			print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm t_{\\alpha/2, n-1}S_P\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}")
+			print ("\\\\S_P = \sqrt{\\frac{(n_1-1)s1^2 + (n_2-1)s2^2}{n_1 + n_2 - 2}}")
+			E = errort2(t, sd1, sd2, n1, n2)
+			ll = round(mean1 - mean2 - E, 4)
+			ul = round(mean1 - mean2 + E, 4)
+			mean = round(mean1 - mean2, 4)
+			print ("\\\\Required\\; confidence\\; interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}}, "+ str(mean1) + "-" + str(mean2) + "+" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}})")
+			print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
+			print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+		else:
+			z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
+			print ("z @ " + str(ci) + "% = " + str(z))
+			print ("\\\\Since\\ we\\ know\\ that")
+			print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm z_{\\alpha/2}\sqrt{\\frac{\sigma_1^2}{n_1} + \\frac{\sigma_2^2}{n_2}")
+			E = error2(z, sd1, sd2, n1, n2)
+			ll = round(mean1 - mean2 - E, 4)
+			ul = round(mean1 - mean2 + E, 4)
+			print ("\\\\Required\\ confidence\\ interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}}, " + str(mean1) + "-" + str(mean2) + "+" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}})")
+			print ("Required confidence interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(E) + ", "+ str(mean1) + "-" + str(mean2) + "+" + str(E) + ")")
+			print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
 
 print("Please hit thumbs up if the answer helped you.")
