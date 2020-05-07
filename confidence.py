@@ -16,7 +16,7 @@ if option == 1 and typ != 1:
 	mean = float(input("\\\\Mean (\\bar{x}) = "))
 	n = int(input("\\\\Sample\\ size (n) = "))
 	sd = float(input("\\\\Standard\\ deviation (s) = "))
-	ci = float(input("\\\\Confidence\\ interval(in %) = "))
+	ci = float(input("\\\\Confidence\\ interval\\ (in \\%) = "))
 	if n < 30:
 		t = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
 		print ("\\\\t_{\\alpha/2, n-1} = " + str(t))
@@ -42,7 +42,7 @@ if option == 1 and typ != 1:
 elif option == 2 and typ != 1:
 	n = int(input("Sample size (n) = "))
 	sd = float(input("Standard deviation (s) = "))
-	ci = int(input("Confidence interval(in %) = "))
+	ci = float(input("Confidence interval (in %) = "))
 	if n < 30:
 		t = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
 		print ("\\\\t_{\\alpha/2, n-1} = " + str(t))
@@ -64,7 +64,7 @@ elif option == 3 and typ != 1:
 	mean = float(input("Mean (\\bar{x}) = "))
 	n = int(input("Sample size (n) = "))
 	sd = float(input("Standard deviation (s) = "))
-	ci = int(input("Confidence interval(in %) = "))
+	ci = float(input("Confidence interval (in %) = "))
 	if n < 30:
 		t = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
 		print ("\\\\t_{\\alpha/2, n-1} = " + str(t))
@@ -95,10 +95,10 @@ elif option == 3 and typ != 1:
 		print ("\\\\Required\\; confidence\\; interval = (" + str(mean) + "-" + str(z) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}}, "+ str(mean) + "+" + str(z) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}})")
 		print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
 		print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
-elif option == 2 and typ != 1:
-	e = int(input("Margin of error (e) = "))
+elif option == 4 and typ != 1:
+	e = float(input("Margin of error (e) = "))
 	sd = float(input("Standard deviation (s) = "))
-	ci = int(input("Confidence interval(in %) = "))
+	ci = float(input("Confidence interval(in %) = "))
 	z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
 	print ("z @ " + str(ci) + "% = " + str(z))
 	print ("\\\\Since\\ we\\ know\\ that")

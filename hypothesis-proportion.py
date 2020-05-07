@@ -19,6 +19,7 @@ if type1<4:
 	p0 = float(input("Proportion (p_0) = "))
 	if proportionOrNumber == 1:
 		p = float(input("\\hat p = "))
+		n = int(input("Total number of sample (n) = "))
 	elif proportionOrNumber == 2:
 		n = int(input("Total number of sample (n) = "))
 		x = int(input("number of favourable events (X) = "))
