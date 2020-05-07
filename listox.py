@@ -427,17 +427,17 @@ for i in range(parts):
 		perc = float(input("Percentile = "))
 		print(f"Ordered list: {xinc}")
 		print("index = percentile * n")
-		print(f"index = {perc} * {n}")
-		index = perc * n
+		print(f"index = {perc/100} * {n}")
+		index = (perc/100) * n
 		print(f"index = {index}")
 		if index.is_integer():
 			print(f"The {perc}th percentile is the average of value corresponding to index and the value that directly follows it.")
-			print(f"{perc}th percentile = ({xinc[index-1]} + {xinc[index]})/2")
-			print(f"{perc}th percentile = {xinc[index-1] + xinc[index]}/2")
-			print(f"{perc}th percentile = {(xinc[index-1] + xinc[index])/2}")
+			print(f"{perc}th percentile = ({xinc[int(index-1)]} + {xinc[int(index)]})/2")
+			print(f"{perc}th percentile = {xinc[int(index-1)] + xinc[int(index)]}/2")
+			print(f"{perc}th percentile = {(xinc[int(index-1)] + xinc[int(index)])/2}")
 		else:
 			print(f"The corresponding value to the index in your data set is the {perc}th percentile")
-			print(f"{perc}th percentile = {xinc[index-1]}")
+			print(f"{perc}th percentile = {xinc[int(round(index-1))]}")
 
 
 print("Please hit thumbs up if the answer helped you.")
