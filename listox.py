@@ -102,7 +102,8 @@ print(f"""Legend for types
 14. Mode
 15. Confidence Interval one mean
 16. Confidence Interval two means
-17. Five Point Summary""")
+17. Five Point Summary
+18. Percentile""")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 xbar = mean(xs)													#Mean of list
@@ -390,6 +391,21 @@ for i in range(parts):
 		print(f"Med = {med}")
 		print(f"Q3 = {Q3}")
 		print(f"Max = {xinc[-1]}")
+	if ty == 18:
+		perc = float(input("Percentile = "))
+		print(f"Ordered list: {xinc}")
+		print("index = percentile * n")
+		print(f"index = {perc} * {n}")
+		index = perc * n
+		print(f"index = {index}")
+		if index.is_integer():
+			print(f"The {perc}th percentile is the average of value corresponding to index and the value that directly follows it.")
+			print(f"{perc}th percentile = ({xinc[index-1]} + {xinc[index]})/2")
+			print(f"{perc}th percentile = {xinc[index-1] + xinc[index]}/2")
+			print(f"{perc}th percentile = {(xinc[index-1] + xinc[index])/2}")
+		else:
+			print(f"The corresponding value to the index in your data set is the {perc}th percentile")
+			print(f"{perc}th percentile = {xinc[index-1]}")
 
 
 print("Please hit thumbs up if the answer helped you.")
