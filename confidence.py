@@ -5,8 +5,10 @@ import math
 import webbrowser
 def error(z, sd, n):
 	return round((z * sd) / math.sqrt(n), 4)
+def sp(s1, s2, n1, n2):
+	return round((math.sqrt((((n1 - 1) * (s1 ** 2)) + ((n2 - 1) * (s2 ** 2))) / (n1 + n2 - 2))), 4)
 def errort2(t, s1, s2, n1, n2):
-	return round(t * (math.sqrt((((n1 - 1) * (s1 ** 2)) + ((n2 - 1) * (s2 ** 2))) / (n1 + n2 - 2))) * (math.sqrt((1/n1) + (1/n2))), 4)
+	return round(t * sp(s1, s2, n1, n2) * (math.sqrt((1/n1) + (1/n2))), 4)
 def error2(z, s1, s2, n1, n2):
 	return round(z * math.sqrt(((s1 ** 2) / n1) + ((s2 ** 2) / n2)), 4)
 
@@ -117,17 +119,21 @@ if option == 1 and typ == 1:
 	sd2 = float(input("\\\\Standard\\ deviation\\ 2 (s_2) = "))
 	ci = float(input("Confidence interval(in %) = "))
 	if varknown != 1:
-		if n1 + n2 < 30:
+		if n1 + n2 - 2 < 30:
 			t = round(st.t.ppf(1-((1-(ci/100))/2), n1 + n2 - 1), 4)
 			print("\\\\t_{\\alpha/2, n_1 + n_2 -2} = " + str(t))
 			print ("\\\\Since\\ we\\ know\\ that")
-			print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm t_{\\alpha/2, n-1}S_P\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}")
 			print ("\\\\S_P = \sqrt{\\frac{(n_1-1)s1^2 + (n_2-1)s2^2}{n_1 + n_2 - 2}}")
+			print (f"\\\\S_P = \\sqrt{{\\frac{{({n1}-1){sd1}^2 + ({n2}-1){sd2}^2}}{{{n1} + {n2} - 2}}}}")
+			print (f"\\\\S_P = \\sqrt{{\\frac{{({n1-1}){sd1**2} + ({n2-1}){sd2**2}}}{{{n1 + n2 - 2}}}}}")
 			E = errort2(t, sd1, sd2, n1, n2)
+			sP = sp(sd1, sd2, n1, n2)
 			ll = round(mean1 - mean2 - E, 4)
 			ul = round(mean1 - mean2 + E, 4)
 			mean = round(mean1 - mean2, 4)
-			print ("\\\\Required\\; confidence\\; interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}}, "+ str(mean1) + "-" + str(mean2) + "+" + str(t) + "S_P\sqrt{\\frac{1}{" + str(n1) + "}+\\frac{1}{" + str(n2) + "}})")
+			print(f"\\\\S_P = {sP}")
+			print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm t_{\\alpha/2, n-1}S_P\sqrt{\\frac{1}{n_1}+\\frac{1}{n_2}}")
+			print (f"\\\\Required\\; confidence\\; interval = ({mean1} - {mean2} - ({t}) ({sP})\\sqrt{{\\frac{{1}}{{{n1}}}+\\frac{{1}}{{{n2}}}}}, {mean1} - {mean2} + ({t})  ({sP})\\sqrt{{\\frac{{1}}{{{n1}}}+\\frac{{1}}{{{n2}}}}})")
 			print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
 			print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
 		else:
