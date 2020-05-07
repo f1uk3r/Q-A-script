@@ -101,7 +101,8 @@ print(f"""Legend for types
 13. Box Plot
 14. Mode
 15. Confidence Interval one mean
-16. Confidence Interval two means""")
+16. Confidence Interval two means
+17. Five Point Summary""")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 xbar = mean(xs)													#Mean of list
@@ -355,5 +356,40 @@ for i in range(parts):
 			print ("\\\\Required\\ confidence\\ interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}}, " + str(mean1) + "-" + str(mean2) + "+" + str(z) + "\sqrt{\\frac{" + str(sd1) + "^2}{" + str(n1) + "} + \\frac{" + str(sd2) + "^2}{" + str(n2) + "}})")
 			print ("Required confidence interval = (" + str(mean1) + "-" + str(mean2) + "-" + str(E) + ", "+ str(mean1) + "-" + str(mean2) + "+" + str(E) + ")")
 			print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+	if ty == 17:
+		print("The maximum and the minimum values are as follows")
+		print(f"Minimum value = {xinc[0]}")
+		print(f"Maximum value = {xinc[-1]}")
+		print("Since we know that")
+		print("Median for a list of even number of data point is the mean of 2 middle most values if we sort the list in increasing order while for a list of odd number it is the middle most value if the list is sorted in increasing order.")
+		if len(xs)%2 == 0:
+			print("Since our list have even number of data points, this implies that")
+			print("Median = " + str(med))
+		else:
+			print("Since our list have odd number of data points, this implies that")
+			print("Median = " + str(med))
+		print("Since we know that")
+		print("The lower quartile(Q1) is the median of the lower half of the data set while upper quartile(Q3) is the median of the upper half of the data set.")
+		if len(xs)%2 == 0:
+			print("Lower half of our list is " + str(lh))
+			print("Since our lower half list have even number of data points, this implies that")
+			print("Q1 = " + str(Q1))
+			print("Upper half of our list is " + str(uh))
+			print("Since our upper half list have even number of data points, this implies that")
+			print("Q3 = " + str(Q3))
+		else:
+			print("Lower half of our list is " + str(lh))
+			print("Since our lower half list have even number of data points, this implies that")
+			print("Q1 = " + str(Q1))
+			print("Upper half of our list is " + str(uh))
+			print("Since our upper half list have even number of data points, this implies that")
+			print("Q3 = " + str(Q3))
+		print(f"Five point summary = {xinc[0]}, {Q1}, {med}, {Q3}, {xinc[-1]}")
+		print(f"Min = {xinc[0]}")
+		print(f"Q1 = {Q1}")
+		print(f"Med = {med}")
+		print(f"Q3 = {Q3}")
+		print(f"Max = {xinc[-1]}")
+
 
 print("Please hit thumbs up if the answer helped you.")
