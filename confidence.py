@@ -140,7 +140,7 @@ if option == 1 and typ == 1:
 			z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
 			print ("z @ " + str(ci) + "% = " + str(z))
 			print ("\\\\Since\\ we\\ know\\ that")
-			print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm z_{\\alpha/2}\sqrt{\\frac{\sigma_1^2}{n_1} + \\frac{\sigma_2^2}{n_2}")
+			print ("\\\\Confidence\\; interval = \\bar{X_1}-\\bar{X_2} \\pm z_{\\alpha/2}\sqrt{\\frac{\sigma_1^2}{n_1} + \\frac{\sigma_2^2}{n_2}}")
 			E = error2(z, sd1, sd2, n1, n2)
 			ll = round(mean1 - mean2 - E, 4)
 			ul = round(mean1 - mean2 + E, 4)

@@ -327,6 +327,7 @@ for i in range(parts):
 			print ("\\\\Required\\ confidence\\ interval = (" + str(mean) + "-" + str(z) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}}, "+ str(mean) + "+" + str(z) + "\\frac{" + str(sd) + "}{\\sqrt{" + str(n) + "}})")
 			print ("Required confidence interval = (" + str(mean) + "-" + str(E) + ", "+ str(mean) + "+" + str(E) + ")")
 			print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+		print(f"Interpretion: We are {ci}% confident that the true mean of the population lie between the interval {ll} and {ul}.")
 	if ty == 16: 
 		ci = float(input("Confidence interval(in %) = "))
 		xs2 = list(map(float, input("Input all the values of x: ").split()))

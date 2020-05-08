@@ -28,12 +28,16 @@ if type1<4:
 else:
 	n1 = int(input("Total number of sample 1 (n1) = "))
 	n2 = int(input("Total number of sample 2 (n2) = "))
-	x1 = int(input("number of favourable events (X1) = "))
-	x2 = int(input("number of favourable events (X2) = "))
-	p1 = x1/n1
-	p2 = x2/n2
-	print(f"\\\\\\hat p_1 = \\frac{{X_1}}{{n_1}} = \\frac{{{x1}}}{{{n1}}} = {p1}")
-	print(f"\\\\\\hat p_2 = \\frac{{X_2}}{{n_2}} = \\frac{{{x2}}}{{{n2}}} = {p2}")
+	if proportionOrNumber == 1:
+		p1 = float(input("\\\\\\hat p_1 = "))
+		p2 = float(input("\\\\\\hat p_2 = "))
+	elif proportionOrNumber == 2:
+		x1 = int(input("number of favourable events (X1) = "))
+		x2 = int(input("number of favourable events (X2) = "))
+		p1 = x1/n1
+		p2 = x2/n2
+		print(f"\\\\\\hat p_1 = \\frac{{X_1}}{{n_1}} = \\frac{{{x1}}}{{{n1}}} = {p1}")
+		print(f"\\\\\\hat p_2 = \\frac{{X_2}}{{n_2}} = \\frac{{{x2}}}{{{n2}}} = {p2}")
 
 
 alpha = round(float(input("\\\\\\alpha = ")) / 2, 4)
