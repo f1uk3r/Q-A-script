@@ -123,7 +123,7 @@ if option == 1 and typ == 1:
 			t = round(st.t.ppf(1-((1-(ci/100))/2), n1 + n2 - 1), 4)
 			print("\\\\t_{\\alpha/2, n_1 + n_2 -2} = " + str(t))
 			print ("\\\\Since\\ we\\ know\\ that")
-			print ("\\\\S_P = \sqrt{\\frac{(n_1-1)s1^2 + (n_2-1)s2^2}{n_1 + n_2 - 2}}")
+			print ("\\\\S_P = \sqrt{\\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1 + n_2 - 2}}")
 			print (f"\\\\S_P = \\sqrt{{\\frac{{({n1}-1){sd1}^2 + ({n2}-1){sd2}^2}}{{{n1} + {n2} - 2}}}}")
 			print (f"\\\\S_P = \\sqrt{{\\frac{{({n1-1}){sd1**2} + ({n2-1}){sd2**2}}}{{{n1 + n2 - 2}}}}}")
 			E = errort2(t, sd1, sd2, n1, n2)
