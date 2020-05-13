@@ -1,5 +1,6 @@
 import math
 import matplotlib.pyplot as plt
+import scipy.stats as st
 from tabulate import tabulate
 import webbrowser
 
@@ -46,10 +47,13 @@ Legend for option
 4. Line Graph \n5. Scatterplot and Line graph \n6. Residual for one value
 7. Residual Table \n8. Scatterplot of residual 
 9. Residual sum of squares or error sum of square and estimation of variance
-10. Question with six parts \n11. Coefficient of determination r^2
+10. Question with six parts 
+11. Coefficient of determination r^2 (Calculated by squaring r)
 12. Testing Correlation's significance
-13. SST SSR SSE
-14. estimated variance
+13. SST=S_{yy}(total sum of square) SSR(regression sum of squares) SSE(residual sum of squares)
+14. estimated variance (using sst and ssr)
+15. Confidence interval on the slope beta_1
+16. Confidence interval on the intercept beta_0
 ''')
 
 parts = int(input("How many parts: "))
@@ -91,6 +95,9 @@ es = sub(ys, somey)
 ees = square(es)
 
 ee = round(sum(ees),4)
+
+sxx = round(xx - (x*x/n), 4)
+seb = round((((sst-ssr)/(n-2))/sxx)**0.5, 4)
 
 print ("\\\\ \sum X =" + str(x) + ", \sum Y =" + str(y) + "\\\\ \sum XY =" + str(xy) + ", \sum XX =" + str(xx) + ", \sum YY =" + str(yy))
 for i in range(parts):
@@ -256,9 +263,36 @@ for i in range(parts):
 		print(f"\\\\SSE = {sst} - {ssr}")
 		print(f"\\\\SSE = {sst - ssr}")
 	elif option == 14:
-		print(f"\\hat s^2 = \frac{{SS_E}}{{n-2}}")
-		print(f"\\hat s^2 = \frac{{{sst-ssr}}}{{{n}-2}}")
-		print(f"\\hat s^2 = \frac{{{sst-ssr}}}{{{n-2}}}")
-		print(f"\\hat s^2 = {(sst-ssr)/(n-2)}")
-
-print ("Please hit thumps up if the answer helped you")
+		print(f"\\hat{{\\sigma}}^2 = \frac{{SS_E}}{{n-2}}")
+		print(f"\\hat{{\\sigma}}^2 = \frac{{SS_T - SS_R}}{{n-2}}")
+		print(f"\\hat{{\\sigma}}^2 = \frac{{{sst}-{ssr}}}{{{n}-2}}")
+		print(f"\\hat{{\\sigma}}^2 = \frac{{{sst-ssr}}}{{{n-2}}}")
+		print(f"\\hat{{\\sigma}}^2 = {(sst-ssr)/(n-2)}")
+	elif option == 15:
+		ci = float(input("Confidence Interval (in %) = "))
+		t = round(st.t.ppf(1-((1-(ci/100))/2), n-2), 4)
+		print(f"\\\\\\alpha = {round(1-(ci/100), 4)} and d.f. = n-2 = {n-2}")
+		print(f"\\\\t_{{\\alpha/2, n-2}} = t_{{{round((1-(ci/100))/2,4)}, {n-2}}} = {t}")
+		print ("\\\\ \\hat{\\beta}_1 = \\frac{n\\sum XY -\\sum X*\\sum Y}{n\\sum X^2 -(\\sum X)^2}")
+		print ("\\\\ \\hat{\\beta}_1 = \\frac{" + str(n) + "*" + str(xy) + " - " + str(x) + "*" + str(y) + "}{" + str(n) + "*" + str(xx) + " - " + str(x) + "*" + str(x) + "} \\approx " + str(b1))
+		print("\\\\S.E.(\\hat{\\beta}_1) =\\ standard\\ error\\ of\\ \\hat{\\beta}_1 = \\sqrt{\\frac{\\sigma^2}{S_{xx}}}")
+		print(f"\\\\Where,\\ \\sigma^2 = \\hat{{\\sigma}}^2 = {(sst-ssr)/(n-2)}")
+		print(f"\\\\And,\\ S_{{xx}} = \\sum X^2 -\\frac{{(\\sum X)^2}}{{n}}")
+		print(f"\\\\S_{{xx}} = {xx} -\\frac{{({x})^2}}{{{n}}}")
+		print(f"\\\\S_{{xx}} = {sxx}")
+		print(f"\\\\So,\\ S.E.(\\hat{{\\beta}}_1) =\\sqrt{{\\frac{{{(sst-ssr)/(n-2)}}}{{{sxx}}}}}")
+		print(f"\\\\S.E.(\\hat{{\\beta}}_1) = {seb}")
+		print("Since we know that")
+		print("\\\\\\beta_1 - t_{\\alpha/2, n-2}*S.E.(\\hat{\\beta}_1) < \\beta_1 < \\beta_1 + t_{\\alpha/2, n-2}*S.E.(\\hat{\\beta}_1)")
+		print(f"\\\\{b1}- {t}*{seb} < \\beta_1 < {b1} + {t}*{seb}")
+		print(f"\\\\{b1}- {round(t*seb,4)} < \\beta_1 < {b1} + {round(t*seb,4)}")
+		print(f"\\\\ {round(b1 - (t*seb),4)} < \\beta_1 < {round(b1 + (t*seb),4)}")
+	elif option == 16:
+		ci = float(input("Confidence Interval (in %) = "))
+		t = round(st.t.ppf(1-((1-(ci/100))/2), n-2), 4)
+		print(f"\\\\\\alpha = {round(1-(ci/100), 4)} and d.f. = n-2 = {n-2}")
+		print(f"\\\\t_{{\\alpha/2, n-2}} = t_{{{round((1-(ci/100))/2,4)}, {n-2}}} = {t}")
+		print ("\\\\ \\beta_0 = \\frac{\\sum Y * \\sum XX-\sum X*\\sum XY}{n\\sum X^2 -(\\sum X)^2}")
+		print ("\\\\ \\beta_0 = \\frac{" + str(y) + "*" + str(xx) + " - " + str(x) + "*" + str(xy) + "}{" + str(n) + "*" + str(xx) + " - " + str(x) + "*" + str(x) + "} \\approx " + str(a1))
+		
+print("Please hit thumps up if the answer helped you")
