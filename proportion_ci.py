@@ -88,10 +88,19 @@ elif option == 3 and typ != 1:
 	print ("Required confidence interval = (" + str(p) + "-" + str(E) + ", "+ str(p) + "+" + str(E) + ")")
 	print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
 elif option == 1 and typ == 1:
-	p1 = float(input("Sample proportion1 (\\hat{p1}) = "))
-	p2 = float(input("Sample proportion2 (\\hat{p2}) = "))
-	n1 = int(input("Sample size1 (n1) = "))
-	n2 = int(input("Sample size2 (n2) = "))
+	n1 = int(input("Total number of sample 1 (n1) = "))
+	n2 = int(input("Total number of sample 2 (n2) = "))
+	if proportionOrNumber == 1:
+		p1 = float(input("\\\\\\hat p_1 = "))
+		p2 = float(input("\\\\\\hat p_2 = "))
+	elif proportionOrNumber == 2:
+		x1 = int(input("number of favourable events (X1) = "))
+		x2 = int(input("number of favourable events (X2) = "))
+		p1 = x1/n1
+		p2 = x2/n2
+		print(f"\\\\\\hat p_1 = \\frac{{X_1}}{{n_1}} = \\frac{{{x1}}}{{{n1}}} = {p1}")
+		print(f"\\\\\\hat p_2 = \\frac{{X_2}}{{n_2}} = \\frac{{{x2}}}{{{n2}}} = {p2}")
+
 	p = p1-p2
 	sd = stdErrorTwoProportion(p1,p2,n1,n2)
 	ci = int(input("Confidence interval(in %) = "))
