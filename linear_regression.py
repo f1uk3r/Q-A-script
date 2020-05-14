@@ -54,6 +54,8 @@ Legend for option
 14. estimated variance (using sst and ssr)
 15. Confidence interval on the slope beta_1
 16. Confidence interval on the intercept beta_0
+17. Hypotheses test on the slope beta_1
+18. Hypotheses test on the intercept beta_0
 ''')
 
 parts = int(input("How many parts: "))
@@ -97,6 +99,12 @@ ees = square(es)
 ee = round(sum(ees),4)
 
 sxx = round(xx - (x*x/n), 4)
+print(sxx)
+print(sst)
+print(ssr)
+print(sst-ssr)
+print(n)
+print()
 seb1 = round((((sst-ssr)/(n-2))/sxx)**0.5, 4)
 
 sigmasquare = round((sst-ssr)/(n-2),4)
@@ -313,4 +321,114 @@ for i in range(parts):
 		print(f"\\\\{a1}- {t}*{seb0} < \\beta_0 < {a1} + {t}*{seb0}")
 		print(f"\\\\{a1}- {round(t*seb0,4)} < \\beta_0 < {a1} + {round(t*seb0,4)}")
 		print(f"\\\\ {round(a1 - (t*seb0),4)} < \\beta_0 < {round(a1 + (t*seb0),4)}")
+	elif option == 17:
+		hypothesesType = int(input("1. for \\ne, 2. for <, 3. for >"))
+		alpha = round(float(input("\\\\\\alpha = ")), 4)
+		print("The null and alternative hypotheses for testing the significance of the slope are, ")
+		if hypothesesType == 1:
+			print("\\\\H_0: \\beta_1 = 0")
+			print("\\\\H_1: \\beta_1 \\ne 0")
+		elif hypothesesType == 2:
+			print("\\\\H_0: \\beta_1 = 0")
+			print("\\\\H_1: \\beta_1 < 0")
+		elif hypothesesType == 3:
+			print("\\\\H_0: \\beta_1 = 0")
+			print("\\\\H_1: \\beta_1 > 0")
+		print("The test statistic is, ")
+		print("\\\\T_0 = \\frac{\\hat{\\beta}_1}{S.E.(\\hat{\\beta}_1)}")
+		print("\\\\ \\hat{\\beta}_1 = \\frac{n\\sum XY -\\sum X*\\sum Y}{n\\sum X^2 -(\\sum X)^2}")
+		print("\\\\ \\hat{\\beta}_1 = \\frac{" + str(n) + "*" + str(xy) + " - " + str(x) + "*" + str(y) + "}{" + str(n) + "*" + str(xx) + " - " + str(x) + "*" + str(x) + "} \\approx " + str(b1))
+		print("\\\\S.E.(\\hat{\\beta}_1) =\\ standard\\ error\\ of\\ \\hat{\\beta}_1 = \\sqrt{\\frac{\\sigma^2}{S_{xx}}}")
+		print(f"\\\\Where,\\ \\sigma^2 = \\hat{{\\sigma}}^2 = {round((sst-ssr)/(n-2), 4)}")
+		print(f"\\\\And,\\ S_{{xx}} = \\sum X^2 -\\frac{{(\\sum X)^2}}{{n}}")
+		print(f"\\\\S_{{xx}} = {xx} -\\frac{{({x})^2}}{{{n}}}")
+		print(f"\\\\S_{{xx}} = {sxx}")
+		print(f"\\\\So,\\ S.E.(\\hat{{\\beta}}_1) =\\sqrt{{\\frac{{{round((sst-ssr)/(n-2), 4)}}}{{{sxx}}}}}")
+		print(f"\\\\S.E.(\\hat{{\\beta}}_1) = {seb1}")
+		print(f"\\\\T_0 = \\frac{{{b1}}}{{{seb1}}}")
+		t0 = round(b1/seb1, 2)
+		print(f"\\\\T_0 = {b1/seb1}")
+		print(f"\\\\T_0\\approx {t0}")
+		if hypothesesType == 1:
+			crit = round(st.t.ppf(1 - (alpha/2), n-2),4)
+			print(f"Critical value = {crit}")
+			print("Decision Rule: Reject the null Hypothesis if test statistic > critical value or if test statistic < -critical value")
+			if (-crit <= t0 <= crit):
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha/2}, {n-2}}}={crit}.\\ Since\\ -critical\\ value = {-crit} < {t0} < {crit} = critical\\ value.\\\\We\\ fail\\ to\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_1=0\\ at\\ \\alpha={alpha}.")
+			elif (t0<-crit):
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha/2}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} < -{crit} = -critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_1=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_1\\ne0\\ at\\ \\alpha={alpha}.")
+			else:
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha/2}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} > {crit} = critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_1=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_1\\ne0\\ at\\ \\alpha={alpha}.")
+		elif hypothesesType == 2:
+			crit = round(st.t.ppf(1 - (alpha), n-2),4)
+			print(f"Critical value = {crit}")
+			print("Decision Rule: Reject the null Hypothesis if test statistic < -critical value")
+			if (t0>=-crit):
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} > -{crit} = -critical\\ value.\\\\We\\ fail\\ to\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_1=0\\ at\\ \\alpha={alpha}.")
+			else:
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} < -{crit} = -critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_1=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_1<0\\ at\\ \\alpha={alpha}.")
+		elif hypothesesType == 3:
+			crit = round(st.t.ppf(1 - (alpha), n-2),4)
+			print(f"Critical value = {crit}")
+			print("Decision Rule: Reject the null Hypothesis if test statistic > critical value")
+			if (t0<=crit):
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} < {crit} = critical\\ value.\\\\We\\ fail\\ to\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_1=0\\ at\\ \\alpha={alpha}.")
+			else:
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} > {crit} = critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_1=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_1>0\\ at\\ \\alpha={alpha}.")
+	elif option == 18:
+		hypothesesType = int(input("1. for \\ne, 2. for <, 3. for >"))
+		alpha = round(float(input("\\\\\\alpha = ")), 4)
+		print("The null and alternative hypotheses for testing the significance of the slope are, ")
+		if hypothesesType == 1:
+			print("\\\\H_0: \\beta_0 = 0")
+			print("\\\\H_1: \\beta_0 \\ne 0")
+		elif hypothesesType == 2:
+			print("\\\\H_0: \\beta_0 = 0")
+			print("\\\\H_1: \\beta_0 < 0")
+		elif hypothesesType == 3:
+			print("\\\\H_0: \\beta_0 = 0")
+			print("\\\\H_1: \\beta_0 > 0")
+		print("The test statistic is, ")
+		print("\\\\T_0 = \\frac{\\hat{\\beta}_0}{S.E.(\\hat{\\beta}_0)}")
+		print ("\\\\ \\hat{\\beta}_0 = \\frac{\\sum Y * \\sum XX-\sum X*\\sum XY}{n\\sum X^2 -(\\sum X)^2}")
+		print ("\\\\ \\hat{\\beta}_0 = \\frac{" + str(y) + "*" + str(xx) + " - " + str(x) + "*" + str(xy) + "}{" + str(n) + "*" + str(xx) + " - " + str(x) + "*" + str(x) + "} \\approx " + str(a1))
+		print("\\\\S.E.(\\hat{\\beta}_0) = standard\\ error\\ of\\ \\hat{\\beta}_1 = \\sqrt{\\sigma^2\\left[\\frac{1}{n}+\\frac{\\bar{x}^2}{S_{xx}}\\right]}")
+		print(f"\\\\Where,\\ \\sigma^2 = \\hat{{\\sigma}}^2 = {(sst-ssr)/(n-2)}")
+		print(f"\\\\And,\\ S_{{xx}} = \\sum X^2 -\\frac{{(\\sum X)^2}}{{n}}")
+		print(f"\\\\S_{{xx}} = {xx} -\\frac{{({x})^2}}{{{n}}}")
+		print(f"\\\\S_{{xx}} = {sxx}")
+		print(f"\\\\ n = {n}")
+		print(f"\\\\ \\bar x = {xbar}")
+		print(f"\\\\So,\\ S.E.(\\hat{{\\beta}}_0) =\\sqrt{{{sigmasquare}\\left[\\frac{{1}}{{{n}}}+\\frac{{{xbar}^2}}{{{sxx}}}\\right]}}")
+		print(f"\\\\S.E.(\\hat{{\\beta}}_0) = {sigmasquare}({round(1/n,4)} + {round((xbar**2)/sxx, 4)})")
+		print(f"\\\\S.E.(\\hat{{\\beta}}_0) = {seb0}")
+		t0 = round(a1/seb0, 2)
+		print(f"\\\\T_0 = {b1/seb0}")
+		print(f"\\\\T_0\\approx {t0}")
+		if hypothesesType == 1:
+			crit = round(st.t.ppf(1 - (alpha/2), n-2),4)
+			print(f"Critical value = {crit}")
+			print("Decision Rule: Reject the null Hypothesis if test statistic > critical value or if test statistic < -critical value")
+			if (-crit <= t0 <= crit):
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha/2}, {n-2}}}={crit}.\\ Since\\ -critical\\ value = {-crit} < {t0} < {crit} = critical\\ value.\\\\We\\ fail\\ to\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ at\\ \\alpha={alpha}.")
+			elif (t0<-crit):
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha/2}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} < -{crit} = -critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_0\\ne0\\ at\\ \\alpha={alpha}.")
+			else:
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha/2}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} > {crit} = critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_0\\ne0\\ at\\ \\alpha={alpha}.")
+		elif hypothesesType == 2:
+			crit = round(st.t.ppf(1 - (alpha), n-2),4)
+			print(f"Critical value = {crit}")
+			print("Decision Rule: Reject the null Hypothesis if test statistic < -critical value")
+			if (t0>=-crit):
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} > -{crit} = -critical\\ value.\\\\We\\ fail\\ to\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ at\\ \\alpha={alpha}.")
+			else:
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} < -{crit} = -critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_0<0\\ at\\ \\alpha={alpha}.")
+		elif hypothesesType == 3:
+			crit = round(st.t.ppf(1 - (alpha), n-2),4)
+			print(f"Critical value = {crit}")
+			print("Decision Rule: Reject the null Hypothesis if test statistic > critical value")
+			if (t0<=crit):
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} < {crit} = critical\\ value.\\\\We\\ fail\\ to\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ at\\ \\alpha={alpha}.")
+			else:
+				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} > {crit} = critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_0>0\\ at\\ \\alpha={alpha}.")
 print("Please hit thumps up if the answer helped you")
