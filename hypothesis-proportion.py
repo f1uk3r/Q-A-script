@@ -4,7 +4,7 @@ import scipy.stats as st
 def zvalue(x, p, n):
 	return round((x - (n * p))/(math.sqrt(n*p*(1-p))), 4)
 def zvalueproportion(p, p0, n):
-	return round((p - p0)/((p0(1-p0)/n)**0.5), 4)
+	return round((p - p0)/((p0*(1-p0)/n)**0.5), 4)
 def get_p_hat_two_proportion(x1, x2,n1,n2):
 	return round((x1+x2)/(n1+n2), 4)
 def get_test_static_two_proportion(p1, p2, hatP, n1, n2):
@@ -138,7 +138,7 @@ if type1 == 4 and proportionOrNumber == 2:
 	print(f"Since, the test is two-tail test at \\alpha = {alpha * 2}")
 	print(f"\\\\z_{{\\alpha/2}} = z_{{{alpha * 2}/2}} = z_{{{alpha}}}")
 	print(f"\\\\z_{{\\alpha/2}} = \\pm {st.norm.ppf(1-alpha)}")
-	crit = st.norm.ppf(1-alpha)
+	crit = st.norm.ppf(1-(alpha*2))
 	print(f"Decision Rule: Reject the null hypothesis if the test statistic value is less than the critical value -{crit} or greater than the critical value {crit}")
 	if zfinal > crit:
 		print(f"The statistic value, {zfinal} is greater than the critical value {crit}. Hence, reject the null hypothesis.")

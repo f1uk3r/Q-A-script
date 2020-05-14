@@ -103,7 +103,7 @@ if type1 == 1:
 		elif zfinal < (-crit):
 			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} < -{crit} = -z_{{{alpha}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} at \\alpha={alpha*2}.")
 		elif zfinal > crit:
-			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} > {crit} = -z_{{{alpha}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} at \\alpha={alpha*2}.")
+			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} > {crit} = z_{{{alpha}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} at \\alpha={alpha*2}.")
 		else:
 			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} < -{crit} = -z_{{{alpha}}}, we fail to reject the null hypothesis H_0:\\mu={mean} at \\alpha={alpha*2}.")
 	elif var_type == 2:
@@ -196,8 +196,8 @@ elif type1 == 3:
 		print("\\\\Z_0 = " + str(zfinal))
 		if pval == 1:
 			print("Since P-value of a upper tailed test is equal to (1 - \\phi(|Z_0|)")
-			print(f"P = 2(1 - \\phi({zfinal}))")
-			print(f"P = 2(1 - {st.norm.cdf(zfinal)})")
+			print(f"P = (1 - \\phi({zfinal}))")
+			print(f"P = (1 - {st.norm.cdf(zfinal)})")
 			print(f"P = {round(1 - st.norm.cdf(zfinal), 6)}")
 			crit = 1 - st.norm.cdf(zfinal)
 			if crit < alpha * 2:
@@ -387,8 +387,8 @@ elif type1 == 6:
 		print("\\\\Z_0 = " + str(zfinal))
 		if pval == 1:
 			print("Since P-value of a upper tailed test is equal to (1 - \\phi(Z_0)")
-			print(f"P = 2(1 - \\phi({zfinal}))")
-			print(f"P = 2(1 - {st.norm.cdf(zfinal)})")
+			print(f"P = (1 - \\phi({zfinal}))")
+			print(f"P = (1 - {st.norm.cdf(zfinal)})")
 			print(f"P = {round(1 - st.norm.cdf(zfinal), 6)}")
 			crit = 1 - st.norm.cdf(zfinal)
 			if crit < alpha * 2:
