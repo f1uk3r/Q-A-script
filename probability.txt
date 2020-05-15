@@ -13,6 +13,14 @@ Step 2. Press VARS button
 Step 3. choose normal cdf
 Step 4. enter normalcdf(12.01, 12.02, 12.02, 0.01)
 
+Inverse Normal TI84
+
+Procedure for TI - 84
+Step 1. Press 2nd button
+Step 2. Press VARS button
+Step 3. choose invNorm
+Step 4. enter invNorm(0.7, 12.02, 12.02, 0.01)
+
 Binomial TI 84
 
 For exactly one value use binompdf, for less than equal to use binomcdf
