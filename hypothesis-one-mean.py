@@ -30,8 +30,8 @@ var_type = int(input("1. Population variance or 2. Sample variance: "))
 
 
 if type1 < 4:
-	mean = float(input("\\mu_0 = "))
-	n = int(input("n = "))
+	mean = float(input("\\\\\\mu_0 = "))
+	n = int(input("\\\\n = "))
 	if var_type == 1:
 		sd = float(input("\\\\\\sigma = "))
 	elif var_type == 2:
@@ -94,18 +94,16 @@ if type1 == 1:
 			print(f"P = {round(2 * (1 - st.norm.cdf(zfinal)), 6)}")
 			crit = 2 * (1 - st.norm.cdf(zfinal))
 			if crit < alpha * 2:
-				print(f"Suppose that the significance level \\alpha is specified to be {alpha*2}, we would reject the null hypothesis H_0:\\mu= {mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} because P = {crit}<{alpha*2}")
+				print(f"\\\\\\\\\\text{{Suppose that the significance level }}\\alpha\\text{{ is specified to be {alpha*2}, we would reject the null hypothesis }} H_0:\\mu={mean} \\text{{ in favor of the alternative hypothesis }}H_1:\\mu\\ne{mean}\\text{{ because P = }}{crit}<{alpha*2}")
 			else:
-				print(f"Since P = {crit} > {alpha * 2}, we fail to reject the null hypothesis H_0: \\mu = {mean} at \\alpha = {alpha *2}")
+				print(f"\\\\\\\\\\text{{Since P = }}{crit} > {alpha * 2}\\text{{,\\text{{ we fail to reject the null hypothesis }}H_0: }}\\mu = {mean}\\text{{ at }}\\alpha = {alpha *2}")
 		crit = round(1 - st.norm.cdf(zfinal), 4)
-		if crit == 0:
-			crit = float(input("critical value = "))
-		elif zfinal < (-crit):
-			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} < -{crit} = -z_{{{alpha}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} at \\alpha={alpha*2}.")
+		if zfinal < (-crit):
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}.\\text{{ Since }}z_0 = {zfinal} < -{crit} = -z_{{{alpha}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu\\ne{mean}\\text{{ at }}\\alpha={alpha*2}.")
 		elif zfinal > crit:
-			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} > {crit} = z_{{{alpha}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}.\\text{{ Since }}z_0 = {zfinal} > {crit} = z_{{{alpha}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu\\ne{mean}\\text{{ at }}\\alpha={alpha*2}.")
 		else:
-			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} < -{crit} = -z_{{{alpha}}}, we fail to reject the null hypothesis H_0:\\mu={mean} at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}.\\text{{ Since }}z_0 = {zfinal} < -{crit} = -z_{{{alpha}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu={mean}\\text{{ at }}\\alpha={alpha*2}.")
 	elif var_type == 2:
 		print("\\\\t_0 = \\frac{\\bar{X} - \\mu_0}{s/\\sqrt{n}}")
 		print("\\\\t_0 = \\frac{" + str(barx) + "- " + str(mean) + "}{" + str(sd) + "/\\sqrt{" + str(n) + "}}")
@@ -113,18 +111,18 @@ if type1 == 1:
 		print("\\\\t_0 = " + str(zfinal))
 		if pval == 1:
 			crit = 2 * st.t.cdf(-abs(zfinal), n-1)
-			print(f"Using Excel's function =T.DIST.2T(|t_0|,n-1), the P-value for t_0 = {zfinal} in an t-test with {n-1} degrees of freedom can be computed as P = P(T_{{{n-1}}}>{zfinal})=T.DIST.2T(|{zfinal}|,{n-1})={crit}.")
+			print(f"\\\\\\\\\\text{{Using Excel's function }}=T.DIST.2T(|t_0|,n-1)\\text{{, the P-value for }}t_0 = {zfinal}\\text{{ in an t-test with {n-1} degrees of freedom can be computed as P = }}P(T_{{{n-1}}}>{zfinal})=T.DIST.2T(|{zfinal}|,{n-1})={crit}.")
 			if crit < alpha * 2:
-				print(f"We would reject the null hypothesis H_0:\\mu= {mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} because P = {crit}<{alpha*2}")
+				print(f"\\\\\\\\\\text{{We would reject the null hypothesis }}H_0:\\mu= {mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu\\ne{mean}\\text{{ because P = }}{crit}<{alpha*2}")
 			else:
-				print(f"Since P = {crit} > {alpha * 2}, we fail to reject the null hypothesis H_0: \\mu = {mean} at \\alpha = {alpha *2}")
-		crit = st.t.ppf(1 - (alpha), n-1)
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha * 2}, we fail to reject the null hypothesis }}H_0: \\mu = {mean}\\text{{ at }}\\alpha = {alpha *2}")
+		crit = round(st.t.ppf(1 - (alpha), n-1), 4)
 		if zfinal < (-crit):
-			print(f"For \\alpha = {alpha * 2}, t_{{\\alpha/2}}=t_{{{alpha}}}={crit}. Since t_0 = {zfinal} < -{crit} = -t_{{{alpha}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, t_{{\\alpha/2}}=t_{{{alpha}}}={crit}.\\text{{ Since }}t_0 = {zfinal} < -{crit} = -t_{{{alpha}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu\\ne{mean}\\text{{ at }}\\alpha={alpha*2}.")
 		elif zfinal > crit:
-			print(f"For \\alpha = {alpha * 2}, t_{{\\alpha/2}}=t_{{{alpha}}}={crit}. Since t_0 = {zfinal} > {crit} = -t_{{{alpha}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu\\ne{mean} at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, t_{{\\alpha/2}}=t_{{{alpha}}}={crit}.\\text{{ Since }}t_0 = {zfinal} > {crit} = -t_{{{alpha}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu\\ne{mean}\\text{{ at }}\\alpha={alpha*2}.")
 		else:
-			print(f"For \\alpha = {alpha * 2}, t_{{\\alpha/2}}=t_{{{alpha}}}={crit}. Since t_0 = {zfinal} < -{crit} = -t_{{{alpha}}}, we fail to reject the null hypothesis H_0:\\mu={mean} at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, t_{{\\alpha/2}}=t_{{{alpha}}}={crit}.\\text{{ Since }}t_0 = {zfinal} < -{crit} = -t_{{{alpha}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu={mean}\\text{{ at }}\\alpha={alpha*2}.")
 
 elif type1 == 2:
 	type2 = int(input("1. Null Hypothesis =\\n2. Null Hypophesis \\ge"))
@@ -146,37 +144,37 @@ elif type1 == 2:
 			print(f"P = {round(st.norm.cdf(zfinal), 4)}")
 			crit = st.norm.cdf(zfinal)
 			if crit < alpha * 2:
-				print(f"Since P = {crit} < {alpha*2}, we reject the null hypothesis H_0:\\mu= {mean} in favor of the alternative hypothesis H_1:\\mu>{mean} at \\alpha = {alpha*2}.")
+				print(f"\\\\\\\\\\text{{Since P = {crit} < {alpha*2}, we reject the null hypothesis }}H_0:\\mu= {mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu>{mean}\\text{{ at }}\\alpha = {alpha*2}.")
 			else:
-				print(f"Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis H_0: \\mu = {mean} at \\alpha = {alpha *2}")
-		crit = st.norm.ppf(1 - (alpha * 2))
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis }}H_0: \\mu = {mean}\\text{{ at }}\\alpha = {alpha *2}")
+		crit = round(st.norm.ppf(1 - (alpha * 2)), 4)
 		if crit == 0:
 			crit = float(input("critical value = "))
 		if zfinal < (-crit):
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are -Z_" + str(alpha*2) + " = -" + str(crit) + " and we note that Z_0 falls in the critical region. Therefore, H_0 is rejected, and we concluded that the mean is not equal to " + str(mean))
+			print("\\\\\\\\\\text{Since }\\alpha = " + str(alpha * 2) + "\\text{, the boundaries of the critical region are }-Z_{" + str(alpha*2) + " = -" + str(crit) + "}\\text{ and we note that }Z_0\\text{ falls in the critical region. Therefore, }H_0\\text{ is rejected, and we concluded that the mean is not equal to }" + str(mean))
 		else:
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are -Z_" + str(alpha*2) + " = -" + str(crit) + " and we note that Z_0 does not falls in the critical region. Therefore, we fail to reject H_0.")
+			print("\\\\\\\\\\text{Since }\\alpha = " + str(alpha * 2) + "\\text{, the boundaries of the critical region are }-Z_{" + str(alpha*2) + " = -" + str(crit) + "}\\text{ and we note that }Z_0\\text{ does not falls in the critical region. Therefore, we fail to reject }H_0.")
 	elif var_type == 2:
 		print("\\\\t_0 = \\frac{\\bar{X} - \\mu_0}{s/\\sqrt{n}}")
-		print("\\\\t_0 = \\frac{" + str(barx) + "- " + str(mean) + "}{" + str(sd) + "/\\sqrt{" + str(n) + "}")
+		print("\\\\t_0 = \\frac{" + str(barx) + "- " + str(mean) + "}{" + str(sd) + "/\\sqrt{" + str(n) + "}}")
 		zfinal = zvalue(barx, mean, sd, n)
 		print("\\\\t_0 = " + str(zfinal))
 		if pval == 1:
 			crit = st.t.cdf(zfinal, n-1)
-			print(f"Using Excel's function =T.DIST(t_0,n-1,TRUE), the P-value for t_0 = {zfinal} in an power-tailed t-test with {n-1} degrees of freedom can be computed as P = P(T_{{{n-1}}}<{zfinal})=T.DIST({zfinal},{n-1},TRUE)={crit}.")
+			print(f"\\\\\\\\\\text{{Using Excel's function }}=T.DIST(t_0,n-1,TRUE)\\text{{, the P-value for }}t_0 = {zfinal} \\text{{in an power-tailed t-test with {n-1} degrees of freedom can be computed as P = }}P(T_{{{n-1}}}<{zfinal})=T.DIST({zfinal},{n-1},TRUE)={crit}.")
 			if crit < alpha * 2:
-				print(f"Since P = {crit} < {alpha*2}, we reject the null hypothesis H_0:\\mu= {mean} in favor of the alternative hypothesis H_1:\\mu>{mean} at \\alpha = {alpha*2}.")
+				print(f"\\\\\\\\\\text{{Since P = {crit} < {alpha*2}, we reject the null hypothesis }}H_0:\\mu= {mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu>{mean}\\text{{ at }}\\alpha = {alpha*2}.")
 			else:
-				print(f"Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis H_0: \\mu = {mean} at \\alpha = {alpha *2}")
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis }}H_0: \\mu = {mean}\\text{{ at }}\\alpha = {alpha *2}")
 		print(f"Since the sample size is n = {n}, degrees of freedom on the t-test statistic are n-1 = {n}-1 = {n-1}")
-		crit = st.t.ppf(1 - (alpha * 2), n-1)
+		crit = round(st.t.ppf(1 - (alpha * 2), n-1), 4)
 		print(f"This implies that")
-		print(f"t_{{\\alpha, n-1}} = t_{{{alpha * 2}, {n-1}}} = {crit}")
-		print(f"Since, the t distribution is symmetric about zero, so -t_{{{alpha*2},{n-1}}}")
+		print(f"\\\\t_{{\\alpha, n-1}} = t_{{{alpha * 2}, {n-1}}} = {crit}")
+		print(f"\\text{{Since, the t distribution is symmetric about zero, so }}-t_{{{alpha*2},{n-1}}}")
 		if zfinal < (-crit):
-			print(f"Since t_0 = {zfinal}<-{crit}=-t_{{{alpha*2}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu >{mean} at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}<-{crit}=-t_{{{alpha*2}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu >{mean}\\text{{ at }}\\alpha = {alpha * 2}.")
 		else:
-			print(f"Since t_0 = {zfinal}>-{crit}=-t_{{{alpha*2}}}, we fail to reject the null hypothesis H_0:\\mu={mean} at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}>-{crit}=-t_{{{alpha*2}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu={mean}\\text{{ at }}\\alpha = {alpha * 2}.")
 		
 
 elif type1 == 3:
@@ -201,16 +199,16 @@ elif type1 == 3:
 			print(f"P = {round(1 - st.norm.cdf(zfinal), 6)}")
 			crit = 1 - st.norm.cdf(zfinal)
 			if crit < alpha * 2:
-				print(f"Since P = {crit} < {alpha*2}, we reject the null hypothesis H_0:\\mu= {mean} in favor of the alternative hypothesis H_1:\\mu>{mean} at \\alpha = {alpha*2}.")
+				print(f"\\\\\\\\\\text{{Since P = {crit} < {alpha*2}, we reject the null hypothesis }}H_0:\\mu= {mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu>{mean}\\text{{ at }}\\alpha = {alpha*2}.")
 			else:
-				print(f"Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis H_0: \\mu = {mean} at \\alpha = {alpha *2}")
-		crit = st.norm.ppf(1 - (alpha * 2))
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis }}H_0: \\mu = {mean}\\text{{ at }}\\alpha = {alpha *2}")
+		crit = round(st.norm.ppf(1 - (alpha * 2)), 4)
 		if crit == 0:
 			crit = float(input("critical value = "))
 		if zfinal > crit :
-			print(f"For \\alpha = {alpha * 2}, z_\\alpha = z_{{{alpha * 2}}} = {crit}. Since z_0 = {zfinal}>{crit}=z_{{{alpha*2}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu >{mean} at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_\\alpha = z_{{{alpha * 2}}} = {crit}\\text{{. Since }}z_0 = {zfinal}>{crit}=z_{{{alpha*2}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu >{mean}\\text{{ at }}\\alpha = {alpha * 2}.")
 		else:
-			print(f"For \\alpha = {alpha * 2}, z_\\alpha = z_{{{alpha * 2}}} = {crit}. Since z_0 = {zfinal}<{crit}=z_{{{alpha*2}}}, we fail to reject the null hypothesis H_0:\\mu={mean} at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_\\alpha = z_{{{alpha * 2}}} = {crit}\\text{{. Since }}z_0 = {zfinal}<{crit}=z_{{{alpha*2}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu={mean}\\text{{ at }}\\alpha = {alpha * 2}.")
 	elif var_type == 2:
 		print("\\\\t_0 = \\frac{\\bar{X} - \\mu_0}{s/\\sqrt{n}}")
 		print("\\\\t_0 = \\frac{" + str(barx) + "- " + str(mean) + "}{" + str(sd) + "/\\sqrt{" + str(n) + "}}")
@@ -218,19 +216,19 @@ elif type1 == 3:
 		print("\\\\t_0 = " + str(zfinal))
 		if pval == 1:
 			crit = st.t.cdf(-zfinal, n-1)
-			print(f"Using Excel's function =T.DIST.RT(t_0,n-1), the P-value for t_0 = {zfinal} in an upper-tailed t-test with {n-1} degrees of freedom can be computed as P = P(T_{{{n-1}}}>{zfinal})=T.DIST.RT({zfinal},{n-1})={crit}.")
+			print(f"\\\\\\\\\\text{{Using Excel's function }}=T.DIST.RT(t_0,n-1)\\text{{, the P-value for }}t_0 = {zfinal}\\text{{ in an upper-tailed t-test with {n-1} degrees of freedom can be computed as P = }}P(T_{{{n-1}}}>{zfinal})=T.DIST.RT({zfinal},{n-1})={crit}.")
 			if crit < alpha * 2:
-				print(f"Since P = {crit} < {alpha*2}, we reject the null hypothesis H_0:\\mu= {mean} in favor of the alternative hypothesis H_1:\\mu>{mean} at \\alpha = {alpha*2}.")
+				print(f"\\\\\\\\\\text{{Since P = {crit} < {alpha*2}, we reject the null hypothesis }}H_0:\\mu= {mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu>{mean}\\text{{ at }}\\alpha = {alpha*2}.")
 			else:
-				print(f"Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis H_0: \\mu = {mean} at \\alpha = {alpha *2}")
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis }}H_0: \\mu = {mean}\\text{{ at }}\\alpha = {alpha *2}")
 		print(f"Since the sample size is n = {n}, degrees of freedom on the t-test statistic are n-1 = {n}-1 = {n-1}")
-		crit = st.t.ppf(1 - (alpha * 2), n-1)
+		crit = round(st.t.ppf(1 - (alpha * 2), n-1), 4)
 		print(f"This implies that")
-		print(f"t_{{\\alpha, n-1}} = t_{{{alpha * 2}, {n-1}}} = {crit}")
+		print(f"\\\\t_{{\\alpha, n-1}} = t_{{{alpha * 2}, {n-1}}} = {crit}")
 		if zfinal > (crit):
-			print(f"Since t_0 = {zfinal}>{crit}=t_{{{alpha*2}}}, we reject the null hypothesis H_0:\\mu={mean} in favor of the alternative hypothesis H_1:\\mu >{mean} at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}>{crit}=t_{{{alpha*2}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu >{mean}\\text{{ at }}\\alpha = {alpha * 2}.")
 		else:
-			print(f"Since t_0 = {zfinal}<{crit}=t_{{{alpha*2}}}, we fail to reject the null hypothesis H_0:\\mu={mean} at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}<{crit}=t_{{{alpha*2}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu={mean}\\text{{ at }}\\alpha = {alpha * 2}.")
 		
 
 if type1 == 4:
@@ -254,18 +252,18 @@ if type1 == 4:
 			print(f"P = {round(2 * (1 - st.norm.cdf(abs(zfinal))), 6)}")
 			crit = 2 * (1 - st.norm.cdf(abs(zfinal)))
 			if crit < alpha * 2:
-				print(f"Suppose that the significance level \\alpha is specified to be {alpha*2}, we would reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 because P = {crit}<{alpha*2}")
+				print(f"\\text{{Suppose that the significance level }}\\alpha\\text{{ is specified to be {alpha*2}, we would reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ because P = }}{crit}<{alpha*2}")
 			else:
-				print(f"Since P = {crit} > {alpha * 2}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha *2}")
-		crit = st.norm.ppf(1 - (alpha))
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha * 2},}}\\text{{ we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha *2}")
+		crit = round(st.norm.ppf(1 - (alpha)), 4)
 		if crit == 0:
 			crit = float(input("critical value = "))
 		elif zfinal < (-crit):
-			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} < -{crit} = -z_{{{alpha}}}, we reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}\\text{{. Since }}z_0 = {zfinal} < -{crit} = -z_{{{alpha}}},\\text{{ we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha={alpha*2}.")
 		elif zfinal > crit:
-			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} > {crit} = -z_{{{alpha}}}, we reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}\\text{{. Since }}z_0 = {zfinal} > {crit} = -z_{{{alpha}}},\\text{{ we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha={alpha*2}.")
 		else:
-			print(f"For \\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}. Since z_0 = {zfinal} < -{crit} = -z_{{{alpha}}}, we fail to reject the null hypothesis H_0 at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_{{\\alpha/2}}=z_{{{alpha}}}={crit}\\text{{. Since }}z_0 = {zfinal} < -{crit} = -z_{{{alpha}}},\\text{{ we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha={alpha*2}.")
 	elif var_type == 2:
 		print(f"\\\\S_p^2 = \\frac{{(n_1-1)S_1^2+(n_2-1)S_2^2}}{{n_1+n_2-2}}")
 		print(f"\\\\S_p^2 = \\frac{{({n1}-1){var1}+({n2}-1){var2}}}{{{n1}+{n2}-2}}")
@@ -280,19 +278,19 @@ if type1 == 4:
 		print("\\\\t_0 = " + str(zfinal))
 		if pval == 1:
 			crit = 2 * st.t.cdf(-abs(zfinal), n1+n2-2)
-			print(f"Using Excel's function =T.DIST.2T(|t_0|,n-1), the P-value for t_0 = {zfinal} in an t-test with {n1+n2-2} degrees of freedom can be computed as P = P(T_{{{n1+n2-2}}}>{zfinal})=T.DIST.2T(|{zfinal}|,{n1+n2-2})={crit}.")
+			print(f"\\\\\\\\\\text{{Using Excel's function }}=T.DIST.2T(|t_0|,n-1)\\text{{, the P-value for }}t_0 = {zfinal}\\text{{ in an t-test with {n1+n2-2} degrees of freedom can be computed as P = }}P(T_{{{n1+n2-2}}}>{zfinal})=T.DIST.2T(|{zfinal}|,{n1+n2-2})={crit}.")
 			if crit < alpha * 2:
-				print(f"We would reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 because P = {crit}<{alpha*2}")
+				print(f"\\\\\\\\\\text{{We would reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ because P = }}{crit}<{alpha*2}")
 			else:
-				print(f"Since P = {crit} > {alpha * 2}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha *2}")
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha * 2},}}\\text{{ we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha *2}")
 		print(f"Degrees of freedom on the t-test statistic are n1 + n2 - 2 = {n1} + {n2} - 2 = {n1+n2-2}")
-		crit = st.t.ppf(1 - (alpha), n1+n2-2)
+		crit = round(st.t.ppf(1 - (alpha), n1+n2-2), 4)
 		if zfinal < (-crit):
-			print(f"For \\alpha = {alpha * 2}, t_{{\\alpha, n_1+n_2-2}}=t_{{{alpha}, {n1 + n2 - 2}}}={crit}. Since t_0 = {zfinal} < -{crit} = -t_{{{alpha}, {n1 + n2 - 2}}}, we reject the null hypothesis H0 in favor of the alternative hypothesis H_1 at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, t_{{\\alpha, n_1+n_2-2}}=t_{{{alpha}, {n1 + n2 - 2}}}={crit}\\text{{. Since }}t_0 = {zfinal} < -{crit} = -t_{{{alpha}, {n1 + n2 - 2}}},\\text{{ we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha={alpha*2}.")
 		elif zfinal > crit:
-			print(f"For \\alpha = {alpha * 2}, t_{{\\alpha, n_1+n_2-2}}=t_{{{alpha}, {n1 + n2 - 2}}}={crit}. Since t_0 = {zfinal} > {crit} = t_{{{alpha}, {n1 + n2 - 2}}}, we reject the null hypothesis H0 in favor of the alternative hypothesis H_1 at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, t_{{\\alpha, n_1+n_2-2}}=t_{{{alpha}, {n1 + n2 - 2}}}={crit}\\text{{. Since }}t_0 = {zfinal} > {crit} = t_{{{alpha}, {n1 + n2 - 2}}},\\text{{ we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha={alpha*2}.")
 		else:
-			print(f"For \\alpha = {alpha * 2}, t_{{\\alpha, n_1+n_2-2}}=t_{{{alpha}, {n1 + n2 - 2}}}={crit}. Since -t_{{{alpha}, {n1 + n2 - 2}}}<t_0<t_{{{alpha}, {n1 + n2 - 2}}}, we fail to reject the null hypothesis H0 at \\alpha={alpha*2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, t_{{\\alpha, n_1+n_2-2}}=t_{{{alpha}, {n1 + n2 - 2}}}={crit}\\text{{. Since }}-t_{{{alpha}, {n1 + n2 - 2}}}<t_0<t_{{{alpha}, {n1 + n2 - 2}}},\\text{{ we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha={alpha*2}.")
 
 elif type1 == 5:
 	type2 = int(input("1. Null Hypothesis = \n2. Null Hypophesis \\ge"))
@@ -323,14 +321,14 @@ elif type1 == 5:
 			print(f"P = {round(st.norm.cdf(zfinal), 4)}")
 			crit = st.norm.cdf(zfinal)
 			if crit < alpha * 2:
-				print(f"Since P = {crit} < {alpha*2}, we reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 at \\alpha = {alpha*2}.")
+				print(f"\\\\\\\\\\text{{Since P = {crit} < {alpha*2}, we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha = {alpha*2}.")
 			else:
-				print(f"Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha *2}")
-		crit = st.norm.ppf(1 - (alpha * 2))
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha *2}")
+		crit = round(st.norm.ppf(1 - (alpha * 2)), 4)
 		if zfinal < (-crit):
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are -Z_" + str(alpha*2) + " = -" + str(crit) + " and we note that Z0 falls in the critical region. Therefore, H0 is rejected")
+			print("\\\\\\\\\\text{Since }\\alpha = " + str(alpha * 2) + "\\text{, the boundaries of the critical region are }-Z_{" + str(alpha*2) + " = -" + str(crit) + "}\\text{ and we note that }Z_0\\text{ falls in the critical region. Therefore, }H_0\\text{ is rejected}")
 		else:
-			print("Since \\alpha = " + str(alpha * 2) + ", the boundaries of the critical region are -Z_" + str(alpha*2) + " = -" + str(crit) + " and we note that Z0 does not falls in the critical region. Therefore, we fail to reject H0.")
+			print("\\\\\\\\\\text{Since }\\alpha = " + str(alpha * 2) + "\\text{, the boundaries of the critical region are }-Z_{" + str(alpha*2) + " = -" + str(crit) + "}\\text{ and we note that }Z_0\\text{ does not falls in the critical region. Therefore, we fail to reject }H_0.")
 	elif var_type == 2:
 		print(f"\\\\S_p^2 = \\frac{{(n_1-1)S_1^2+(n_2-1)S_2^2}}{{n_1+n_2-2}}")
 		print(f"\\\\S_p^2 = \\frac{{({n1}-1){var1}+({n2}-1){var2}}}{{{n1}+{n2}-2}}")
@@ -345,20 +343,20 @@ elif type1 == 5:
 		print("\\\\t_0 = " + str(zfinal))
 		if pval == 1:
 			crit = st.t.cdf(zfinal, n1+n2-2)
-			print(f"Using Excel's function =T.DIST(t_0,n-1,TRUE), the P-value for t_0 = {zfinal} in an power-tailed t-test with {n1+n2-2} degrees of freedom can be computed as P = P(T_{{{n1+n2-2}}}<{zfinal})=T.DIST({zfinal},{n1+n2-2},TRUE)={crit}.")
+			print(f"\\\\\\\\\\text{{Using Excel's function }}=T.DIST(t_0,n-1,TRUE)\\text{{, the P-value for }}t_0 = {zfinal}\\text{{ in an power-tailed t-test with {n1+n2-2} degrees of freedom can be computed as P = }}P(T_{{{n1+n2-2}}}<{zfinal})=T.DIST({zfinal},{n1+n2-2},TRUE)={crit}.")
 			if crit < alpha * 2:
-				print(f"Since P = {crit} < {alpha*2}, we reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 at \\alpha = {alpha*2}.")
+				print(f"\\\\\\\\\\text{{Since P = {crit} < {alpha*2}, we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha = {alpha*2}.")
 			else:
-				print(f"Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha *2}")
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha *2}")
 		print(f"Degrees of freedom on the t-test statistic are n1 + n2 - 2 = {n1} + {n2} - 2 = {n1+n2-2}")
-		crit = st.t.ppf(1 - (alpha * 2), n1+n2-2)
+		crit = round(st.t.ppf(1 - (alpha * 2), n1+n2-2), 4)
 		print(f"This implies that")
 		print(f"t_{{\\alpha, n_1+n_2-2}} = t_{{{alpha * 2}, {n1} + {n2} - 2}} = t_{{{alpha * 2}, {n1 + n2 - 2}}} = {crit}")
-		print(f"Since, the t distribution is symmetric about zero, so -t_{{{alpha * 2}, {n1 + n2 - 2}}}")
+		print(f"\\text{{Since, the t distribution is symmetric about zero, so }}-t_{{{alpha * 2}, {n1 + n2 - 2}}}")
 		if zfinal < (-crit):
-			print(f"Since t_0 = {zfinal}<-{crit}=-t_{{{alpha * 2}, {n1 + n2 - 2}}}, we reject the null hypothesis H0 in favor of the alternative hypothesis H1 at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}<-{crit}=-t_{{{alpha * 2}, {n1 + n2 - 2}}},\\text{{ we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha = {alpha * 2}.")
 		else:
-			print(f"Since t_0 = {zfinal}>-{crit}=-t_{{{alpha * 2}, {n1 + n2 - 2}}}, we fail to reject the null hypothesis H0 at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}>-{crit}=-t_{{{alpha * 2}, {n1 + n2 - 2}}},\\text{{ we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha * 2}.")
 		
 
 elif type1 == 6:
@@ -392,14 +390,14 @@ elif type1 == 6:
 			print(f"P = {round(1 - st.norm.cdf(zfinal), 6)}")
 			crit = 1 - st.norm.cdf(zfinal)
 			if crit < alpha * 2:
-				print(f"Since P = {crit} < {alpha*2}, we reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 at \\alpha = {alpha*2}.")
+				print(f"\\\\\\\\\\text{{Since P = {crit} < {alpha*2}, we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha = {alpha*2}.")
 			else:
-				print(f"Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha *2}")
-		crit = st.norm.ppf(1 - (alpha * 2))
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha *2}")
+		crit = round(st.norm.ppf(1 - (alpha * 2)), 4)
 		if zfinal > crit :
-			print(f"For \\alpha = {alpha * 2}, z_\\alpha = z_{{{alpha * 2}}} = {crit}. Since z_0 = {zfinal}>{crit}=z_{{{alpha*2}}}, we reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_\\alpha = z_{{{alpha * 2}}} = {crit}\\text{{. Since }}z_0 = {zfinal}>{crit}=z_{{{alpha*2}}},\\text{{ we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha = {alpha * 2}.")
 		else:
-			print(f"For \\alpha = {alpha * 2}, z_\\alpha = z_{{{alpha * 2}}} = {crit}. Since z_0 = {zfinal}<{crit}=z_{{{alpha*2}}}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha * 2}, z_\\alpha = z_{{{alpha * 2}}} = {crit}\\text{{. Since }}z_0 = {zfinal}<{crit}=z_{{{alpha*2}}},\\text{{ we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha * 2}.")
 	elif var_type == 2:
 		print(f"\\\\S_p^2 = \\frac{{(n_1-1)S_1^2+(n_2-1)S_2^2}}{{n_1+n_2-2}}")
 		print(f"\\\\S_p^2 = \\frac{{({n1}-1){var1}+({n2}-1){var2}}}{{{n1}+{n2}-2}}")
@@ -414,18 +412,18 @@ elif type1 == 6:
 		print("\\\\t_0 = " + str(zfinal))
 		if pval == 1:
 			crit = st.t.cdf(-zfinal, n1+n2-2)
-			print(f"Using Excel's function =T.DIST.RT(t_0,n-1), the P-value for t_0 = {zfinal} in an upper-tailed t-test with {n1+n2-2} degrees of freedom can be computed as P = P(T_{{{n1+n2-2}}}>{zfinal})=T.DIST.RT({zfinal},{n1+n2-2})={crit}.")
+			print(f"\\\\\\\\\\text{{Using Excel's function }}=T.DIST.RT(t_0,n-1)\\text{{, the P-value for }}t_0 = {zfinal}\\text{{ in an upper-tailed t-test with {n1+n2-2} degrees of freedom can be computed as P = }}P(T_{{{n1+n2-2}}}>{zfinal})=T.DIST.RT({zfinal},{n1+n2-2})={crit}.")
 			if crit < alpha * 2:
-				print(f"Since P = {crit} < {alpha*2}, we reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 at \\alpha = {alpha*2}.")
+				print(f"\\\\\\\\\\text{{Since P = {crit} < {alpha*2}, we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha = {alpha*2}.")
 			else:
-				print(f"Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha *2}")
+				print(f"\\\\\\\\\\text{{Since P = {crit} > {alpha*2}, we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha *2}")
 		print(f"Degrees of freedom on the t-test statistic are n1 + n2 - 2 = {n1} + {n2} - 2 = {n1+n2-2}")
-		crit = st.t.ppf(1 - (alpha * 2), n1+n2-2)
+		crit = round(st.t.ppf(1 - (alpha * 2), n1+n2-2), 4)
 		print(f"This implies that")
-		print(f"t_{{\\alpha, n_1+n_2-2}} = t_{{{alpha * 2}, {n1} + {n2} - 2}} = t_{{{alpha * 2}, {n1 + n2 - 2}}} = {crit}")
+		print(f"\\\\t_{{\\alpha, n_1+n_2-2}} = t_{{{alpha * 2}, {n1} + {n2} - 2}} = t_{{{alpha * 2}, {n1 + n2 - 2}}} = {crit}")
 		if zfinal > (crit):
-			print(f"Since t_0 = {zfinal}>{crit}=t_{{{alpha * 2}, {n1 + n2 - 2}}}, we reject the null hypothesis H_0 in favor of the alternative hypothesis H_1 at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}>{crit}=t_{{{alpha * 2}, {n1 + n2 - 2}}},\\text{{ we reject the null hypothesis }}H_0\\text{{ in favor of the alternative hypothesis }}H_1\\text{{ at }}\\alpha = {alpha * 2}.")
 		else:
-			print(f"Since t_0 = {zfinal}<{crit}=t_{{{alpha * 2}, {n1 + n2 - 2}}}, we fail to reject the null hypothesis H_0 at \\alpha = {alpha * 2}.")
+			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}<{crit}=t_{{{alpha * 2}, {n1 + n2 - 2}}},\\text{{ we fail to reject the null hypothesis }}H_0\\text{{ at }}\\alpha = {alpha * 2}.")
 
 print("Please hit thumbs up if the answer helped you.")
