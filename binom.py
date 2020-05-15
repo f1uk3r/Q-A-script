@@ -101,7 +101,7 @@ def printFullMarkup(n, x, p, q):
 
 print ("""Legend for type
 1 for =
-2 and 3 for less than equal to and <
+2 and 3 for \\le to and <
 4 and 5 for \\ge and >
 6 and 7 (between) for both inclusive and both exclusive
 8 and 9 (between) for only second inclusive and only first inclusive
@@ -129,16 +129,16 @@ for i in range(parts):
 		sd = round(math.sqrt(n * p * q), 4)
 		print (chr(sec) + ") Since we know that")
 		sec += 1
-		print (f"""\\\\ Mean (\\mu or E(X)) = np
-\\\\ Mean (\\mu or E(X)) = {n}({p})
-\\\\ Mean (\\mu or E(X)) = {mean}""")
-		print (f"""\\\\ Variance (\\sigma^2 or V(x)) = npq
-\\\\ Variance (\\sigma^2 or V(x)) = {n}({p})({q})
-\\\\ Variance (\\sigma^2 or V(x)) = {variance}""")
-		print (f"""\\\\ Standard\\; deviation (\\sigma or sd) = \\sqrt{{npq}}
-\\\\ Standard\\; deviation (\\sigma or sd) = \\sqrt{{V(x)}}
-\\\\ Standard\\; deviation (\\sigma or sd) = \\sqrt{variance}
-\\\\ Standard\\; deviation (\\sigma or sd) = {sd}
+		print (f"""\\\\ Mean (\\mu\\ or\\ E(X)) = np
+\\\\ Mean (\\mu\\ or\\ E(X)) = {n}({p})
+\\\\ Mean (\\mu\\ or\\ E(X)) = {mean}""")
+		print (f"""\\\\ Variance (\\sigma^2\\ or\\ V(x)) = npq
+\\\\ Variance (\\sigma^2\\ or\\ V(x)) = {n}({p})({q})
+\\\\ Variance (\\sigma^2\\ or\\ V(x)) = {variance}""")
+		print (f"""\\\\ Standard\\; deviation (\\sigma\\ or\\ sd) = \\sqrt{{npq}}
+\\\\ Standard\\; deviation (\\sigma\\ or\\ sd) = \\sqrt{{V(x)}}
+\\\\ Standard\\; deviation (\\sigma\\ or\\ sd) = \\sqrt{variance}
+\\\\ Standard\\; deviation (\\sigma\\ or\\ sd) = {sd}
 \\\\ \\par\\noindent\\rule{{\\textwidth}}{{0.4pt}}""")
 
 	elif ty == 1:
