@@ -1,3 +1,4 @@
+import scipy.stats as st
 import webbrowser
 import math
 
@@ -9,22 +10,39 @@ def ul(n, sd, chi2):
 def limit2(sd1, sd2, F1):
 	return round(((sd1 ** 2)/(sd2 ** 2)) * F1, 4)
 
-option = int(input("Choose 1 to find C.I. of variance, 2 for finding C.I. of ratio of the variances: "))
-
+option = int(input("Choose 1 to find C.I. of variance 2 for finding C.I. of ratio of the variances: "))
+var_or_sd = int(input("Confidence interval for 1. variance or 2. standard deviation: "))
+given_var_or_sd = int(input("Given value of 1. variance or 2. standard deviation: "))
 if option == 1:
 	n = int(input("Sample size (n) = "))
-	sd = float(input("Standard deviation (s) = "))
+	if (given_var_or_sd == 2):
+		sd = float(input("Standard deviation (s) = "))
+	elif (given_var_or_sd == 1):
+		var = float(input("\\\\Variance (s^2) = "))
+		sd = round(var**0.5, 4)
+		print(f"Standard deviation (s) = {sd}")
 	ci = int(input("Confidence interval(in %) = "))
-	print ("We have to find confidence interval for variance of the sample")
-	webbrowser.open('https://www.danielsoper.com/statcalc/calculator.aspx?id=12')
-	chi1 = float(input("\\\\\chi_{\\alpha/2, n-1}^2 = "))
-	chi2 = float(input("\\\\\chi_{1-\\alpha/2, n-1}^2 = "))
+	if (var_or_sd == 2):
+		print (f"We have to find {ci} confidence interval for standard deviation of the sample")
+		print("First we find the confidence interval for variance")
+	elif (var_or_sd == 1):
+		print (f"We have to find {ci} confidence interval for variance of the sample")
+	chi1 = round(st.chi2.ppf(1-((1-(ci/100))/2), n-1), 4)
+	chi2 = round(st.chi2.ppf((1-(ci/100))/2, n-1), 4)
+	print(f"\\\\\\chi_{{\\alpha/2, n-1}}^2 = \\chi_{{{round((1-(ci/100))/2, 4)}, {n-1}}}^2 = {chi1}")
+	print(f"\\\\\\chi_{{1-\\alpha/2, n-1}}^2 = \\chi_{{{round(1-((1-(ci/100))/2), 4)}, {n-1}}}^2 = {chi2}")
 	print ("Since we know that")
-	print ("\\\\Confidence\; interval = \\frac{(n-1)S^2}{\chi_{\\alpha/2, n-1}^2}, \\frac{(n-1)S^2}{\chi_{1-\\alpha/2, n-1}^2}")
+	print ("\\\\\\text{Confidence interval =} \\frac{(n-1)s^2}{\\chi_{\\alpha/2, n-1}^2}, \\frac{(n-1)s^2}{\chi_{1-\\alpha/2, n-1}^2}")
 	lol = ll(n, sd, chi1)
 	upl = ul(n, sd, chi2)
-	print ("\\\\Required confidence interval = \left(\\frac{(" + str(n) + "-1)" + str(sd) + "^2}{" + str(chi1) + "}, \\frac{(" + str(n) + "-1)" + str(sd) + "^2}{" + str(chi2) + "}\\right)")
-	print ("Required confidence interval = (" + str(lol) + ", " + str(upl) + ")")
+	print (f"\\\\\\text{{Required confidence interval = }}\\left(\\frac{{({n}-1){sd}^2}}{{{chi1}^2}}, \\frac{{({n}-1){sd}^2}}{{{chi2}^2}}\\right)")
+	print (f"\\\\\\text{{Required confidence interval = }}\\left(\\frac{{({n-1}){round(sd**2, 4)}}}{{{round(chi1**2,4)}}}, \\frac{{({n-1}){round(sd**2, 4)}}}{{{round(chi2**2, 4)}}}\\right)")
+	print ("\\\\\\text{Required confidence interval = }(" + str(lol) + ", " + str(upl) + ")")
+	if (var_or_sd == 2):
+		print(f"\\\\\\text{{Taking the square root of the endpoints of this interval we obtain,}}")
+		print(f"\\\\\\text{{Required confidence interval = }}(\\sqrt{{{lol}}}, \\sqrt{{{upl}}})")
+		print(f"Required confidence interval = ({round(lol**0.5, 4)}, {round(upl**0.5, 4)})")
+	print("Please hit thumbs up if the answer helped you.")
 else:
 	n1 = int(input("Sample size1 (n1) = "))
 	sd1 = float(input("Standard deviation1 (s1) = "))
