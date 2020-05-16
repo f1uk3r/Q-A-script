@@ -88,10 +88,10 @@ else:
 	F1 = float(input("\\\\F_{1-\\alpha/2, n_1-1, n_2-1}^2 = "))
 	F2 = float(input("\\\\F_{\\alpha/2, n_1-1, n_2-1}^2 = "))
 	print ("Since we know that")
-	print ("\\\\Confidence\; interval = \\frac{S_1^2}{S_2^2}F_{1-\\alpha/2, n_1-1, n_2-1}, \\frac{S_1^2}{S_2^2}F_{\\alpha/2, n_1-1, n_2-2}")
+	print ("\\\\Confidence\\; interval = \\frac{S_1^2}{S_2^2}F_{1-\\alpha/2, n_1-1, n_2-1}, \\frac{S_1^2}{S_2^2}F_{\\alpha/2, n_1-1, n_2-2}")
 	lol = limit2(sd1, sd2, F1)
 	upl = limit2(sd1, sd2, F2)
-	print ("\\\\Required confidence interval = \left(\\frac{" + str(sd1) + "^2}{" + str(sd2) + "^2}" + str(F1) + "}, \\frac{" + str(sd1) + "^2}{" + str(sd2) + "^2}" + str(F2) + "}\\right)")
+	print ("\\\\Required confidence interval = \\left(\\frac{" + str(sd1) + "^2}{" + str(sd2) + "^2}" + str(F1) + "}, \\frac{" + str(sd1) + "^2}{" + str(sd2) + "^2}" + str(F2) + "}\\right)")
 	print ("Required confidence interval = (" + str(lol) + ", " + str(upl) + ")")
 		
 print("Please hit thumbs up if the answer helped you.")

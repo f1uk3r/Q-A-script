@@ -13,7 +13,7 @@ varOrSd = int(input("Given values of 1. Variance or 2. Standard deviation: "))
 if type1 < 4:
 	n = int(input("Sample Size (n) = "))
 	if varOrSd == 1:
-		sd = float(input("Variance \sigma_0^2 = "))
+		sd = float(input("Variance \\sigma_0^2 = "))
 		s = float(input("Sample variance (S^2) = "))
 	if varOrSd == 2:
 		sdSquare = float(input("Standard Deviation \\sigma_0 = "))
@@ -43,10 +43,10 @@ if type1 == 1:
 	print("\\\\\\chi_0^2 = " + str(cFinal))
 	crit_1 = st.chi2.ppf(alpha,n-1)
 	crit_2 = st.chi2.ppf(1-(alpha),n-1)
-	print(f"\\chi_{{1-\\alpha/2, n-1}}^2 = {crit_1}")
-	print(f"\\chi_{{\\alpha/2, n-1}}^2 = {crit_2}")
-	print("Decision Rule: Reject the null hypothesis if, \\chi_0^2 > \\chi_{\\alpha/2, n-1} or \\chi_0^2 < \\chi_{1-\\alpha/2, n-1}; otherwise do not reject H0")
-	print(f"The rejection region is \\chi_0^2 > {crit_2} or \\chi_0^2 < {crit_1}")
+	print(f"\\\\\\chi_{{1-\\alpha/2, n-1}}^2 = \\chi_{{{round(1-alpha, 4), n-1}}}^2 = {crit_1}")
+	print(f"\\\\\\chi_{{\\alpha/2, n-1}}^2 = \\chi_{{{alpha, n-1}}}^2 = {crit_2}")
+	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }\\chi_0^2 > \\chi_{\\alpha/2, n-1}\\text{ or }\\chi_0^2 < \\chi_{1-\\alpha/2, n-1}\\text{; otherwise do not reject }H_0")
+	print(f"\\\\\\\\\\text{The rejection region is }\\chi_0^2 > {crit_2}\\text{{ or }}\\chi_0^2 < {crit_1}")
 	if cFinal > crit_2:
 		print(f"Since the test statistic value {cFinal} is greater than the critical value {crit_2}, so the test statistic value falls in critical region, so we reject the null hypothesis")
 	elif cFinal < crit_1:
@@ -68,9 +68,9 @@ elif type1 == 2:
 	cFinal = calChi(s, sd, n)
 	print("\\\\\\chi_0^2 = " + str(cFinal))
 	crit = st.chi2.ppf(alpha*2,n-1)
-	print(f"\\\\\\chi_{{1-\\alpha, n-1}}^2 = {crit}")
-	print("Decision Rule: Reject the null hypothesis if, \\chi_0^2 < \\chi_{1-\\alpha, n-1}; otherwise do not reject H0")
-	print(f"The rejection region is \\chi_0^2 < {crit}")
+	print(f"\\\\\\chi_{{1-\\alpha, n-1}}^2 = \\chi_{{{round(1-(alpha*2), 4), n-1}}}^2 = {crit}")
+	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }\\chi_0^2 < \\chi_{1-\\alpha, n-1}\\text{; otherwise do not reject }H_0")
+	print(f"\\\\\\\\\\text{{The rejection region is }}\\chi_0^2 < {crit}")
 	if cFinal < crit:
 		print(f"Since the test statistic value {cFinal} is less than the critical value {crit}, so the test statistic value falls in critical region, so we reject the null hypothesis")
 	else:
@@ -90,9 +90,9 @@ elif type1 == 3:
 	cFinal = calChi(s, sd, n)
 	print("\\\\\\chi_0^2 = " + str(cFinal))
 	crit = st.chi2.ppf(1-(alpha*2),n-1)
-	print(f"\\\\\\chi_{{\\alpha, n-1}}^2 = {crit}")
-	print("Decision Rule: Reject the null hypothesis if, \\chi_0^2 > \\chi_{\\alpha, n-1}; otherwise do not reject H0")
-	print(f"The rejection region is \\chi_0^2 > {crit}")
+	print(f"\\\\\\chi_{{\\alpha, n-1}}^2 = \\chi_{{{round(alpha*2, 4), n-1}}}^2 {crit}")
+	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }\\chi_0^2 > \\chi_{\\alpha, n-1}\\text{; otherwise do not reject }H_0")
+	print(f"\\\\\\\\\\text{{The rejection region is }}\\chi_0^2 > {crit}")
 	if cFinal > crit:
 		print(f"Since the test statistic value {cFinal} is greater than the critical value {crit}, so the test statistic value falls in critical region, so we reject the null hypothesis")
 	else:
@@ -112,8 +112,8 @@ if type1 == 4:
 	crit_2 = st.f.ppf(1-alpha, n1-1, n2-1)
 	print(f"\\\\f_{{1-\\alpha/2, n_1-1, n_2-1}} = \\\\f_{{{1-alpha}, {n1-1}, {n2-1}}} = {crit_1}")
 	print(f"\\\\f_{{\\alpha/2, n_1-1, n_2-1}} = f_{{{alpha}, {n1-1}, {n2-1}}} = {crit_2}")
-	print("Decision Rule: Reject the null hypothesis if, f_0 > f_{\\alpha/2, n_1-1,n_2-1} or f_0 < f_{1-\\alpha/2, n_1-1,n_2-1}; otherwise do not reject H0")
-	print(f"The rejection region is f_0 > {crit_2} or f_0 < {crit_1}")
+	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }f_0 > f_{\\alpha/2, n_1-1,n_2-2}\\text{{ or }}f_0 < f_{1-\\alpha/2, n_1-1,n_2-1}\\text{; otherwise do not reject }H_0")
+	print(f"\\\\\\\\\\text{{The rejection region is }}f_0 > {crit_2}\\text{{ or }}f_0 < {crit_1}")
 	if fFinal > crit_2:
 		print(f"Since the test statistic value {fFinal} is greater than the critical value {crit_2}, so the test statistic value falls in critical region, so we reject the null hypothesis")
 	elif fFinal < crit_1:
@@ -136,8 +136,8 @@ elif type1 == 5:
 	print("from the table of Percentage Points of the F-distribution, we find that")
 	crit = st.f.ppf(alpha*2, n1-1, n2-1)
 	print(f"\\\\f_{{1-\\alpha, n_1-1, n_2-1}} = f_{{{1-(alpha*2)}, {n1-1}, {n2-1}}} = {crit}")
-	print("Decision Rule: Reject the null hypothesis if, f_0 > f_{\\alpha/2, n_1-1,n_2-1} or f_0 < f_{1-\\alpha/2, n_1-1,n_2-1}; otherwise do not reject H0")
-	print(f"The rejection region is f_0 < {crit}")
+	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }f_0 < f_{1-\\alpha, n_1-1,n_2-1}\\text{; otherwise do not reject }H_0")
+	print(f"\\\\\\\\\\text{{The rejection region is }}f_0 < {crit}")
 	if fFinal < crit:
 		print(f"Since the test statistic value {fFinal} is less than the critical value {crit}, so the test statistic value falls in critical region, so we reject the null hypothesis")
 	else:
@@ -158,8 +158,8 @@ elif type1 == 6:
 	print("from the table of Percentage Points of the F-distribution, we find that")
 	crit = st.f.ppf(1-(alpha*2), n1-1, n2-1)
 	print(f"\\\\f_{{\\alpha, n_1-1, n_2-1}} = f_{{{alpha*2}, {n1-1}, {n2-1}}} = {crit}")
-	print("Decision Rule: Reject the null hypothesis if, f_0 > f_{\\alpha, n_1-1,n_2-1}; otherwise do not reject H0")
-	print(f"The rejection region is f_0 > {crit}")
+	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }f_0 > f_{\\alpha, n_1-1,n_2-1}\\text{; otherwise do not reject }H_0")
+	print(f"\\\\\\\\\\text{{The rejection region is }}f_0 > {crit}")
 	if fFinal > crit:
 		print(f"Since the test statistic value {fFinal} is greater than the critical value {crit}, so the test statistic value falls in critical region, so we reject the null hypothesis")
 	else:
