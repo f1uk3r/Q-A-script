@@ -134,13 +134,14 @@ sec = 97
 print(xs)
 print(xinc)
 
-if ty!= 19:
-	header = ["X", "X - mean", "(X-mean)^2"]
-	table = zip(xs, xmxbar, xmxbarsq)
-	print(tabulate((table), header, tablefmt="latex"))
+
 
 for i in range(parts):
 	ty = int(input("Type of part: "))
+	if ty!= 19:
+		header = ["X", "X - mean", "(X-mean)^2"]
+		table = zip(xs, xmxbar, xmxbarsq)
+		print(tabulate((table), header, tablefmt="latex"))
 	if ty == 1:
 		print(chr(sec) + ") Since we know that")
 		sec += 1
@@ -520,12 +521,50 @@ for i in range(parts):
 				print(f"\\\\\\text{{Null Hypothesis --> }}H_0: \\mu_D = {delta}")
 			elif type2 == 2:
 				print(f"\\\\\\text{{Null Hypothesis --> }}H_0: \\mu_D \\ge {delta}")
-			print(f"\\\\\\text{{Alternate Hypothesis --> }}H_1: \\mu < {delta}")
-			print("This is a two-sided test because the alternative hypothesis is formulated to detect differences from the hypothesized mean value of 30 on either side.")
+			print(f"\\\\\\text{{Alternate Hypothesis --> }}H_1: \\mu_D < {delta}")
+			print("This is a left-tailed test because the alternative hypothesis is formulated to detect claim if difference of data is less than 0.")
 			print("Now, the value of test static can be found out by following formula: ")
-			
+			if delta == 0:
+				print("\\\\t_0 = \\frac{\\bar{d}}{s_D/\\sqrt{n}}")
+				print(f"\\\\t_0 = \\frac{{{diffbar}}}{{{s}/\\sqrt{{{n}}}}}")
+			else:
+				print("\\\\t_0 = \\frac{\\bar{d} - \\Delta_0}{s_D/\\sqrt{n}}")
+				print(f"\\\\t_0 = \\frac{{{diffbar} - {delta}}}{{{s}/\\sqrt{{{n}}}}}")
+			zfinal = zvalue(diffbar, delta, s, n)
+			print(f"\\\\\\\\t_0 = {zfinal}")
+			crit = round(st.t.ppf(1 - alpha, n-1), 4)
+			print(f"\\\\\\\\\\text{{Critical value = }}t_{{\\alpha, n-1}} = t_{{{alpha}, {n-1}}} = {crit}")
+			print(f"\\\\\\\\\\text{{Rejection Region: }}t_0 < -t_{{\\alpha/2, n-1}}")
+			if zfinal < (-crit):
+				print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}<-{crit}=-t_{{{alpha}, {n-1}}},\\text{{ we reject the null hypothesis }}H_0:\\mu_D={delta}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu_D <{delta}\\text{{ at }}\\alpha = {alpha}.")
+			else:
+				print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}>-{crit}=-t_{{{alpha}, {n-1}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu_D={delta}\\text{{ at }}\\alpha = {alpha}.")
+		
 		elif alt_hypothesis == 3:
-			pass
+			type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \\le"))
+			if type2 == 1:
+				print(f"\\\\\\text{{Null Hypothesis --> }}H_0: \\mu_D = {delta}")
+			elif type2 == 2:
+				print(f"\\\\\\text{{Null Hypothesis --> }}H_0: \\mu_D \\le {delta}")
+			print(f"\\\\\\text{{Alternate Hypothesis --> }}H_1: \\mu_D > {delta}")
+			print("This is a right-tailed test because the alternative hypothesis is formulated to detect claim if difference of data is more than 0.")
+			print("Now, the value of test static can be found out by following formula: ")
+			if delta == 0:
+				print("\\\\t_0 = \\frac{\\bar{d}}{s_D/\\sqrt{n}}")
+				print(f"\\\\t_0 = \\frac{{{diffbar}}}{{{s}/\\sqrt{{{n}}}}}")
+			else:
+				print("\\\\t_0 = \\frac{\\bar{d} - \\Delta_0}{s_D/\\sqrt{n}}")
+				print(f"\\\\t_0 = \\frac{{{diffbar} - {delta}}}{{{s}/\\sqrt{{{n}}}}}")
+			zfinal = zvalue(diffbar, delta, s, n)
+			print(f"\\\\\\\\t_0 = {zfinal}")
+			crit = round(st.t.ppf(alpha, n-1), 4)
+			print(f"\\\\\\\\\\text{{Critical value = }}t_{{\\alpha, n-1}} = t_{{{alpha}, {n-1}}} = {crit}")
+			print(f"\\\\\\\\\\text{{Rejection Region: }}t_0 > t_{{\\alpha, n-1}}")
+			if zfinal > (crit):
+				print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}>{crit}=t_{{{alpha}, {n-1}}},\\text{{ we reject the null hypothesis }}H_0:\\mu_D={delta}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu_D >{delta}\\text{{ at }}\\alpha = {alpha}.")
+			else:
+				print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}<{crit}=t_{{{alpha}, {n-1}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu_D={delta}\\text{{ at }}\\alpha = {alpha}.")
+		
 
 
 print("Please hit thumbs up if the answer helped you.")
