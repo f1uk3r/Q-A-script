@@ -1,4 +1,4 @@
-print("Index: Which file have to be Executed \n1. Normal.py \n2. Binomial \n3. Binomial to normal/poisson \n4. Exponential \n5. Poisson \n6. List of x \n7. Frequency of an intervval \n8. Discrete pdf is given \n9. Linear Regression \n10. Confidence Interval \n11. Confidence Interval of variance \n12. Confidence interval of proportions \n13. Geometric Distribution \n14. Uniform Distribution \n15. Hypothesis Testing Mean \n16. Hypothesis Testing Variance \n17. Hypothesis Testing Proportion \n18. Compound Interest \n Weighted Average")
+print("Index: Which file have to be Executed \n1. Normal.py \n2. Binomial \n3. Binomial to normal/poisson \n4. Exponential \n5. Poisson \n6. List of x \n7. Frequency of an intervval \n8. Discrete pdf is given \n9. Linear Regression \n10. Confidence Interval \n11. Confidence Interval of variance \n12. Confidence interval of proportions \n13. Geometric Distribution \n14. Uniform Distribution \n15. Hypothesis Testing Mean \n16. Hypothesis Testing Variance \n17. Hypothesis Testing Proportion \n18. Compound Interest \n19. Weighted Average")
 
 which = int(input("Which script do you want to execute: "))
 

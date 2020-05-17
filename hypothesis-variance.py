@@ -46,7 +46,7 @@ if type1 == 1:
 	print(f"\\\\\\chi_{{1-\\alpha/2, n-1}}^2 = \\chi_{{{round(1-alpha, 4), n-1}}}^2 = {crit_1}")
 	print(f"\\\\\\chi_{{\\alpha/2, n-1}}^2 = \\chi_{{{alpha, n-1}}}^2 = {crit_2}")
 	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }\\chi_0^2 > \\chi_{\\alpha/2, n-1}\\text{ or }\\chi_0^2 < \\chi_{1-\\alpha/2, n-1}\\text{; otherwise do not reject }H_0")
-	print(f"\\\\\\\\\\text{The rejection region is }\\chi_0^2 > {crit_2}\\text{{ or }}\\chi_0^2 < {crit_1}")
+	print(f"\\\\\\\\\\text{{The rejection region is }}\\chi_0^2 > {crit_2}\\text{{ or }}\\chi_0^2 < {crit_1}")
 	if cFinal > crit_2:
 		print(f"Since the test statistic value {cFinal} is greater than the critical value {crit_2}, so the test statistic value falls in critical region, so we reject the null hypothesis")
 	elif cFinal < crit_1:

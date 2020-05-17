@@ -99,12 +99,6 @@ ees = square(es)
 ee = round(sum(ees),4)
 
 sxx = round(xx - (x*x/n), 4)
-print(sxx)
-print(sst)
-print(ssr)
-print(sst-ssr)
-print(n)
-print()
 seb1 = round((((sst-ssr)/(n-2))/sxx)**0.5, 4)
 
 sigmasquare = round((sst-ssr)/(n-2),4)

@@ -14,7 +14,7 @@ weight_list = list(map(float, input("Input all the values of weights: ").split()
 weighted_scores_list = mul(score_list, weight_list)
 category_question = int(input("Do you want to insert category names(1 for yes): "))
 if category_question == 1:
-    category_list = list(map(str, input("enter categories (space seperated): ").split()))
+    category_list = list(map(str, input("enter categories (comma seperated, no space after comma): ").split(',')))
     print(category_list)
     header = ["Category", "Weights", "Score", "Weighted Score"]
     table = zip(category_list, weight_list, score_list, weighted_scores_list)
