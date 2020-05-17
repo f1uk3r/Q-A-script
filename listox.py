@@ -88,6 +88,9 @@ def errort2(t, s1, s2, n1, n2):
 def error2(z, s1, s2, n1, n2):
 	return round(z * math.sqrt(((s1 ** 2) / n1) + ((s2 ** 2) / n2)), 4)
 
+def zvalue(xbar, mean, sd, n):
+	return round((xbar - mean)/(sd/math.sqrt(n)), 4)
+
 print(f"""Legend for types
 1. Mean
 2. Median
@@ -106,7 +109,8 @@ print(f"""Legend for types
 15. Confidence Interval one mean
 16. Confidence Interval two means
 17. Five Point Summary
-18. Percentile""")
+18. Percentile
+19. Paired t-Test""")
 parts = int(input("How many parts: "))
 xs = list(map(float, input("Input all the values of x: ").split()))
 xbar = mean(xs)													#Mean of list
@@ -130,9 +134,10 @@ sec = 97
 print(xs)
 print(xinc)
 
-header = ["X", "X - mean", "(X-mean)^2"]
-table = zip(xs, xmxbar, xmxbarsq)
-print(tabulate((table), header, tablefmt="latex"))
+if ty!= 19:
+	header = ["X", "X - mean", "(X-mean)^2"]
+	table = zip(xs, xmxbar, xmxbarsq)
+	print(tabulate((table), header, tablefmt="latex"))
 
 for i in range(parts):
 	ty = int(input("Type of part: "))
@@ -449,6 +454,78 @@ for i in range(parts):
 		else:
 			print(f"The corresponding value to the index in your data set is the {perc}th percentile")
 			print(f"{perc}th percentile = {xinc[int(round(index-1))]}")
+	if ty == 19:
+		xs2 = list(map(float, input("Input all the values of x: ").split()))
+		alt_hypothesis = int(input("1. Alternative hypothesis \\ne \n2. Alternative hypothesis < \n3. Alternative hypothesis >"))
+		delta = float(input("\\Delta_0 = "))
+		difference_list = []
+		for i in range(len(xs)):
+			difference_list.append(xs[i]-xs2[i])
+		diffbar = mean(difference_list)													#Mean of list
+		diffmdiffbar = var(difference_list, diffbar)				
+		diffmdiffbarsq = square(diffmdiffbar)
+		diffsumsquare = round(sum(diffmdiffbarsq), 4)							
+		s2 = variance(diffsumsquare, n)									#Variance
+		s = stddev(s2)	
+		print("Since we know that")
+		print("\\\\Mean(\\bar{d}) = \\frac{\\sum_{i=1}^n d_i}{n}")
+		print("\\\\Where\\ n\\ is\\ the\\ number\\ of\\ data\\ points")
+		print(f"\\\\\\sum_{{i=1}}^n d_i = {sum(difference_list)}")
+		print(f"\\\\and\\ n = {n}")
+		print("\\\\\\text{This implies that}")
+		print(f"\\\\Mean(\\bar{{d}}) = \\frac{{{sum(difference_list)}}}{{{n}}}")
+		print(f"\\\\Mean(\\bar{{d}}) = {diffbar}")
+		
+		header = ["x1", "x2", "d", "d - mean", "(d-mean)^2"]
+		table = zip(xs, xs2, difference_list, diffmdiffbar, diffmdiffbarsq)
+		print(tabulate((table), header, tablefmt="latex"))
+
+		print("\\\\\\\\Variance(s^2) = \\frac{(\sum{d_i - \\bar{d}})^2}{n-1}")
+		print(f"\\\\(\\sum{{d_i - \\bar{{d}}}})^2 = {xsumsquare}")
+		print(f"\\\\Variance(s^2) = \\frac{{{xsumsquare}}}{{{n-1}}}")
+		print(f"\\\\Variance(s^2) = {s2}")
+		print(f"\\\\\\text{{Standard Deviation(s_D) = }}\\sqrt{{Variance}}")
+		print(f"\\\\\\text{{Standard Deviation(s_D) = }}{s}")
+
+		print(f"\\\\\\\\\\bar{{d}} = {diffbar}")
+		print(f"\\\\s_D = {s}")
+		print(f"\\\\n = {n}")
+		alpha = float(input("\\\\\\alpha = "))
+		if alt_hypothesis == 1:
+			print("The test hypothesis is")
+			print(f"\\\\\\text{{Null Hypothesis --> }}H_0: \\mu_D = {delta}")
+			print(f"\\\\\\text{{Alternate Hypothesis --> }}H_1: \\mu \\ne {delta}")
+			print("This is a two-sided test because the alternative hypothesis is formulated to detect differences from the hypothesized mean value of 30 on either side.")
+			print("Now, the value of test static can be found out by following formula: ")
+			if delta == 0:
+				print("\\\\t_0 = \\frac{\\bar{d}}{s_D/\\sqrt{n}}")
+				print(f"\\\\t_0 = \\frac{{{diffbar}}}{{{s}/\\sqrt{{{n}}}}}")
+			else:
+				print("\\\\t_0 = \\frac{\\bar{d} - \\Delta_0}{s_D/\\sqrt{n}}")
+				print(f"\\\\t_0 = \\frac{{{diffbar} - {delta}}}{{{s}/\\sqrt{{{n}}}}}")
+			zfinal = zvalue(diffbar, delta, s, n)
+			print(f"\\\\\\\\t_0 = {zfinal}")
+			crit = round(st.t.ppf(1 - (alpha/2), n-1), 4)
+			print(f"\\\\\\\\\\text{{Critical value = }}t_{{\\alpha/2, n-1}} = t_{{{round(alpha/2, 4)}, {n-1}}} = {crit}")
+			print(f"\\\\\\\\\\text{{Rejection Region: }}t_0 > t_{{\\alpha/2, n-1}}\\text{{  or  }}t_0 < -t_{{\\alpha/2, n-1}}")
+			if zfinal < (-crit):
+				print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha}, t_{{\\alpha/2, n-1}}=t_{{{round(alpha/2, 4)}, {n-1}}}={crit}.\\text{{ Since }}t_0 = {zfinal} < -{crit} = -t_{{{round(alpha/2, 4)}, {n-1}}},\\text{{ we reject the null hypothesis }}H_0: \\mu_D = {delta}\\text{{ in favor of the alternative hypothesis }}H_1: \\mu_D \\ne {delta}\\text{{ at }}\\alpha={alpha}.")
+			elif zfinal > crit:
+				print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha}, t_{{\\alpha/2, n-1}}=t_{{{round(alpha/2, 4)}, {n-1}}}={crit}.\\text{{ Since }}t_0 = {zfinal} > {crit} = t_{{{round(alpha/2, 4)}, {n-1}}},\\text{{ we reject the null hypothesis }}H_0: \\mu_D = {delta}\\text{{ in favor of the alternative hypothesis }}H_1: \\mu_D \\ne {delta}\\text{{ at }}\\alpha={alpha}.")
+			else:
+				print(f"\\\\\\\\\\text{{For }}\\alpha = {alpha}, t_{{\\alpha/2, n-1}}=t_{{{round(alpha/2, 4)}, {n-1}}}={crit}.\\text{{ Since }}t_0 = {zfinal} < -{crit} = -t_{{{round(alpha/2, 4)}, {n-1}}},\\text{{ we fail to reject the null hypothesis }}H_0: \\mu_D = {delta}\\text{{ at }}\\alpha={alpha}.")
+		elif alt_hypothesis == 2:
+			type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \\ge"))
+			if type2 == 1:
+				print(f"\\\\\\text{{Null Hypothesis --> }}H_0: \\mu_D = {delta}")
+			elif type2 == 2:
+				print(f"\\\\\\text{{Null Hypothesis --> }}H_0: \\mu_D \\ge {delta}")
+			print(f"\\\\\\text{{Alternate Hypothesis --> }}H_1: \\mu < {delta}")
+			print("This is a two-sided test because the alternative hypothesis is formulated to detect differences from the hypothesized mean value of 30 on either side.")
+			print("Now, the value of test static can be found out by following formula: ")
+			
+		elif alt_hypothesis == 3:
+			pass
 
 
 print("Please hit thumbs up if the answer helped you.")
