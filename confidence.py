@@ -1,6 +1,5 @@
 # python3
 # confidence.py - Calculates confidence interval for a single or difference of the mean of a normal distributions
-print("This is a one-sided test because the alternative hypothesis is formulated to detect the difference from the hypothesized mean on the upper side")
 import scipy.stats as st
 import math
 import webbrowser
@@ -16,87 +15,98 @@ def error2(z, s1, s2, n1, n2):
 option = int(input("Choose 1 for Confidence interval, 2 for margin of error, 3 for both, 4 for finding n from margin of error: "))
 typ = int(input("Press 1 to calculate ci of difference in means of two normal distribution: "))
 if option == 1 and typ != 1:
+	varknown = int(input("Is population variance/standard deviation known? Press 1 for yes: "))
 	mean = float(input(f"\\\\\\text{{Mean (}}\\bar{{x}}\\text{{) = }}"))
 	n = int(input(f"\\\\\\text{{Sample size (n) = }}"))
-	sd = float(input(f"\\\\\\text{{Standard deviation (s) = }}"))
+	if varknown != 1:
+		sd = float(input(f"\\\\\\text{{Standard deviation (s) = }}"))
+	else:
+		sd = float(input(f"\\\\\\text{{Standard deviation }} (\\sigma) = "))
 	ci = float(input(f"\\\\\\text{{Confidence interval (in }}%\\text{{) = }}"))
-	if n < 30:
-		t = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
-		print (f"\\\\t_{{\\alpha/2, n-1}} = t_{{{round((1-(ci/100))/2, 4)}, {n-1}}} = {t}" )
+	if (varknown != 1 and n < 30):
+		z = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
+		print (f"\\\\t_{{\\alpha/2, n-1}} = t_{{{round((1-(ci/100))/2, 4)}, {n-1}}} = {z}" )
 		print ("\\\\\\text{Since we know that}")
 		print ("\\\\\\text{Confidence interval = }\\bar{x} \\pm t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
-		E = error(t, sd, n)
-		ll = round(mean - E, 4)
-		ul = round(mean + E, 4)
-		print (f"\\\\\\text{{Required confidence interval = }}({mean}-{t}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}, {mean}+{t}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}")
-		print (f"Required confidence interval = ({mean} - {E}, {mean} + {E})")
-		print (f"Required confidence interval = ({ll}, {ul})")
 	else:
 		z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
 		print ("z @ " + str(ci) + "% = " + str(z))
 		print ("Since we know that")
-		print ("\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{s}{\\sqrt{n}}")
-		E = error(z, sd, n)
-		ll = round(mean - E, 4)
-		ul = round(mean + E, 4)
-		print (f"\\\\\\text{{Required confidence interval = }}({mean}-{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}, {mean}+{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}})")
-		print (f"Required confidence interval = ({mean} - {E}, {mean} + {E})")
-		print (f"Required confidence interval = ({ll}, {ul}")
+		if varknown != 1:
+			print ("\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{s}{\\sqrt{n}}")
+		else:
+			print ("\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{\\sigma}{\\sqrt{n}}")
+	E = error(z, sd, n)
+	ll = round(mean - E, 4)
+	ul = round(mean + E, 4)
+	print (f"\\\\\\text{{Required confidence interval = }}({mean}-{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}, {mean}+{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}})")
+	print (f"Required confidence interval = ({mean}-{z}({round(sd/(n**0.5), 4)}), {mean}+{z}({round(sd/(n**0.5), 4)}))")
+	print (f"Required confidence interval = ({mean} - {E}, {mean} + {E})")
+	print (f"Required confidence interval = ({ll}, {ul})")
 	print(f"Interpretion: We are {ci}% confident that the true mean of the population lie between the interval {ll} and {ul}.")
 elif option == 2 and typ != 1:
+	varknown = int(input("Is population variance/standard deviation known? Press 1 for yes: "))
 	n = int(input("Sample size (n) = "))
-	sd = float(input("Standard deviation (s) = "))
+	if varknown != 1:
+		sd = float(input(f"Standard deviation (s) = "))
+	else:
+		sd = float(input(f"\\\\\\text{{Standard deviation }} (\\sigma) = "))
 	ci = float(input("Confidence interval (in %) = "))
-	if n < 30:
-		t = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
-		E = error(t, sd, n)
-		print (f"\\\\t_{{\\alpha/2, n-1}} = t_{{{round((1-(ci/100))/2, 4)}, {n-1}}} = {t}" )
+	if (varknown != 1 and n < 30):
+		z = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
+		print (f"\\\\t_{{\\alpha/2, n-1}} = t_{{{round((1-(ci/100))/2, 4)}, {n-1}}} = {z}" )
 		print ("\\\\\\text{Since we know that}")
 		print ("\\\\\\text{Margin of error = }t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
-		print (f"\\\\\\text{{Margin of error = }}{t}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}")
-		print (f"\\\\\\text{{Margin of error = }}{E}")
 	else:
 		z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
-		E = error(z, sd, n)
 		print ("z @ " + str(ci) + "% = " + str(z))
-		print ("\\\\\\text{Since we know that}")
-		print ("\\\\\\text{Margin of error = }z\\frac{s}{\\sqrt{n}}")
-		print (f"\\\\\\text{{Margin of error = }}{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}")
-		print (f"\\\\\\text{{Margin of error = }}{E}")
+		print ("Since we know that")
+		if varknown != 1:
+			print ("\\\\\\text{Margin of error = }z\\frac{s}{\\sqrt{n}}")
+		else:
+			print ("\\\\\\text{Margin of error = }z\\frac{\\sigma}{\\sqrt{n}}")
+	E = error(z, sd, n)
+	print (f"\\\\\\text{{Margin of error = }}{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}")
+	print (f"\\\\\\text{{Margin of error = }}{E}")
 elif option == 3 and typ != 1:
+	varknown = int(input("Is population variance/standard deviation known? Press 1 for yes: "))
 	mean = float(input(f"\\\\\\text{{Mean (}}\\bar{{x}}\\text{{) = }}"))
 	n = int(input(f"\\\\\\text{{Sample size (n) = }}"))
-	sd = float(input(f"\\\\\\text{{Standard deviation (s) = }}"))
+	if varknown != 1:
+		sd = float(input(f"\\\\\\text{{Standard deviation (s) = }}"))
+	else:
+		sd = float(input(f"\\\\\\text{{Standard deviation }} (\\sigma) = "))
 	ci = float(input(f"\\\\\\text{{Confidence interval (in }}%\\text{{) = }}"))
-	if n < 30:
-		t = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
-		print ("\\\\t_{\\alpha/2, n-1} = " + str(t))
+	if (varknown != 1 and n < 30):
+		z = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
+		print (f"\\\\t_{{\\alpha/2, n-1}} = t_{{{round((1-(ci/100))/2, 4)}, {n-1}}} = {z}" )
 		print ("\\\\\\text{Since we know that}")
-		E = error(t, sd, n)
-		ll = round(mean - E, 4)
-		ul = round(mean + E, 4)
-		print ("\\\\\\text{Margin of error = }z\\frac{s}{\\sqrt{n}}")
-		print (f"\\\\\\text{{Margin of error = }}{t}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}")
-		print (f"\\\\\\text{{Margin of error = }}{E}")
-		print ("\\\\\\text{Confidence interval = }\\bar{x} \\pm t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
-		print (f"\\\\\\text{{Required confidence interval = }}({mean}-{t}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}, {mean}+{t}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}")
-		print (f"Required confidence interval = ({mean} - {E}, {mean} + {E})")
-		print (f"Required confidence interval = ({ll}, {ul})")
+		print ("\\\\\\text{Margin of error = }t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
 	else:
 		z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
 		print ("z @ " + str(ci) + "% = " + str(z))
-		E = error(z, sd, n)
-		ll = round(mean - E, 4)
-		ul = round(mean + E, 4)
 		print ("Since we know that")
-		print ("\\\\\\text{Margin of error = }z\\frac{s}{\\sqrt{n}}")
-		print (f"\\\\\\text{{Margin of error = }}{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}")
-		print (f"\\\\\\text{{Margin of error = }}{E}")
-		print ("\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{s}{\\sqrt{n}}")
-		print (f"\\\\\\text{{Required confidence interval = }}({mean}-{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}, {mean}+{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}})")
-		print (f"Required confidence interval = ({mean} - {E}, {mean} + {E})")
-		print (f"Required confidence interval = ({ll}, {ul}")
+		if varknown != 1:
+			print ("\\\\\\text{Margin of error = }z\\frac{s}{\\sqrt{n}}")
+		else:
+			print ("\\\\\\text{Margin of error = }z\\frac{\\sigma}{\\sqrt{n}}")
+	E = error(z, sd, n)
+	print (f"\\\\\\text{{Margin of error = }}{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}")
+	print (f"\\\\\\text{{Margin of error = }}{E}")
+	if (varknown != 1 and n < 30):
+		print ("\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
+	elif (varknown != 1 and n > 29):
+		print ("\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{s}{\\sqrt{n}}")
+	else:
+		print ("\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{\\sigma}{\\sqrt{n}}")
+	ll = round(mean - E, 4)
+	ul = round(mean + E, 4)
+	print (f"\\\\\\text{{Required confidence interval = }}({mean}-{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}, {mean}+{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}})")
+	print (f"Required confidence interval = ({mean}-{z}({round(sd/(n**0.5), 4)}), {mean}+{z}({round(sd/(n**0.5), 4)}))")
+	print (f"Required confidence interval = ({mean} - {E}, {mean} + {E})")
+	print (f"Required confidence interval = ({ll}, {ul})")
 	print(f"Interpretion: We are {ci}% confident that the true mean of the population lie between the interval {ll} and {ul}.")
+	
 elif option == 4 and typ != 1:
 	e = float(input("Margin of error (e) = "))
 	sd = float(input("Standard deviation (s) = "))
@@ -110,7 +120,7 @@ elif option == 4 and typ != 1:
 	print (f"\\\\\\sqrt{{n}} = {round((z*sd)/e, 4)}")
 	print (f"\\\\n = {round(((z*sd)/e)**2, 4)}")
 if option == 1 and typ == 1:
-	varknown = int(input("Is population variance/standart deviation known? Press 1 for yes: "))
+	varknown = int(input("Is population variance/standard deviation known? Press 1 for yes: "))
 	mean1 = float(input(f"\\\\\\text{{Mean 1 }}(\\bar{{X_1}}) = "))
 	n1 = int(input(f"\\\\\\text{{Sample size 1 }}(n_1) = "))
 	if varknown != 1:
