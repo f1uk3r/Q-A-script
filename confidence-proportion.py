@@ -1,8 +1,6 @@
 import math
 import webbrowser
 import scipy.stats as st
-def stdError1(p, N, n):
-	return round(math.sqrt((p * (1 - p)) / n) * math.sqrt((N-n)/(N-1)), 4)
 def stdError2(p, n):
 	return round(math.sqrt((p * (1 - p)) / n), 4)
 def error(z, sd):
@@ -11,7 +9,7 @@ def stdErrorTwoProportion(p1,p2,n1,n2):
 	return round(math.sqrt(((p1*(1-p1))/n1)+((p2*(1-p2))/n2)),4)
 option = int(input("Choose 1 for Confidence interval, 2 for margin of error, 3 for both: , 4. Choice of sample size when margin of error is given"))
 typ = int(input("Choose 1 if you have to find confidence interval on the difference between two proportion: "))
-pop = int(input("Population size given? 1. for yes"))
+#pop = int(input("Population size given? 1. for yes"))
 if option != 4:
 	proportionOrNumber = int(input("Give 1. proportion or 2. number of event"))
 if typ != 1:
@@ -24,9 +22,9 @@ if typ != 1:
 			x = int(input("number of favourable events (X) = "))
 			p = round(x/n,4)
 			print(f"\\hat p = X/n = {x}/{n} = {p}")
-		if pop == 1:
-			N = int(input("Population size (N) = "))
-			sd = stdError1(p, N, n)
+		#if pop == 1:
+		#	N = int(input("Population size (N) = "))
+		#	sd = stdError1(p, N, n)
 		else:
 			sd = stdError2(p, n)
 		ci = int(input("Confidence interval(in %) = "))
@@ -71,25 +69,27 @@ elif option == 1 and typ == 1:
 	elif proportionOrNumber == 2:
 		x1 = int(input("number of favourable events (X1) = "))
 		x2 = int(input("number of favourable events (X2) = "))
-		p1 = x1/n1
-		p2 = x2/n2
+		p1 = round(x1/n1, 4)
+		p2 = round(x2/n2, 4)
 		print(f"\\\\\\hat p_1 = \\frac{{X_1}}{{n_1}} = \\frac{{{x1}}}{{{n1}}} = {p1}")
 		print(f"\\\\\\hat p_2 = \\frac{{X_2}}{{n_2}} = \\frac{{{x2}}}{{{n2}}} = {p2}")
 
-	p = p1-p2
+	p = round(p1-p2, 4)
 	sd = stdErrorTwoProportion(p1,p2,n1,n2)
 	ci = int(input("Confidence interval(in %) = "))
-	
-	z = zs.get(ci, 0)
-	if z == 0:
-		z = float(input("z = "))
-	print ("z @ " + str(ci) + "% = " + str(z))
+
+	z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
+	print (f"\\\\z_{{\\alpha/2}} = z_{{{round((1-(ci/100))/2, 4)}}} = {z}")
+	print ("\\\\\\text{Since we know that}")
+	print ("\\\\\\text{Confidence interval = }\\hat{p_1}-\\hat{p_2} \\pm z_{\\alpha/2}\\sqrt{\\frac{\\hat{p_1}(1-\\hat{p_1})}{n_1}+\\frac{\\hat{p_2}(1-\\hat{p_2})}{n_2}}")
 	E = error(z, sd)
-	print ("Since we know that")
-	print ("\\\\Confidence\; interval = \\hat{p_1}-\\hat{p_2} \pm z_{\\alpha/2}\sqrt{\\frac{\hat{p_1}(1-\hat{p1})}{n1}+\\frac{\hat{p_1}(1-\hat{p1})}{n1}}")
 	ll = round(p - E, 4)
 	ul = round(p + E, 4)
-	print ("\\\\Required\; confidence\; interval = (" + str(p1) + "-" + str(p2) + "-" + str(z) + "\sqrt{\\frac{" + str(p1) +"(1-" + str(p1) + ")}{" + str(n1) + "} + \\frac{" + str(p2) +"(1-" + str(p2) + ")}{" + str(n2) + "}}, "+ str(p1) + "-" + str(p2) + "+" + str(z) + "\sqrt{\\frac{" + str(p1) +"(1-" + str(p1) + ")}{" + str(n1) + "} + \\frac{" + str(p2) +"(1-" + str(p2) + ")}{" + str(n2) + "}})")
-	print ("Required confidence interval = (" + str(p) + "-" + str(E) + ", "+ str(p) + "+" + str(E) + ")")
-	print ("Required confidence interval = (" + str(ll) + ", " + str(ul) + ")")
+	print (f"\\\\\\text{{Confidence interval = }}({p1} - {p2} - {z}\\sqrt{{\\frac{{{p1}(1-{p1})}}{{{n1}}}+\\frac{{{p2}(1-{p2})}}{{{n2}}}}}, {p1} - {p2} + {z}\\sqrt{{\\frac{{{p1}(1-{p1})}}{{{n1}}}+\\frac{{{p2}(1-{p2})}}{{{n2}}}}})")
+	print (f"\\\\\\text{{Confidence interval = }}({p} - {z}\\sqrt{{\\frac{{{p1}({1-p1})}}{{{n1}}}+\\frac{{{p2}({1-p2})}}{{{n2}}}}}, {p} + {z}\\sqrt{{\\frac{{{p1}({1-p1})}}{{{n1}}}+\\frac{{{p2}({1-p2})}}{{{n2}}}}})")
+	print (f"\\\\\\text{{Confidence interval = }}({p} - {z}\\sqrt{{{round((p1*(1-p1))/n1, 4)}+{round((p2*(1-p2))/n2, 4)}}}, {p} + {z}\\sqrt{{{round((p1*(1-p1))/n1, 4)}+{round((p2*(1-p2))/n2, 4)}}})")
+	print (f"\\\\\\text{{Confidence interval = }}({p} - {z}\\sqrt{{{round((p1*(1-p1))/n1, 4)+round((p2*(1-p2))/n2, 4)}}}, {p} + {z}\\sqrt{{{round((p1*(1-p1))/n1, 4)+round((p2*(1-p2))/n2, 4)}}})")
+	print (f"Required Confidence interval = ({p} - {z}({round(math.sqrt(((p1*(1-p1))/n1)+((p2*(1-p2))/n2)), 4)}), {p} + {z}({round(math.sqrt(((p1*(1-p1))/n1)+((p2*(1-p2))/n2)), 4)}))")
+	print (f"Required Confidence interval = ({p} - {E}, {p} + {E})")
+	print (f"Required Confidence interval = ({ll}, {ul})")
 print ("Please hit thumps up if the answer helped you.")
