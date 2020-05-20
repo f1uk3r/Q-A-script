@@ -25,8 +25,8 @@ if typ != 1:
 		#if pop == 1:
 		#	N = int(input("Population size (N) = "))
 		#	sd = stdError1(p, N, n)
-		else:
-			sd = stdError2(p, n)
+		
+		sd = stdError2(p, n)
 		ci = int(input("Confidence interval(in %) = "))
 		
 		z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
