@@ -241,7 +241,7 @@ if type1 == 4:
 		print("\\\\Null\\;Hypothesis --> H_0: \\mu_1 = \\mu_2, or \\; H_0: \\mu_1 - \\mu_2 = 0")
 	else:
 		print("\\\\Null\\;Hypothesis --> H_0: \\mu_1 - \\mu_2 = \\Delta_0")
-	print("\\\\Alternate\\;Hypothesis --> H_1: \\mu_1 \\ne \\mu_2, or \\; H_0: \\mu_1 - \\mu_2 \\ne 0")
+	print("\\\\Alternate\\;Hypothesis --> H_1: \\mu_1 \\ne \\mu_2, or \\; H_1: \\mu_1 - \\mu_2 \\ne 0")
 	print("This is a two-sided test because the alternative hypothesis is formulated to detect differences from the hypothesized difference in mean values on either side.")
 	print("Now, the value of test static can be found out by following formula: ")
 	if var_type == 1:
@@ -310,7 +310,7 @@ elif type1 == 5:
 		else:
 			print("\\\\Null\\;Hypothesis --> H_0: \\mu_1 - \\mu_2 \\ge \\Delta_0")
 	if delta0 == 0:
-		print("\\\\Alternate\\;Hypothesis --> H_1: \\mu_1 < \\mu_2, or \\; H_0: \\mu_1 - \\mu_2 < 0")
+		print("\\\\Alternate\\;Hypothesis --> H_1: \\mu_1 < \\mu_2, or \\; H_1: \\mu_1 - \\mu_2 < 0")
 	else:
 		print("\\\\Alternate\\;Hypothesis --> H_1: \\mu_1 - \\mu_2 < \\Delta_0")
 	print("Now, the value of test static can be found out by following formula: ")
@@ -377,7 +377,7 @@ elif type1 == 6:
 		else:
 			print("\\\\Null\\;Hypothesis --> H_0: \\mu_1 - \\mu_2 \\le \\Delta_0")
 	if delta0 == 0:
-		print("\\\\Alternate\\;Hypothesis --> H_1: \\mu_1 > \\mu_2, or \\; H_0: \\mu_1 - \\mu_2 > 0")
+		print("\\\\Alternate\\;Hypothesis --> H_1: \\mu_1 > \\mu_2, or \\; H_1: \\mu_1 - \\mu_2 > 0")
 	else:
 		print("\\\\Alternate\\;Hypothesis --> H_1: \\mu_1 - \\mu_2 > \\Delta_0")
 	print("This is a one-sided test because the alternative hypothesis is formulated to detect the difference from the hypothesized mean on the upper side")

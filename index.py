@@ -21,11 +21,11 @@ elif which == 8:
 elif which == 9:
 	exec(open("linear_regression.py").read())
 elif which == 10:
-	exec(open("confidence.py").read())
+	exec(open("confidence-mean.py").read())
 elif which == 11:
-	exec(open("variance_confidence.py").read())
+	exec(open("confidence-variance.py").read())
 elif which == 12:
-	exec(open("proportion_ci.py").read())
+	exec(open("confidence-proportion.py").read())
 elif which == 13:
 	exec(open("geometric.py").read())
 elif which == 14:

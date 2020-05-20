@@ -48,11 +48,11 @@ if typ != 1:
 			print (f"\\\\\\text{{Margin of error = }}{E}")
 		if option == 1 or option == 3:
 			if (varknown != 1 and n < 30):
-				print ("\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
+				print ("\\\\\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm t_{\\alpha/2, n-1}\\frac{s}{\\sqrt{n}}")
 			elif (varknown != 1 and n > 29):
-				print ("\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{s}{\\sqrt{n}}")
+				print ("\\\\\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{s}{\\sqrt{n}}")
 			else:
-				print ("\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{\\sigma}{\\sqrt{n}}")
+				print ("\\\\\\\\\\\\\\text{Confidence interval = }\\bar{x} \\pm z\\frac{\\sigma}{\\sqrt{n}}")
 			print (f"\\\\\\text{{Required confidence interval = }}({mean}-{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}}, {mean}+{z}\\frac{{{sd}}}{{\\sqrt{{{n}}}}})")
 			print (f"Required confidence interval = ({mean}-{z}({round(sd/(n**0.5), 4)}), {mean}+{z}({round(sd/(n**0.5), 4)}))")
 			print (f"Required confidence interval = ({mean} - {E}, {mean} + {E})")
@@ -166,7 +166,7 @@ if typ == 1:
 				print(f"\\\\\\text{{Margin of error = }}{E}")
 			if option == 1 or option == 3:
 				print ("\\\\\\text{Confidence interval = }\\bar{X_1}-\\bar{X_2} \\pm z_{\\alpha/2}\\sqrt{\\frac{\\sigma_1^2}{n_1} + \\frac{\\sigma_2^2}{n_2}}")
-				print (f"\\\\\\text{{Required confidence interval = }}({mean1}-{mean2}-{z}\\sqrt{{\\frac{{{sd1}}}^2}}{{{n1}}} + \\frac{{{sd2}^2}}{{{n2}}}}}, {mean1}-{mean2}+{z}\\sqrt{{\\frac{{{sd1}^2}}{{{n1}}} + \\frac{{{sd2}^2}}{{{n2}}}}})")
+				print (f"\\\\\\text{{Required confidence interval = }}({mean1}-{mean2}-{z}\\sqrt{{\\frac{{{sd1}^2}}{{{n1}}} + \\frac{{{sd2}^2}}{{{n2}}}}}, {mean1}-{mean2}+{z}\\sqrt{{\\frac{{{sd1}^2}}{{{n1}}} + \\frac{{{sd2}^2}}{{{n2}}}}})")
 				print (f"\\\\\\text{{Required confidence interval = }}({mean} - {z}\\sqrt{{{round((sd1**2)/n1, 4)} + {round((sd2**2)/n2, 4)}}}, {mean} + {z}\\sqrt{{{round((sd1**2)/n1, 4)} + {round((sd2**2)/n2, 4)}}})")
 				print (f"\\\\\\text{{Required confidence interval = }}({mean} - {z}\\sqrt{{{round((sd1**2)/n1, 4) + round((sd2**2)/n2, 4)}}}, {mean} + {z}\\sqrt{{{round((sd1**2)/n1, 4) + round((sd2**2)/n2, 4)}}})")
 				print (f"\\\\\\text{{Required confidence interval = }}({mean} - {z}({round((((sd1**2)/n1)+((sd2**2)/n2))**0.5, 4)}), {mean} + {z}({round((((sd1**2)/n1)+((sd2**2)/n2))**0.5, 4)}))")
