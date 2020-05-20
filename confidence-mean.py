@@ -23,7 +23,7 @@ if typ != 1:
 		sd = float(input(f"\\\\\\text{{Standard deviation (s) = }}"))
 	else:
 		sd = float(input(f"\\\\\\text{{Standard deviation }} (\\sigma) = "))
-	ci = float(input(f"\\\\\\text{{Confidence interval (in }}%\\text{{) = }}"))
+	ci = float(input(f"\\\\\\text{{Confidence interval (in }}\\%\\text{{) = }}"))
 	if option < 4:
 		if (varknown != 1 and n < 30):
 			z = round(st.t.ppf(1-((1-(ci/100))/2), n-1), 4)
