@@ -78,20 +78,33 @@ if option < 4 :
 			print(f"\\\\\\sigma < \\sqrt{{{upper_bound}}}")
 			print(f"\\\\\\sigma < {round(upper_bound**0.5, 4)}")
 else:
-	n1 = int(input("Sample size1 (n1) = "))
-	sd1 = float(input("Standard deviation1 (s1) = "))
-	n2 = int(input("Sample size2 (n2) = "))
-	sd2 = float(input("Standard deviation2 (s2) = "))
+	n1 = int(input("\\\\\\text{Sample size 1 }(n_1) = "))
+	sd1 = float(input("\\\\\\text{Standard deviation 1 }(s_1) = "))
+	n2 = int(input("\\\\\\text{Sample size 2 }(n_2) = "))
+	sd2 = float(input("\\\\\\text{Standard deviation 2 }(s_2) = "))
 	ci = int(input("Confidence interval(in %) = "))
-	print ("We have to find confidence interval for the ration of variances of two normal distribution")
-	webbrowser.open('https://www.danielsoper.com/statcalc/calculator.aspx?id=4')
-	F1 = float(input("\\\\F_{1-\\alpha/2, n_1-1, n_2-1}^2 = "))
-	F2 = float(input("\\\\F_{\\alpha/2, n_1-1, n_2-1}^2 = "))
+	F1 = st.f.ppf(round((1-(ci/100))/2, 4), n2-1, n1-1)
+	F2 = st.f.ppf(round(1-((1-(ci/100))/2), 4), n2-1, n1-1)
+	print(f"\\\\f_{{1-\\alpha/2, n_2-1, n_1-1}} = f_{{{round(1-((1-(ci/100))/2), 4)}, {n2-1}, {n1-1}}} = {F1}")
+	print(f"\\\\f_{{\\alpha/2, n_2-1, n_1-1}} = f_{{{round((1-(ci/100))/2, 4)}, {n2-1}, {n1-1}}} = {F2}")
 	print ("Since we know that")
-	print ("\\\\Confidence\\; interval = \\frac{S_1^2}{S_2^2}F_{1-\\alpha/2, n_1-1, n_2-1}, \\frac{S_1^2}{S_2^2}F_{\\alpha/2, n_1-1, n_2-2}")
 	lol = limit2(sd1, sd2, F1)
 	upl = limit2(sd1, sd2, F2)
-	print ("\\\\Required confidence interval = \\left(\\frac{" + str(sd1) + "^2}{" + str(sd2) + "^2}" + str(F1) + "}, \\frac{" + str(sd1) + "^2}{" + str(sd2) + "^2}" + str(F2) + "}\\right)")
-	print ("Required confidence interval = (" + str(lol) + ", " + str(upl) + ")")
-		
+	
+	if (var_or_sd == 2):
+		print (f"We have to find {ci} confidence interval for the ratio of standard deviation")
+		print("First we find the confidence interval for the ratio of variance")
+	elif (var_or_sd == 1):
+		print (f"We have to find {ci} confidence interval for the ratio of variance")
+	print ("\\\\\\text{Confidence interval = }(\\frac{S_1^2}{S_2^2}f_{1-\\alpha/2, n_2-1, n_1-1}, \\frac{S_1^2}{S_2^2}f_{\\alpha/2, n_2-1, n_1-2})")
+	print (f"\\\\\\frac{{{sd1}^2}}{{{sd2}^2}}f_{{1-{round(1-(ci/100), 4)}/2 < \\frac{{\\sigma_1^2}}{{\\sigma_2^2}} < {n2}-1, {n1}-1}}, \\frac{{{sd1}^2}}{{{sd2}^2}}f_{{{round(1-(ci/100), 4)}/2, {n2}-1, {n1}-1}}")
+	print (f"\\\\\\frac{{{round(sd1**2,4)}}}{{{round(sd2**2, 4)}}}f_{{{round(1-((1-(ci/100))/2), 4)} < \\frac{{\\sigma_1^2}}{{\\sigma_2^2}} < {n2-1}, {n1-1}}}, \\frac{{{round(sd1**2, 4)}}}{{{round(sd2**2, 4)}}}f_{{{round((1-(ci/100))/2, 4)}, {n2-1}, {n1-1}}}")
+	print (f"({round((sd1**2)/(sd2**2), 4)}){F1} < \\frac{{\\sigma_1^2}}{{\\sigma_2^2}} < ({round((sd1**2)/(sd2**2), 4)}){F2}")
+	print (f"{lol} < \\frac{{\\sigma_1^2}}{{\\sigma_2^2}} < {upl}")
+	if (var_or_sd == 2):
+		print(f"\\\\\\text{{Taking the square root of the endpoints of this interval we obtain,}}")
+		print(f"\\\\\\sqrt{{{lol}}} < \\frac{{\\sigma_1}}{{\\sigma_2}} < \\sqrt{{{upl}}}")
+		print(f"\\\\{round(lol**0.5, 4)} < \\frac{{\\sigma_1}}{{\\sigma_2}} < {round(upl**0.5, 4)}")
+
+
 print("Please hit thumbs up if the answer helped you.")
