@@ -85,3 +85,5 @@ for i in range(parts):
 		print("Variance = " + str(variance))
 		print("Standard/;Deviation = \sqrt{Variance}")
 		print("Standard Deviation = " + str(round(math.sqrt(variance), 4)))
+
+print ("Please hit thumbs up if the answer helped you.")

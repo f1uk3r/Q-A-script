@@ -47,7 +47,7 @@ if xOrZ == 1:
 
 		if ty == 1:
 			x1 = float(input("x = "))
-			print (f"{chr(sec)} P(x < {x1})=?")
+			print (f"{chr(sec)}) P(x < {x1})=?")
 			sec += 1 
 			print(f"The z-score at x = {x1} is, ")
 			print (f"z = \\frac{{{x1}-{mean}}}{{{sd}}}")
@@ -59,7 +59,7 @@ if xOrZ == 1:
 	
 		if ty == 2:
 			x1 = float(input("x = "))
-			print (f"{chr(sec)} P(x > {x1})=?")
+			print (f"{chr(sec)}) P(x > {x1})=?")
 			sec += 1 
 			print(f"The z-score at x = {x1} is, ")
 			print (f"z = \\frac{{{x1}-{mean}}}{{{sd}}}")

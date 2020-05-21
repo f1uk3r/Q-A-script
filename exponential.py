@@ -64,5 +64,4 @@ for i in range(parts):
 		ans = round(1 - (prob(lamb, x2) - prob(lamb, x1)), 4)
 		print ("P(" + str(x1) + " > X or X > " + str(x2) + " ) = " + str(ans))
 
-print ("Please hit thumps up if the answer helped you")
-
+print ("Please hit thumbs up if the answer helped you.")

@@ -12,3 +12,4 @@ print(f"\\\\FV = {principal}\\left(1 + \\frac{{{rate}}}{{{n}}}\\right)^{{{n}({t}
 print(f"\\\\FV = {principal} ({round(1 + (rate/n), 4)})^{{{n*t}}}")
 print(f"\\\\FV = {principal} ({round((1 + (rate/n))**(n*t), 4)})")
 print(f"\\\\FV = {round(principal * ((1 + (rate/n))**(n*t)), 4)}")
+print("Please hit thumbs up if the answer helped you")

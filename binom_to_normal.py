@@ -240,4 +240,4 @@ elif normalOrPoisson == 2:
 			print ("\\\\P(X > " + str(x) + ") = " + str(ans))
 
 
-print ("Please hit thumps up if the answer helped you")	
+print ("Please hit thumbs up if the answer helped you")	

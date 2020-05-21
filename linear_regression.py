@@ -425,4 +425,5 @@ for i in range(parts):
 				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} < {crit} = critical\\ value.\\\\We\\ fail\\ to\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ at\\ \\alpha={alpha}.")
 			else:
 				print(f"\\\\For\\ \\alpha = {alpha}, t_{{\\alpha/2, n-2}}=t_{{{alpha}, {n-2}}}={crit}.\\ Since\\ T_0 = {t0} > {crit} = critical\\ value.\\\\We\\ reject\\ the\\ null\\ hypothesis\\ H_0:\\beta_0=0\\ in\\ favor\\ of\\ the\\ alternative\\ hypothesis\\ H_1:\\beta_0>0\\ at\\ \\alpha={alpha}.")
-print("Please hit thumps up if the answer helped you")
+
+print ("Please hit thumbs up if the answer helped you.")

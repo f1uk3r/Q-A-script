@@ -573,4 +573,4 @@ for i in range(parts):
 		plt.close()
 
 
-print ("Please hit thumps up if the answer helped you")	
+print ("Please hit thumbs up if the answer helped you")	

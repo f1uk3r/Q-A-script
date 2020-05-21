@@ -332,4 +332,4 @@ elif MorL == 2:
 			print("Also, Standard deviation is equal to the square root of the variance.")
 			print("\\\\Standard\\; deviation = variance^{\\frac{1}{2}}")
 			print("\\\\standard\\; deviation = " + round(math.sqrt(mean)), 4)
-print ("Please hit thumps up if the answer helped you")
+print ("Please hit thumbs up if the answer helped you.")

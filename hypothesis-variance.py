@@ -163,3 +163,5 @@ elif type1 == 6:
 		print(f"Since the test statistic value {fFinal} is greater than the critical value {crit}, so the test statistic value falls in critical region, so we reject the null hypothesis")
 	else:
 		print(f"Since the test statistic value {fFinal} is less than the critical value {crit}, so fail to reject the null hypothesis.")
+
+print ("Please hit thumbs up if the answer helped you.")

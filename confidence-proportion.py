@@ -92,4 +92,4 @@ elif option == 1 and typ == 1:
 	print (f"Required Confidence interval = ({p} - {z}({round(math.sqrt(((p1*(1-p1))/n1)+((p2*(1-p2))/n2)), 4)}), {p} + {z}({round(math.sqrt(((p1*(1-p1))/n1)+((p2*(1-p2))/n2)), 4)}))")
 	print (f"Required Confidence interval = ({p} - {E}, {p} + {E})")
 	print (f"Required Confidence interval = ({ll}, {ul})")
-print ("Please hit thumps up if the answer helped you.")
+print ("Please hit thumbs up if the answer helped you.")

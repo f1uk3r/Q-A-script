@@ -39,4 +39,4 @@ elif ty ==1:
     print(f"\\\\\\sigma^2 = V(X) = {round(r/(lamda ** 2), 4)}")
 
 print ("PS: you have to refer z score table to find the final probabilities.")
-print ("Please hit thumps up if the answer helped you")
+print ("Please hit thumbs up if the answer helped you.")

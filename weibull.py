@@ -88,4 +88,4 @@ for i in range(parts):
 
 
 print ("PS: you have to refer z score table to find the final probabilities.")
-print ("Please hit thumps up if the answer helped you")
+print ("Please hit thumbs up if the answer helped you.")

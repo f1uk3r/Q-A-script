@@ -89,3 +89,5 @@ if test_statistic < critical_value:
     print(f"\\\\\\text{{Since, }} \\chi_0^2 < \\chi_{{{alpha}, {round((number_row-1)*(number_column-1), 4)}}}\\text{{, do not reject the null hypothesis and conclude that the data provides insufficient evidence to claim the alternate hypothesis at }}\\alpha\\text{{ = {alpha}}}")
 else:
     print(f"\\\\\\text{{Since, }} \\chi_0^2 > \\chi_{{{alpha}, {round((number_row-1)*(number_column-1), 4)}}}\\text{{, reject the null hypothesis and conclude that the data provides sufficient evidence to claim the alternate hypothesis at }}\\alpha\\text{{ = {alpha}}}")
+
+print ("Please hit thumbs up if the answer helped you.")

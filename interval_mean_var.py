@@ -55,4 +55,5 @@ print("Since we know that")
 print("Mean(\\bar{x}) = \\frac{\sum fx}{n} = " + str(avg))
 print("Variance(\sigma^2) = \\frac{\sum fx^2}{n} - \\bar{x}^2 = \\frac{" + str(fxx) + "}{" + str(f) + "} - " + str(avg) + "^2 = " + str(var))
 print("Standard Deviation(\sigma) = \sqrt{Variance} = " + str(round(math.sqrt(var), 4)))
-print("Please hit thumps up if the answer helped you")
+
+print ("Please hit thumbs up if the answer helped you.")

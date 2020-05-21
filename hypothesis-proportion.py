@@ -250,3 +250,5 @@ if type1 == 6:
 		print(f"The statistic value, {zfinal} is greater than the critical value {crit}. Hence, reject the null hypothesis.")
 	else:
 		print(f"The statistic value, {zfinal} is less than the critical values  {crit}. Therefore, we fail to reject the null hypothesis.")
+
+print ("Please hit thumbs up if the answer helped you.")

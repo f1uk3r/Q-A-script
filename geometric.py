@@ -172,4 +172,4 @@ for i in range(parts):
 \\\\ Standard\\; deviation (\\sigma\\ or\\ sd) = {sd}
 \\\\ \\par\\noindent\\rule{{\\textwidth}}{{0.4pt}}""")
 
-print ("Please hit thumps up if the answer helped you")
+print ("Please hit thumbs up if the answer helped you.")
