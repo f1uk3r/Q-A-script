@@ -6,36 +6,36 @@ def calChi(s, sd, n):
 
 def calF(s1, s2):
 	return round(s1/s2, 4)
-print("1. Alternative hypothesis \\neq\n2. Alternative hypothesis <\n3. Alternative hypothesis >")
+print("1. Alternative hypothesis \\ne\n2. Alternative hypothesis <\n3. Alternative hypothesis >")
 print("4. For 2 distributions alternative hypothesis \\neq\n5. For 2 distributions alternative hypothesis <\n6. For 2 distributions alternative hypothesis >")
 type1 = int(input("Mention the type as legend: "))
 varOrSd = int(input("Given values of 1. Variance or 2. Standard deviation: "))
 if type1 < 4:
 	n = int(input("Sample Size (n) = "))
 	if varOrSd == 1:
-		sd = float(input("Variance \\sigma_0^2 = "))
-		s = float(input("Sample variance (S^2) = "))
+		sd = float(input("\\\\\\text{Variance }(\\sigma_0^2) = "))
+		s = float(input("\\\\\\text{Sample variance }(S^2) = "))
 	if varOrSd == 2:
-		sdSquare = float(input("Standard Deviation \\sigma_0 = "))
-		sSquare = float(input("Sample standard deviation (S) = "))
+		sdSquare = float(input("\\\\\\text{Standard Deviation }(\\sigma_0) = "))
+		sSquare = float(input("\\\\\\text{Sample standard deviation }(S) = "))
 		sd = sdSquare**2
 		s = sSquare**2
-	alpha = round(float(input("\\alpha = ")) / 2, 4)
+	alpha = round(float(input("\\\\\\alpha = ")) / 2, 4)
 elif type1>3 and type1<7:
 	if varOrSd == 1:
-		var1 = float(input("\\\\Variance1(S_1^2) = "))
-		var2 = float(input("\\\\Variance2(S_2^2) = "))
+		var1 = float(input("\\\\\\text{Variance 1}(S_1^2) = "))
+		var2 = float(input("\\\\\\text{Variance 2}(S_2^2) = "))
 	elif varOrSd == 2:
-		var1 = float(input("\\\\Standard\\; Deviation 1(S_1) = ")) ** 2
-		var2 = float(input("\\\\Standard\\; Deviation 2(S_2) = ")) ** 2
-	n1 = int(input("\\\\Sample\\;Size(n_1) = "))
-	n2 = int(input("\\\\Sample\\;Size(n_2) = "))
-	alpha = round(float(input("\\alpha = ")) / 2, 4)
+		var1 = float(input("\\\\\\text{Standard Deviation 1}(S_1) = ")) ** 2
+		var2 = float(input("\\\\\\text{Standard Deviation 2}(S_2) = ")) ** 2
+	n1 = int(input("\\\\\\text{Sample Size 1}(n_1) = "))
+	n2 = int(input("\\\\\\text{Sample Size 2}(n_2) = "))
+	alpha = round(float(input("\\\\\\alpha = ")) / 2, 4)
 
 if type1 == 1:
 	print("We are interested in testing the hypothesis")
-	print("\\\\Null\\;Hypothesis --> H_0: \\sigma^2 = \\sigma_0^2")
-	print("\\\\Alternate\\;Hypothesis --> H_1: \\sigma^2 \\ne \\sigma_0^2")
+	print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma^2 = \\sigma_0^2")
+	print("\\\\\\text{Alternate Hypothesis }--> H_1: \\sigma^2 \\ne \\sigma_0^2")
 	print("Now, the value of test static can be found out by following formula: ")
 	print("\\\\\\chi_0^2 = \\frac{(n-1)S^2}{\\sigma_0^2}")
 	print("\\\\\\chi_0^2 = \\frac{(" + str(n) + "-1)" + str(s) + "}{" + str(sd) + "}")
@@ -58,10 +58,10 @@ elif type1 == 2:
 	type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \\le"))
 	print("We are interested in testing the hypothesis")
 	if type2 == 1:
-		print("\\\\Null\\;Hypothesis --> H_0: \\sigma^2 = \\sigma_0^2")
+		print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma^2 = \\sigma_0^2")
 	else:
-		print("\\\\Null\\;Hypothesis --> H_0: \\sigma^2 \\ge \\sigma_0^2")
-	print("\\\\Alternate\\;Hypothesis --> H_1: \\sigma^2 < \\sigma_0^2")
+		print("\\\\Null Hypothesis --> H_0: \\sigma^2 \\ge \\sigma_0^2")
+	print("\\\\\\text{Alternate Hypothesis }--> H_1: \\sigma^2 < \\sigma_0^2")
 	print("Now, the value of test static can be found out by following formula: ")
 	print("\\\\\\chi_0^2 = \\frac{(n-1)S^2}{\\sigma_0^2}")
 	print("\\\\\\chi_0^2 = \\frac{(" + str(n) + "-1)" + str(s) + "}{" + str(sd) + "}")
@@ -80,10 +80,10 @@ elif type1 == 3:
 	type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \\ge"))
 	print("We are interested in testing the hypothesis")
 	if type2 == 1:
-		print("\\\\Null\;Hypothesis --> H_0: \\sigma^2 = \\sigma_0^2")
+		print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma^2 = \\sigma_0^2")
 	else:
-		print("\\\\Null\;Hypothesis --> H_0: \\sigma^2 /le \\sigma_0^2")
-	print("\\\\Alternate\;Hypothesis --> H_1: \\sigma^2 > \\sigma_0^2")
+		print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma^2 /le \\sigma_0^2")
+	print("\\\\\\text{Alternate Hypothesis }--> H_1: \\sigma^2 > \\sigma_0^2")
 	print("Now, the value of test static can be found out by following formula: ")
 	print("\\\\\\chi_0^2 = \\frac{(n-1)S^2}{\\sigma_0^2}")
 	print("\\\\\\chi_0^2 = \\frac{(" + str(n) + "-1)" + str(s) + "}{" + str(sd) + "}")
@@ -100,18 +100,17 @@ elif type1 == 3:
 
 if type1 == 4:
 	print("We are interested in testing the hypothesis")
-	print("\\\\Null\;Hypothesis --> H_0: \\sigma_1^2 = \\sigma_2^2")
-	print("\\\\Alternate\\;Hypothesis --> H_1: \\sigma_1^2 \\ne \\sigma_2^2")
+	print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma_1^2 = \\sigma_2^2")
+	print("\\\\\\text{Alternate Hypothesis }--> H_1: \\sigma_1^2 \\ne \\sigma_2^2")
 	print("Assuming normality of the sampled populations, the F-static is ")
 	print("\\\\f_0 = \\frac{S_1^2}{S_2^2}")
 	print(f"\\\\f_0 = \\frac{{{var1}}}{{{var2}}}")
 	print(f"\\\\f_0 = {round(var1/var2, 6)}")
 	fFinal = round(var1/var2, 4)
 	print("from the table of Percentage Points of the F-distribution, we find that")
-	crit_1 = st.f.ppf(alpha, n1-1, n2-1)
-	crit_2 = st.f.ppf(1-alpha, n1-1, n2-1)
-	print(f"\\\\f_{{1-\\alpha/2, n_1-1, n_2-1}} = \\\\f_{{{1-alpha}, {n1-1}, {n2-1}}} = {crit_1}")
-	print(f"\\\\f_{{\\alpha/2, n_1-1, n_2-1}} = f_{{{alpha}, {n1-1}, {n2-1}}} = {crit_2}")
+	crit_1 = round(st.f.ppf(alpha, n1-1, n2-1), 4)
+	crit_2 = round(st.f.ppf(1-alpha, n1-1, n2-1), 4)
+	print(f"\\\\\\\\\\text{{Critical value = }}f_{{\\alpha/2, n_1 - 1, n_2 - 1}} = f_{{{alpha}, {n1-1}, {n2-1}}} = {crit_2}\\text{{ and }}f_{{1-\\alpha/2, n_1 - 1, n_2 - 1}} = f_{{{1-alpha}, {n1-1}, {n2-1}}} = {crit_1}")
 	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }f_0 > f_{\\alpha/2, n_1-1,n_2-2}\\text{{ or }}f_0 < f_{1-\\alpha/2, n_1-1,n_2-1}\\text{; otherwise do not reject }H_0")
 	print(f"\\\\\\\\\\text{{The rejection region is }}f_0 > {crit_2}\\text{{ or }}f_0 < {crit_1}")
 	if fFinal > crit_2:
@@ -125,17 +124,17 @@ elif type1 == 5:
 	type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \\le"))
 	print("We are interested in testing the hypothesis")
 	if type2 == 1:
-		print("\\\\Null\\;Hypothesis --> H_0: \\sigma_1^2 = \\sigma_2^2")
+		print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma_1^2 = \\sigma_2^2")
 	else:
-		print("\\\\Null\\;Hypothesis --> H_0: \\sigma_1^2 \\ge \\sigma_2^2")
-	print("\\\\Alternate\\;Hypothesis --> H_1: \\sigma_1^2 < \\sigma_2^2")
+		print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma_1^2 \\ge \\sigma_2^2")
+	print("\\\\\\text{Alternate Hypothesis }--> H_1: \\sigma_1^2 < \\sigma_2^2")
 	print("\\\\f_0 = \\frac{S_1^2}{S_2^2}")
 	print(f"\\\\f_0 = \\frac{{{var1}}}{{{var2}}}")
 	print(f"\\\\f_0 = {round(var1/var2, 6)}")
 	fFinal = round(var1/var2, 4)
 	print("from the table of Percentage Points of the F-distribution, we find that")
-	crit = st.f.ppf(alpha*2, n1-1, n2-1)
-	print(f"\\\\f_{{1-\\alpha, n_1-1, n_2-1}} = f_{{{1-(alpha*2)}, {n1-1}, {n2-1}}} = {crit}")
+	crit = round(st.f.ppf(alpha*2, n1-1, n2-1), 4)
+	print(f"\\\\\\\\\\text{{Critical value = }}f_{{1-\\alpha/2, n_1 - 1, n_2 - 1}} = f_{{{1-alpha}, {n1-1}, {n2-1}}} = {crit}")
 	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }f_0 < f_{1-\\alpha, n_1-1,n_2-1}\\text{; otherwise do not reject }H_0")
 	print(f"\\\\\\\\\\text{{The rejection region is }}f_0 < {crit}")
 	if fFinal < crit:
@@ -147,17 +146,17 @@ elif type1 == 6:
 	type2 = int(input("1. Null Hypothesis =\n2. Null Hypophesis \\ge"))
 	print("We are interested in testing the hypothesis")
 	if type2 == 1:
-		print("\\\\Null\\;Hypothesis --> H_0: \\sigma^2 = \\sigma_0^2")
+		print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma^2 = \\sigma_0^2")
 	else:
-		print("\\\\Null\\;Hypothesis --> H_0: \\sigma^2 \\le \\sigma_0^2")
-	print("\\\\Alternate\\;Hypothesis --> H_1: \\sigma^2 > \\sigma_0^2")
+		print("\\\\\\text{Null Hypothesis }--> H_0: \\sigma^2 \\le \\sigma_0^2")
+	print("\\\\\\text{Alternate Hypothesis }--> H_1: \\sigma^2 > \\sigma_0^2")
 	print("\\\\f_0 = \\frac{S_1^2}{S_2^2}")
 	print(f"\\\\f_0 = \\frac{{{var1}}}{{{var2}}}")
 	print(f"\\\\f_0 = {round(var1/var2, 6)}")
 	fFinal = round(var1/var2, 4)
 	print("from the table of Percentage Points of the F-distribution, we find that")
-	crit = st.f.ppf(1-(alpha*2), n1-1, n2-1)
-	print(f"\\\\f_{{\\alpha, n_1-1, n_2-1}} = f_{{{alpha*2}, {n1-1}, {n2-1}}} = {crit}")
+	crit = round(st.f.ppf(1-(alpha*2), n1-1, n2-1), 4)
+	print(f"\\\\\\\\\\text{{Critical value = }}f_{{\\alpha/2, n_1 - 1, n_2 - 1}} = f_{{{alpha}, {n1-1}, {n2-1}}} = {crit}")
 	print("\\\\\\\\\\text{Decision Rule: Reject the null hypothesis if, }f_0 > f_{\\alpha, n_1-1,n_2-1}\\text{; otherwise do not reject }H_0")
 	print(f"\\\\\\\\\\text{{The rejection region is }}f_0 > {crit}")
 	if fFinal > crit:
