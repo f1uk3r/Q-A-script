@@ -2,7 +2,7 @@ import webbrowser, time, math
 import scipy.stats as st
 def zvalue(xbar, mean, sd, n):
 	return round((xbar - mean)/(sd/math.sqrt(n)), 4)
-	
+
 def zfor2(x1, x2, s1, s2, n1, n2):
 	return round((x1 - x2) / math.sqrt((s1/n1) + (s2/n2)), 4)
 
@@ -77,7 +77,7 @@ elif type1 > 3:
 	n1 = int(input("\\\\n_1 = "))
 	n2 = int(input("\\\\n_2 = "))
 	alpha = round(float(input("\\\\\\alpha = ")) / 2, 4)
-	
+
 
 if type1 == 1:
 	print("The test hypothesis is")
@@ -181,7 +181,7 @@ elif type1 == 2:
 			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}<-{crit}=-t_{{{alpha*2}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu >{mean}\\text{{ at }}\\alpha = {alpha * 2}.")
 		else:
 			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}>-{crit}=-t_{{{alpha*2}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu={mean}\\text{{ at }}\\alpha = {alpha * 2}.")
-		
+
 
 elif type1 == 3:
 	type2 = int(input("1. Null Hypothesis =\n 2. Null Hypophesis \\le"))
@@ -234,7 +234,7 @@ elif type1 == 3:
 			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}>{crit}=t_{{{alpha*2}}},\\text{{ we reject the null hypothesis }}H_0:\\mu={mean}\\text{{ in favor of the alternative hypothesis }}H_1:\\mu >{mean}\\text{{ at }}\\alpha = {alpha * 2}.")
 		else:
 			print(f"\\\\\\\\\\text{{Since }}t_0 = {zfinal}<{crit}=t_{{{alpha*2}}},\\text{{ we fail to reject the null hypothesis }}H_0:\\mu={mean}\\text{{ at }}\\alpha = {alpha * 2}.")
-		
+
 
 if type1 == 4:
 	print("The test hypothesis is")
@@ -317,7 +317,6 @@ if type1 == 4:
 			print(f"\\\\t_0 = \\frac{{{barx1-barx2 - delta0}}}{{{round(((var1/n1)+(var2/n2))**0.5,4)}}}")
 			zfinal = get_test_statistic_two_mean_unknown_inequal_var(barx1, barx2, delta0, var1, var2, n1, n2)
 			print(f"\\\\t_0 = {zfinal}")
-			
 			print("First we calculate degree of freedom")
 			print("\\\\\\nu = \\frac{\\left(\\frac{S_1^2}{n_1} + \\frac{S_2^2}{n_2}\\right)^2}{\\frac{(S_1^2/n_1)^2}{n_1-1}+\\frac{(S_2^2/n_2)^2}{n_2-1}}")
 			print(f"\\\\\\nu = \\frac{{\\left(\\frac{{{sd1}^2}}{{{n1}}} + \\frac{{{sd2}^2}}{{{n2}}}\\right)^2}}{{\\frac{{({sd1}^2/{n1})^2}}{{{n1}-1}}+\\frac{{({sd2}^2/{n2})^2}}{{{n2}-1}}}}")
@@ -432,7 +431,6 @@ elif type1 == 5:
 			print(f"\\\\t_0 = \\frac{{{barx1-barx2 - delta0}}}{{{round(((var1/n1)+(var2/n2))**0.5,4)}}}")
 			zfinal = get_test_statistic_two_mean_unknown_inequal_var(barx1, barx2, delta0, var1, var2, n1, n2)
 			print(f"\\\\t_0 = {zfinal}")
-			
 			print("First we calculate degree of freedom")
 			print("\\\\\\nu = \\frac{\\left(\\frac{S_1^2}{n_1} + \\frac{S_2^2}{n_2}\\right)^2}{\\frac{(S_1^2/n_1)^2}{n_1-1}+\\frac{(S_2^2/n_2)^2}{n_2-1}}")
 			print(f"\\\\\\nu = \\frac{{\\left(\\frac{{{sd1}^2}}{{{n1}}} + \\frac{{{sd2}^2}}{{{n2}}}\\right)^2}}{{\\frac{{({sd1}^2/{n1})^2}}{{{n1}-1}}+\\frac{{({sd2}^2/{n2})^2}}{{{n2}-1}}}}")
@@ -548,7 +546,6 @@ elif type1 == 6:
 			print(f"\\\\t_0 = \\frac{{{barx1-barx2 - delta0}}}{{{round(((var1/n1)+(var2/n2))**0.5,4)}}}")
 			zfinal = get_test_statistic_two_mean_unknown_inequal_var(barx1, barx2, delta0, var1, var2, n1, n2)
 			print(f"\\\\t_0 = {zfinal}")
-			
 			print("First we calculate degree of freedom")
 			print("\\\\\\nu = \\frac{\\left(\\frac{S_1^2}{n_1} + \\frac{S_2^2}{n_2}\\right)^2}{\\frac{(S_1^2/n_1)^2}{n_1-1}+\\frac{(S_2^2/n_2)^2}{n_2-1}}")
 			print(f"\\\\\\nu = \\frac{{\\left(\\frac{{{sd1}^2}}{{{n1}}} + \\frac{{{sd2}^2}}{{{n2}}}\\right)^2}}{{\\frac{{({sd1}^2/{n1})^2}}{{{n1}-1}}+\\frac{{({sd2}^2/{n2})^2}}{{{n2}-1}}}}")
