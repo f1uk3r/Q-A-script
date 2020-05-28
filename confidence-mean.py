@@ -18,7 +18,8 @@ if typ != 1:
 	varknown = int(input("Is population variance/standard deviation known? Press 1 for yes: "))
 	if option == 1 or option == 3: 
 		mean = float(input(f"\\\\\\text{{Mean (}}\\bar{{x}}\\text{{) = }}"))
-	n = int(input(f"\\\\\\text{{Sample size (n) = }}"))
+	if option != 4:
+		n = int(input(f"\\\\\\text{{Sample size (n) = }}"))
 	if varknown != 1:
 		sd = float(input(f"\\\\\\text{{Standard deviation (s) = }}"))
 	else:
@@ -59,18 +60,16 @@ if typ != 1:
 			print (f"Required confidence interval = ({ll}, {ul})")
 			print(f"Interpretion: We are {ci}% confident that the true mean of the population lie between the interval {ll} and {ul}.")
 
-elif option == 4 and typ != 1:
-	e = float(input("Margin of error (e) = "))
-	sd = float(input("Standard deviation (s) = "))
-	ci = float(input("Confidence interval(in %) = "))
-	z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
-	print (f"z @ {ci}% = {z}")
-	print ("Since we know that")
-	print ("\\\\\\text{Margin of error = }z\\frac{s}{\\sqrt{n}}")
-	print (f"\\\\{e} = {z}\\frac{{{sd}}}{{\\sqrt{{n}}}}")
-	print (f"\\\\\\sqrt{{n}} = {z}\\frac{{{sd}}}{{{e}}}")
-	print (f"\\\\\\sqrt{{n}} = {round((z*sd)/e, 4)}")
-	print (f"\\\\n = {round(((z*sd)/e)**2, 4)}")
+	elif option == 4:
+		e = float(input("Margin of error (e) = "))
+		z = round(st.norm.ppf(1-((1-(ci/100))/2)), 4)
+		print (f"z @ {ci}% = {z}")
+		print ("Since we know that")
+		print ("\\\\\\text{Margin of error = }z\\frac{s}{\\sqrt{n}}")
+		print (f"\\\\{e} = {z}\\frac{{{sd}}}{{\\sqrt{{n}}}}")
+		print (f"\\\\\\sqrt{{n}} = {z}\\frac{{{sd}}}{{{e}}}")
+		print (f"\\\\\\sqrt{{n}} = {round((z*sd)/e, 4)}")
+		print (f"\\\\n = {round(((z*sd)/e)**2, 4)}")
 if typ == 1:
 	varknown = int(input("Is population variance/standard deviation known? Press 1 for yes: "))
 	if option == 1 or option == 3:
